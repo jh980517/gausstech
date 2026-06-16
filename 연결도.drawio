@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="페이지-1" id="UxWbZ_BPkf-oguWBpRFv">
-    <mxGraphModel dx="2491" dy="874" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2057" dy="646" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -107,19 +107,19 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;" value="시험 준비물 입력" vertex="1">
-          <mxGeometry height="40" width="120" x="840" y="80" as="geometry" />
+          <mxGeometry height="40" width="120" x="960" y="105" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-26" edge="1" parent="1" source="T5Jo-hEF-b0Sb9yn7Qss-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="T5Jo-hEF-b0Sb9yn7Qss-25" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-22" parent="1" style="whiteSpace=wrap;html=1;rounded=1;fontSize=10;" value="케이블 명칭 생성" vertex="1">
-          <mxGeometry height="40" width="120" x="840" y="146" as="geometry" />
+          <mxGeometry height="40" width="120" x="960" y="171" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-37" edge="1" parent="1" source="T5Jo-hEF-b0Sb9yn7Qss-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="T5Jo-hEF-b0Sb9yn7Qss-36" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-25" parent="1" style="whiteSpace=wrap;html=1;rounded=1;fontSize=10;" value="필요 위치에 핀명&lt;div&gt;Drag &amp;amp; Drop&lt;/div&gt;" vertex="1">
-          <mxGeometry height="40" width="120" x="840" y="212" as="geometry" />
+          <mxGeometry height="40" width="120" x="960" y="237" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-28" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="P1" vertex="1">
           <mxGeometry height="20" width="40" x="115" y="850" as="geometry" />
@@ -149,13 +149,13 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-36" parent="1" style="whiteSpace=wrap;html=1;fontSize=10;rounded=1;" value="각 연결점에 선 연결&lt;div&gt;(Drag &amp;amp; Drop)&lt;/div&gt;" vertex="1">
-          <mxGeometry height="40" width="120" x="840" y="278" as="geometry" />
+          <mxGeometry height="40" width="120" x="960" y="303" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-79" edge="1" parent="1" source="T5Jo-hEF-b0Sb9yn7Qss-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="T5Jo-hEF-b0Sb9yn7Qss-78" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-38" parent="1" style="whiteSpace=wrap;html=1;fontSize=10;rounded=1;" value="필요 위치에 케이블 명칭&lt;div&gt;Drag &amp;amp; Drop&lt;/div&gt;" vertex="1">
-          <mxGeometry height="40" width="120" x="840" y="344" as="geometry" />
+          <mxGeometry height="40" width="120" x="960" y="369" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-41" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
           <mxGeometry height="240" width="160" x="200" y="920" as="geometry" />
@@ -188,7 +188,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-78" parent="1" style="whiteSpace=wrap;html=1;fontSize=10;rounded=1;" value="시험 절차 설명문 생성" vertex="1">
-          <mxGeometry height="40" width="120" x="840" y="430" as="geometry" />
+          <mxGeometry height="40" width="120" x="960" y="455" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-94" edge="1" parent="1" source="T5Jo-hEF-b0Sb9yn7Qss-80" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="T5Jo-hEF-b0Sb9yn7Qss-86">
           <mxGeometry relative="1" as="geometry" />
@@ -329,7 +329,7 @@
           <mxGeometry height="20" width="40" x="440" y="1035" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-116" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;rounded=1;fontSize=9;strokeWidth=0.5;" value="생성 버튼 클릭" vertex="1">
-          <mxGeometry height="20" width="60" x="840" y="395" as="geometry" />
+          <mxGeometry height="20" width="60" x="960" y="420" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-117" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
           <mxGeometry height="90" width="640" x="100" y="670" as="geometry" />
@@ -338,13 +338,13 @@
           <mxGeometry height="40" width="45.64" x="100" y="1170" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-150" parent="1" style="whiteSpace=wrap;html=1;fontSize=10;rounded=1;" value="PDF로 출력" vertex="1">
-          <mxGeometry height="40" width="120" x="840" y="520" as="geometry" />
+          <mxGeometry height="40" width="120" x="960" y="545" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-154" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;rounded=1;fontSize=9;strokeWidth=0.5;" value="완료 버튼 클릭" vertex="1">
-          <mxGeometry height="20" width="60" x="840" y="485" as="geometry" />
+          <mxGeometry height="20" width="60" x="960" y="510" as="geometry" />
         </mxCell>
-        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-157" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontStyle=1;fontSize=16;" value="핀 연결도 생성 프로그램" vertex="1">
-          <mxGeometry height="30" width="200" x="40" y="40" as="geometry" />
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-157" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=#18B6EF;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontStyle=1;fontSize=24;labelBorderColor=none;dashed=1;" value="핀 연결도 생성 프로그램" vertex="1">
+          <mxGeometry height="40" width="250" x="40" y="40" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-321" edge="1" parent="1" source="T5Jo-hEF-b0Sb9yn7Qss-159" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="T5Jo-hEF-b0Sb9yn7Qss-322">
           <mxGeometry relative="1" as="geometry" />
@@ -524,7 +524,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-233" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=#18B6EF;fillColor=light-dark(#D3F4FF,#EDEDED);align=center;verticalAlign=middle;rounded=1;fontSize=9;spacing=3;" value="추가 버튼 클릭" vertex="1">
-          <mxGeometry height="20" width="70" x="865" y="30" as="geometry" />
+          <mxGeometry height="20" width="70" x="985" y="55" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-243" parent="1" style="text;strokeColor=none;fillColor=none;html=1;whiteSpace=wrap;verticalAlign=middle;overflow=hidden;spacing=1;fontStyle=1;fontSize=14;" value="&lt;ul&gt;&lt;li&gt;시험 준비물&lt;/li&gt;&lt;/ul&gt;" vertex="1">
           <mxGeometry height="40" width="110" x="80" y="630" as="geometry" />
@@ -692,7 +692,7 @@
           <mxGeometry height="20" width="40" x="103.44" y="140.37" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-332" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry height="270" width="760" x="40" y="80" as="geometry" />
+          <mxGeometry height="270" width="760" x="40" y="200" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-168" parent="T5Jo-hEF-b0Sb9yn7Qss-332" style="shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;fontSize=16;fillColor=#D3F4FF;spacingLeft=0;" value="" vertex="1">
           <mxGeometry height="300" width="760" as="geometry" />
@@ -905,6 +905,9 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="800" y="652.9830508474575" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-344" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;fontSize=13;spacing=2;spacingBottom=0;" value="&lt;div style=&quot;line-height: 160%;&quot;&gt;&lt;div&gt;- Visual Studio&lt;/div&gt;- Winform&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 160%;&quot;&gt;- 필요 시 OpenCV&lt;/div&gt;" vertex="1">
+          <mxGeometry height="75" width="440" x="40" y="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

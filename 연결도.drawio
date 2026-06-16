@@ -159,6 +159,9 @@
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-77" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=light-dark(#FF3399,#EDEDED);fillColor=none;align=center;verticalAlign=middle;rounded=1;dashed=1;strokeWidth=0.5;" value="C10000" vertex="1">
           <mxGeometry height="20" width="45" x="325" y="760" as="geometry" />
         </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-151" edge="1" parent="1" source="T5Jo-hEF-b0Sb9yn7Qss-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="T5Jo-hEF-b0Sb9yn7Qss-150" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-78" parent="1" style="whiteSpace=wrap;html=1;fontSize=10;rounded=1;" value="시험 절차 설명문 생성" vertex="1">
           <mxGeometry height="40" width="120" x="120" y="390" as="geometry" />
         </mxCell>
@@ -383,6 +386,9 @@
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-149" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#3399ff, #ededed);fontColor=#FFFFFF;" value="수량" vertex="1">
           <mxGeometry height="30" width="90" x="560" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-150" parent="1" style="whiteSpace=wrap;html=1;fontSize=10;rounded=1;" value="" vertex="1">
+          <mxGeometry height="40" width="120" x="120" y="480" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="페이지-1" id="UxWbZ_BPkf-oguWBpRFv">
-    <mxGraphModel dx="2057" dy="646" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2112" dy="675" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -892,13 +892,13 @@
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-338" parent="T5Jo-hEF-b0Sb9yn7Qss-339" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#18B6EF;" value="" vertex="1">
           <mxGeometry height="20" width="20" as="geometry" />
         </mxCell>
-        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-337" parent="T5Jo-hEF-b0Sb9yn7Qss-339" style="shape=mxgraph.basic.arc;html=1;startAngle=0.3;endAngle=0.20380290637021828;endArrow=classic;endFill=1;strokeWidth=2;startSize=3;endSize=1;" value="" vertex="1">
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-337" parent="T5Jo-hEF-b0Sb9yn7Qss-339" style="shape=mxgraph.basic.arc;html=1;startAngle=0.3;endAngle=0.20380290637021828;endArrow=classic;endFill=1;strokeWidth=2;startSize=3;endSize=1;strokeColor=#FFFFFF;" value="" vertex="1">
           <mxGeometry height="13.333333333333332" width="13.333333333333332" x="3.333333333333333" y="4.666666666666666" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-340" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="취소" vertex="1">
           <mxGeometry height="20" width="40" x="600" y="1180" as="geometry" />
         </mxCell>
-        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-343" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontColor=#FF0000;" value="설정 초기화" vertex="1">
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-343" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontColor=#FF0000;" value="설정 초기화" vertex="1">
           <mxGeometry height="30" width="70" x="800" y="638" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-342" edge="1" parent="1" source="T5Jo-hEF-b0Sb9yn7Qss-338" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="T5Jo-hEF-b0Sb9yn7Qss-343">
@@ -908,6 +908,29 @@
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-344" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=top;rounded=0;fontSize=13;spacing=2;spacingBottom=0;" value="&lt;div style=&quot;line-height: 160%;&quot;&gt;&lt;div&gt;- Visual Studio&lt;/div&gt;- Winform&lt;div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 160%;&quot;&gt;- 필요 시 OpenCV&lt;/div&gt;" vertex="1">
           <mxGeometry height="75" width="440" x="40" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-349" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="20" width="20" x="690" y="643" as="geometry" />
+        </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-350" edge="1" parent="T5Jo-hEF-b0Sb9yn7Qss-349" source="T5Jo-hEF-b0Sb9yn7Qss-347" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="10" y="-21" />
+            </Array>
+            <mxPoint x="110" y="-21" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-347" parent="T5Jo-hEF-b0Sb9yn7Qss-349" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#18B6EF;" value="" vertex="1">
+          <mxGeometry height="20" width="20" as="geometry" />
+        </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-345" edge="1" parent="T5Jo-hEF-b0Sb9yn7Qss-349" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;startSize=6;endSize=2;endWidth=7;width=5;fillColor=#FFFFFF;strokeColor=none;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="17.5" y="9.850000000000023" as="sourcePoint" />
+            <mxPoint x="2.5" y="9.850000000000023" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-351" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontColor=#FF0000;" value="실행 취소" vertex="1">
+          <mxGeometry height="30" width="70" x="800" y="608" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

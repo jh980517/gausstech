@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="페이지-1" id="UxWbZ_BPkf-oguWBpRFv">
-    <mxGraphModel dx="2398" dy="826" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1145" dy="167" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1095,6 +1095,15 @@
             <mxPoint x="510" y="70" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-447" parent="T5Jo-hEF-b0Sb9yn7Qss-366" style="rounded=1;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="620" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-448" parent="T5Jo-hEF-b0Sb9yn7Qss-366" style="rounded=1;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="570" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-449" parent="T5Jo-hEF-b0Sb9yn7Qss-366" style="rounded=1;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 7px;&quot;&gt;btn_back&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="30" x="520" y="30" as="geometry" />
+        </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-409" parent="T5Jo-hEF-b0Sb9yn7Qss-361" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;strokeWidth=2;swimlaneFillColor=light-dark(#fff2cc, #ededed);" value="test_setting_tlp" vertex="1">
           <mxGeometry height="430" width="660" x="10" y="280" as="geometry" />
         </mxCell>
@@ -1187,6 +1196,9 @@
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-445" parent="T5Jo-hEF-b0Sb9yn7Qss-433" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F7FFF4;fontSize=10;gradientColor=#B3F2BB;strokeColor=#82b366;" value="btn_cancle" vertex="1">
           <mxGeometry height="30" width="50" x="480" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-446" parent="T5Jo-hEF-b0Sb9yn7Qss-433" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;gradientColor=#7ea6e0;strokeColor=#6c8ebf;" value="Logo" vertex="1">
+          <mxGeometry height="50" width="50" x="10" y="30" as="geometry" />
         </mxCell>
         <mxCell id="T5Jo-hEF-b0Sb9yn7Qss-430" edge="1" parent="T5Jo-hEF-b0Sb9yn7Qss-361" style="endArrow=none;html=1;rounded=0;fillColor=#e51400;strokeColor=#B20000;strokeWidth=3;" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">

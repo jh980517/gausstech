@@ -83,6 +83,16 @@ namespace PinConnectionDiagram.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap bg {
+            get {
+                object obj = ResourceManager.GetObject("bg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap Button {
             get {
                 object obj = ResourceManager.GetObject("Button", resourceCulture);
@@ -96,6 +106,16 @@ namespace PinConnectionDiagram.Properties {
         internal static System.Drawing.Bitmap Button_push {
             get {
                 object obj = ResourceManager.GetObject("Button_push", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap connector {
+            get {
+                object obj = ResourceManager.GetObject("connector", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -126,6 +146,26 @@ namespace PinConnectionDiagram.Properties {
         internal static System.Drawing.Bitmap forward_push {
             get {
                 object obj = ResourceManager.GetObject("forward_push", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap pin_bg {
+            get {
+                object obj = ResourceManager.GetObject("pin_bg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap pinBg {
+            get {
+                object obj = ResourceManager.GetObject("pinBg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

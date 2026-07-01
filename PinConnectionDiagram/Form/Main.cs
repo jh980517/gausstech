@@ -54,10 +54,10 @@ namespace PinConnectionDiagram
             if (tlp == null)
                 return;
 
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, 0, 4);
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, tlp.Height - 4, 4);
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, 0, 4);
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, tlp.Height - 4, 4);
+            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, 0, 4, Color.FromArgb(180, 100, 220, 255));
+            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, tlp.Height - 4, 4, Color.FromArgb(180, 100, 220, 255));
+            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, 0, 4, Color.FromArgb(180, 100, 220, 255));
+            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, tlp.Height - 4, 4, Color.FromArgb(180, 100, 220, 255));
         }
 
         // 시험 대상 준비물 추가 버튼 이벤트
@@ -84,21 +84,21 @@ namespace PinConnectionDiagram
         {
             FlowLayoutPanel panel = GetPanel(info.Category);
 
-            for (int i = 0; i < info.Count; i++)
-            {
-                CableItem item = new CableItem(info);
-                panel.Controls.Add(item);
-            }
+            CableItem item = new CableItem(info);
+            panel.Controls.Add(item);
+
         }
 
         private void DeleteCable(CableInfo info)
         {
+            if (!DeleteCard(info))
+                return;
             cableManager.Remove(info);
-            DeleteCard(info);
             DeleteItem(info);
+            DeleteDiagramCable(info);
         }
 
-        private void DeleteCard(CableInfo info)
+        private bool DeleteCard(CableInfo info)
         {
             foreach (CableCard card in FlpSupplies.Controls.OfType<CableCard>().ToList())
             {
@@ -114,10 +114,12 @@ namespace PinConnectionDiagram
                     {
                         FlpSupplies.Controls.Remove(card);
                         card.Dispose();
+                        return true;
                     }
-                    break;
+                    return false;
                 }
             }
+            return false;
         }
 
         private void DeleteItem(CableInfo info)
@@ -130,6 +132,18 @@ namespace PinConnectionDiagram
                 {
                     panel.Controls.Remove(item);
                     item.Dispose();
+                }
+            }
+        }
+
+        private void DeleteDiagramCable(CableInfo info)
+        {
+            foreach (DiagramCable cable in PnlMap.Controls.OfType<DiagramCable>().ToList())
+            {
+                if (cable.Info == info)
+                {
+                    PnlMap.Controls.Remove(cable);
+                    cable.Dispose();
                 }
             }
         }
@@ -156,17 +170,22 @@ namespace PinConnectionDiagram
 
             Point p = PnlMap.PointToClient(new Point (e.X, e.Y));
 
-            if (item.Parent == PnlMap)
+            if (item != null)
             {
-                item.Location = p;
-            }
-            else
-            {
-                CableItem newItem = new CableItem(item.Info);
-                newItem.Location = p;
-                PnlMap.Controls.Add(newItem);
-            }            
+                if (item.Parent == PnlMap)
+                {
+                    item.Location = p;
+                }
+                else
+                {
+                    DiagramCable newItem = new DiagramCable(item.Info);
+                    newItem.Location = p;
 
+                    newItem.DeleteRequested += DeleteDiagramCable;
+
+                    PnlMap.Controls.Add(newItem);
+                }
+            }
         }
         
         private void PnlMap_DragEnter(object sender, DragEventArgs e)
@@ -175,6 +194,12 @@ namespace PinConnectionDiagram
             {
                 e.Effect = DragDropEffects.Copy;
             }
+        }
+
+        private void DeleteDiagramCable(DiagramCable cable)
+        {
+            PnlMap.Controls.Remove(cable);
+            cable.Dispose();
         }
     }
 }

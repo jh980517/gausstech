@@ -38,10 +38,19 @@ namespace PinConnectionDiagram.Controls
             if (tlp == null)
                 return;
 
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, 0, 2);
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, tlp.Height - 2, 2);
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, 0, 2);
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, tlp.Height - 2, 2);
+            DrawHelper.DrawGlowLine(
+                e.Graphics,
+                tlp.Width,
+                tlp.Height - 2,
+                2,
+                Color.FromArgb(180, 100, 220, 255));
+
+            DrawHelper.DrawGlowLine(
+                e.Graphics,
+                tlp.Width,
+                tlp.Height - 2,
+                2,
+                Color.FromArgb(180, 100, 220, 255));
         }
     }
 }

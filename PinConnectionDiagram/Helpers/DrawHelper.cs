@@ -7,7 +7,7 @@ namespace PinConnectionDiagram.Helpers
 {
     public static class DrawHelper
     {
-        public static void DrawGlowLine(Graphics g, int width, int y, int thickness)
+        public static void DrawGlowLine(Graphics g, int width, int y, int thickness, Color color)
         {
             Rectangle rect = new Rectangle(0, y, width, thickness);
 
@@ -22,7 +22,7 @@ namespace PinConnectionDiagram.Helpers
                     Colors = new[]
                     {
                         Color.Transparent,
-                        Color.FromArgb(180, 100, 220, 255),
+                        color,
                         Color.Transparent
                     },
                     Positions = new[] { 0f, 0.5f, 1f }

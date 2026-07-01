@@ -47,6 +47,9 @@
             FlpItemBox2 = new FlowLayoutPanel();
             FlpItemBox1 = new FlowLayoutPanel();
             PnlMap = new Panel();
+            TestCable = new Label();
+            JigCable = new Label();
+            AdapterCable = new Label();
             TlpBg.SuspendLayout();
             TestSuppliesTlp.SuspendLayout();
             TlpHead1.SuspendLayout();
@@ -92,7 +95,7 @@
             TestSuppliesTlp.Name = "TestSuppliesTlp";
             TestSuppliesTlp.Padding = new Padding(3);
             TestSuppliesTlp.RowCount = 2;
-            TestSuppliesTlp.RowStyles.Add(new RowStyle(SizeType.Absolute, 65F));
+            TestSuppliesTlp.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             TestSuppliesTlp.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             TestSuppliesTlp.Size = new Size(984, 204);
             TestSuppliesTlp.TabIndex = 0;
@@ -112,7 +115,7 @@
             TlpHead1.Name = "TlpHead1";
             TlpHead1.RowCount = 1;
             TlpHead1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TlpHead1.Size = new Size(978, 59);
+            TlpHead1.Size = new Size(978, 54);
             TlpHead1.TabIndex = 2;
             TlpHead1.Paint += GlowLine_paint;
             // 
@@ -120,12 +123,12 @@
             // 
             LblTitle1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             LblTitle1.AutoSize = true;
-            LblTitle1.Font = new Font("맑은 고딕", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            LblTitle1.Font = new Font("맑은 고딕", 18F, FontStyle.Bold, GraphicsUnit.Point, 129);
             LblTitle1.ForeColor = Color.FromArgb(145, 223, 251);
-            LblTitle1.Location = new Point(10, 10);
-            LblTitle1.Margin = new Padding(10);
+            LblTitle1.Location = new Point(15, 10);
+            LblTitle1.Margin = new Padding(15, 10, 5, 5);
             LblTitle1.Name = "LblTitle1";
-            LblTitle1.Size = new Size(161, 39);
+            LblTitle1.Size = new Size(142, 39);
             LblTitle1.TabIndex = 0;
             LblTitle1.Text = "시험 준비물";
             // 
@@ -143,7 +146,7 @@
             TlpBtn1.Name = "TlpBtn1";
             TlpBtn1.RowCount = 1;
             TlpBtn1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TlpBtn1.Size = new Size(178, 49);
+            TlpBtn1.Size = new Size(178, 44);
             TlpBtn1.TabIndex = 4;
             // 
             // btnReset
@@ -155,8 +158,8 @@
             btnReset.FlatAppearance.BorderColor = Color.FromArgb(62, 67, 119);
             btnReset.FlatAppearance.BorderSize = 0;
             btnReset.FlatStyle = FlatStyle.Flat;
-            btnReset.Location = new Point(128, 10);
-            btnReset.Margin = new Padding(10, 10, 0, 0);
+            btnReset.Location = new Point(123, 5);
+            btnReset.Margin = new Padding(5, 5, 0, 0);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(35, 35);
             btnReset.TabIndex = 2;
@@ -171,8 +174,8 @@
             btnForward.FlatAppearance.BorderColor = Color.FromArgb(62, 67, 119);
             btnForward.FlatAppearance.BorderSize = 0;
             btnForward.FlatStyle = FlatStyle.Flat;
-            btnForward.Location = new Point(69, 10);
-            btnForward.Margin = new Padding(10, 10, 0, 0);
+            btnForward.Location = new Point(64, 5);
+            btnForward.Margin = new Padding(5, 5, 0, 0);
             btnForward.Name = "btnForward";
             btnForward.Size = new Size(35, 35);
             btnForward.TabIndex = 1;
@@ -187,8 +190,8 @@
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.FlatStyle = FlatStyle.Flat;
             btnBack.ForeColor = Color.FromArgb(62, 67, 119);
-            btnBack.Location = new Point(10, 10);
-            btnBack.Margin = new Padding(10, 10, 0, 0);
+            btnBack.Location = new Point(5, 5);
+            btnBack.Margin = new Padding(5, 5, 0, 0);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(35, 35);
             btnBack.TabIndex = 0;
@@ -200,12 +203,11 @@
             TlpCardArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             TlpCardArea.Controls.Add(FlpSupplies, 0, 0);
             TlpCardArea.Dock = DockStyle.Fill;
-            TlpCardArea.Location = new Point(6, 71);
+            TlpCardArea.Location = new Point(6, 66);
             TlpCardArea.Name = "TlpCardArea";
-            TlpCardArea.Padding = new Padding(5);
             TlpCardArea.RowCount = 1;
             TlpCardArea.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TlpCardArea.Size = new Size(972, 127);
+            TlpCardArea.Size = new Size(972, 132);
             TlpCardArea.TabIndex = 3;
             TlpCardArea.Paint += GlowLine_paint;
             // 
@@ -214,11 +216,11 @@
             FlpSupplies.AutoScroll = true;
             FlpSupplies.Controls.Add(btnSupAdd);
             FlpSupplies.Dock = DockStyle.Fill;
-            FlpSupplies.Location = new Point(10, 10);
+            FlpSupplies.Location = new Point(5, 5);
             FlpSupplies.Margin = new Padding(5);
             FlpSupplies.Name = "FlpSupplies";
             FlpSupplies.Padding = new Padding(0, 3, 0, 0);
-            FlpSupplies.Size = new Size(952, 107);
+            FlpSupplies.Size = new Size(962, 122);
             FlpSupplies.TabIndex = 3;
             FlpSupplies.WrapContents = false;
             // 
@@ -229,8 +231,8 @@
             btnSupAdd.Cursor = Cursors.Hand;
             btnSupAdd.FlatAppearance.BorderSize = 0;
             btnSupAdd.FlatStyle = FlatStyle.Flat;
-            btnSupAdd.Location = new Point(20, 13);
-            btnSupAdd.Margin = new Padding(20, 10, 20, 0);
+            btnSupAdd.Location = new Point(30, 21);
+            btnSupAdd.Margin = new Padding(30, 18, 20, 0);
             btnSupAdd.Name = "btnSupAdd";
             btnSupAdd.Size = new Size(80, 80);
             btnSupAdd.TabIndex = 1;
@@ -249,7 +251,7 @@
             TestSettingTlp.Margin = new Padding(0, 10, 0, 10);
             TestSettingTlp.Name = "TestSettingTlp";
             TestSettingTlp.RowCount = 3;
-            TestSettingTlp.RowStyles.Add(new RowStyle(SizeType.Absolute, 65F));
+            TestSettingTlp.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             TestSettingTlp.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
             TestSettingTlp.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             TestSettingTlp.Size = new Size(984, 675);
@@ -267,7 +269,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(984, 59);
+            tableLayoutPanel1.Size = new Size(984, 54);
             tableLayoutPanel1.TabIndex = 2;
             tableLayoutPanel1.Paint += GlowLine_paint;
             // 
@@ -275,12 +277,12 @@
             // 
             LblTitle2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             LblTitle2.AutoSize = true;
-            LblTitle2.Font = new Font("맑은 고딕", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            LblTitle2.Font = new Font("맑은 고딕", 18F, FontStyle.Bold, GraphicsUnit.Point, 129);
             LblTitle2.ForeColor = Color.FromArgb(145, 223, 251);
-            LblTitle2.Location = new Point(10, 10);
-            LblTitle2.Margin = new Padding(10);
+            LblTitle2.Location = new Point(15, 10);
+            LblTitle2.Margin = new Padding(15, 10, 5, 5);
             LblTitle2.Name = "LblTitle2";
-            LblTitle2.Size = new Size(161, 39);
+            LblTitle2.Size = new Size(142, 39);
             LblTitle2.TabIndex = 1;
             LblTitle2.Text = "시험 연결도";
             // 
@@ -290,50 +292,59 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
-            tableLayoutPanel2.Controls.Add(FlpItemBox3, 2, 0);
-            tableLayoutPanel2.Controls.Add(FlpItemBox2, 1, 0);
-            tableLayoutPanel2.Controls.Add(FlpItemBox1, 0, 0);
+            tableLayoutPanel2.Controls.Add(AdapterCable, 2, 0);
+            tableLayoutPanel2.Controls.Add(JigCable, 1, 0);
+            tableLayoutPanel2.Controls.Add(FlpItemBox1, 0, 1);
+            tableLayoutPanel2.Controls.Add(FlpItemBox2, 1, 1);
+            tableLayoutPanel2.Controls.Add(FlpItemBox3, 2, 1);
+            tableLayoutPanel2.Controls.Add(TestCable, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(20, 75);
+            tableLayoutPanel2.Location = new Point(20, 70);
             tableLayoutPanel2.Margin = new Padding(20, 10, 20, 10);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            tableLayoutPanel2.RowCount = 2;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel2.Size = new Size(944, 180);
             tableLayoutPanel2.TabIndex = 3;
             // 
             // FlpItemBox3
             // 
-            FlpItemBox3.BackColor = Color.FromArgb(56, 60, 98);
+            FlpItemBox3.AutoScroll = true;
+            FlpItemBox3.BackColor = Color.FromArgb(45, 75, 125);
             FlpItemBox3.BackgroundImageLayout = ImageLayout.Zoom;
-            FlpItemBox3.Dock = DockStyle.Fill;
-            FlpItemBox3.Location = new Point(633, 5);
-            FlpItemBox3.Margin = new Padding(5);
+            FlpItemBox3.BorderStyle = BorderStyle.Fixed3D;
+            FlpItemBox3.Location = new Point(633, 35);
+            FlpItemBox3.Margin = new Padding(5, 0, 5, 5);
             FlpItemBox3.Name = "FlpItemBox3";
-            FlpItemBox3.Size = new Size(306, 170);
+            FlpItemBox3.Padding = new Padding(5);
+            FlpItemBox3.Size = new Size(306, 140);
             FlpItemBox3.TabIndex = 2;
             // 
             // FlpItemBox2
             // 
-            FlpItemBox2.BackColor = Color.FromArgb(56, 60, 98);
+            FlpItemBox2.AutoScroll = true;
+            FlpItemBox2.BackColor = Color.FromArgb(33, 90, 85);
             FlpItemBox2.BackgroundImageLayout = ImageLayout.Zoom;
-            FlpItemBox2.Dock = DockStyle.Fill;
-            FlpItemBox2.Location = new Point(319, 5);
-            FlpItemBox2.Margin = new Padding(5);
+            FlpItemBox2.BorderStyle = BorderStyle.Fixed3D;
+            FlpItemBox2.Location = new Point(319, 35);
+            FlpItemBox2.Margin = new Padding(5, 0, 5, 5);
             FlpItemBox2.Name = "FlpItemBox2";
-            FlpItemBox2.Size = new Size(304, 170);
+            FlpItemBox2.Padding = new Padding(5);
+            FlpItemBox2.Size = new Size(304, 140);
             FlpItemBox2.TabIndex = 1;
             // 
             // FlpItemBox1
             // 
-            FlpItemBox1.BackColor = Color.FromArgb(56, 60, 98);
+            FlpItemBox1.AutoScroll = true;
+            FlpItemBox1.BackColor = Color.FromArgb(73, 52, 122);
             FlpItemBox1.BackgroundImageLayout = ImageLayout.Zoom;
-            FlpItemBox1.Dock = DockStyle.Fill;
-            FlpItemBox1.Location = new Point(5, 5);
-            FlpItemBox1.Margin = new Padding(5);
+            FlpItemBox1.BorderStyle = BorderStyle.Fixed3D;
+            FlpItemBox1.Location = new Point(5, 35);
+            FlpItemBox1.Margin = new Padding(5, 0, 5, 5);
             FlpItemBox1.Name = "FlpItemBox1";
             FlpItemBox1.Padding = new Padding(5);
-            FlpItemBox1.Size = new Size(304, 170);
+            FlpItemBox1.Size = new Size(304, 140);
             FlpItemBox1.TabIndex = 0;
             // 
             // PnlMap
@@ -341,13 +352,61 @@
             PnlMap.AllowDrop = true;
             PnlMap.BackColor = Color.White;
             PnlMap.Dock = DockStyle.Fill;
-            PnlMap.Location = new Point(25, 270);
+            PnlMap.Location = new Point(25, 265);
             PnlMap.Margin = new Padding(25, 5, 25, 5);
             PnlMap.Name = "PnlMap";
-            PnlMap.Size = new Size(934, 400);
+            PnlMap.Size = new Size(934, 405);
             PnlMap.TabIndex = 4;
             PnlMap.DragDrop += PnlMap_DragDrop;
             PnlMap.DragEnter += PnlMap_DragEnter;
+            // 
+            // TestCable
+            // 
+            TestCable.AutoSize = true;
+            TestCable.BackColor = Color.FromArgb(73, 52, 122);
+            TestCable.BorderStyle = BorderStyle.Fixed3D;
+            TestCable.Dock = DockStyle.Fill;
+            TestCable.Font = new Font("맑은 고딕", 9F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            TestCable.ForeColor = Color.White;
+            TestCable.Location = new Point(5, 5);
+            TestCable.Margin = new Padding(5, 5, 5, 0);
+            TestCable.Name = "TestCable";
+            TestCable.Size = new Size(304, 30);
+            TestCable.TabIndex = 3;
+            TestCable.Text = "시험 대상 케이블";
+            TestCable.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // JigCable
+            // 
+            JigCable.AutoSize = true;
+            JigCable.BackColor = Color.FromArgb(33, 90, 85);
+            JigCable.BorderStyle = BorderStyle.Fixed3D;
+            JigCable.Dock = DockStyle.Fill;
+            JigCable.Font = new Font("맑은 고딕", 9F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            JigCable.ForeColor = Color.White;
+            JigCable.Location = new Point(319, 5);
+            JigCable.Margin = new Padding(5, 5, 5, 0);
+            JigCable.Name = "JigCable";
+            JigCable.Size = new Size(304, 30);
+            JigCable.TabIndex = 4;
+            JigCable.Text = "지그 케이블";
+            JigCable.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // AdapterCable
+            // 
+            AdapterCable.AutoSize = true;
+            AdapterCable.BackColor = Color.FromArgb(45, 75, 125);
+            AdapterCable.BorderStyle = BorderStyle.Fixed3D;
+            AdapterCable.Dock = DockStyle.Fill;
+            AdapterCable.Font = new Font("맑은 고딕", 9F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            AdapterCable.ForeColor = Color.White;
+            AdapterCable.Location = new Point(633, 5);
+            AdapterCable.Margin = new Padding(5, 5, 5, 0);
+            AdapterCable.Name = "AdapterCable";
+            AdapterCable.Size = new Size(306, 30);
+            AdapterCable.TabIndex = 5;
+            AdapterCable.Text = "어댑터 케이블";
+            AdapterCable.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Main
             // 
@@ -371,6 +430,7 @@
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -395,5 +455,8 @@
         private FlowLayoutPanel FlpItemBox3;
         private FlowLayoutPanel FlpItemBox2;
         private Panel PnlMap;
+        private Label TestCable;
+        private Label AdapterCable;
+        private Label JigCable;
     }
 }

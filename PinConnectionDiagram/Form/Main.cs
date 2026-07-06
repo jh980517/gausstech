@@ -95,7 +95,7 @@ namespace PinConnectionDiagram
                 return;
             cableManager.Remove(info);
             DeleteItem(info);
-            DeleteDiagramCable(info);
+            DeleteDiagramCableInfo(info);
         }
 
         private bool DeleteCard(CableInfo info)
@@ -136,7 +136,7 @@ namespace PinConnectionDiagram
             }
         }
 
-        private void DeleteDiagramCable(CableInfo info)
+        private void DeleteDiagramCableInfo(CableInfo info)
         {
             foreach (DiagramCable cable in PnlMap.Controls.OfType<DiagramCable>().ToList())
             {

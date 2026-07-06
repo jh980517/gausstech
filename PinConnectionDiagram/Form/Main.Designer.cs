@@ -43,13 +43,13 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             LblTitle2 = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
-            FlpItemBox3 = new FlowLayoutPanel();
-            FlpItemBox2 = new FlowLayoutPanel();
-            FlpItemBox1 = new FlowLayoutPanel();
-            PnlMap = new Panel();
-            TestCable = new Label();
-            JigCable = new Label();
             AdapterCable = new Label();
+            JigCable = new Label();
+            FlpItemBox1 = new FlowLayoutPanel();
+            FlpItemBox2 = new FlowLayoutPanel();
+            FlpItemBox3 = new FlowLayoutPanel();
+            TestCable = new Label();
+            PnlMap = new Panel();
             TlpBg.SuspendLayout();
             TestSuppliesTlp.SuspendLayout();
             TlpHead1.SuspendLayout();
@@ -77,7 +77,7 @@
             TlpBg.RowCount = 3;
             TlpBg.RowStyles.Add(new RowStyle(SizeType.Absolute, 210F));
             TlpBg.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TlpBg.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
+            TlpBg.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             TlpBg.Size = new Size(984, 961);
             TlpBg.TabIndex = 0;
             TlpBg.Paint += TlpBg_Paint;
@@ -252,9 +252,9 @@
             TestSettingTlp.Name = "TestSettingTlp";
             TestSettingTlp.RowCount = 3;
             TestSettingTlp.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
-            TestSettingTlp.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
+            TestSettingTlp.RowStyles.Add(new RowStyle(SizeType.Absolute, 160F));
             TestSettingTlp.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TestSettingTlp.Size = new Size(984, 675);
+            TestSettingTlp.Size = new Size(984, 651);
             TestSettingTlp.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -305,76 +305,24 @@
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new Size(944, 180);
+            tableLayoutPanel2.Size = new Size(944, 140);
             tableLayoutPanel2.TabIndex = 3;
             // 
-            // FlpItemBox3
+            // AdapterCable
             // 
-            FlpItemBox3.AutoScroll = true;
-            FlpItemBox3.BackColor = Color.FromArgb(45, 75, 125);
-            FlpItemBox3.BackgroundImageLayout = ImageLayout.Zoom;
-            FlpItemBox3.BorderStyle = BorderStyle.Fixed3D;
-            FlpItemBox3.Location = new Point(633, 35);
-            FlpItemBox3.Margin = new Padding(5, 0, 5, 5);
-            FlpItemBox3.Name = "FlpItemBox3";
-            FlpItemBox3.Padding = new Padding(5);
-            FlpItemBox3.Size = new Size(306, 140);
-            FlpItemBox3.TabIndex = 2;
-            // 
-            // FlpItemBox2
-            // 
-            FlpItemBox2.AutoScroll = true;
-            FlpItemBox2.BackColor = Color.FromArgb(33, 90, 85);
-            FlpItemBox2.BackgroundImageLayout = ImageLayout.Zoom;
-            FlpItemBox2.BorderStyle = BorderStyle.Fixed3D;
-            FlpItemBox2.Location = new Point(319, 35);
-            FlpItemBox2.Margin = new Padding(5, 0, 5, 5);
-            FlpItemBox2.Name = "FlpItemBox2";
-            FlpItemBox2.Padding = new Padding(5);
-            FlpItemBox2.Size = new Size(304, 140);
-            FlpItemBox2.TabIndex = 1;
-            // 
-            // FlpItemBox1
-            // 
-            FlpItemBox1.AutoScroll = true;
-            FlpItemBox1.BackColor = Color.FromArgb(73, 52, 122);
-            FlpItemBox1.BackgroundImageLayout = ImageLayout.Zoom;
-            FlpItemBox1.BorderStyle = BorderStyle.Fixed3D;
-            FlpItemBox1.Location = new Point(5, 35);
-            FlpItemBox1.Margin = new Padding(5, 0, 5, 5);
-            FlpItemBox1.Name = "FlpItemBox1";
-            FlpItemBox1.Padding = new Padding(5);
-            FlpItemBox1.Size = new Size(304, 140);
-            FlpItemBox1.TabIndex = 0;
-            // 
-            // PnlMap
-            // 
-            PnlMap.AllowDrop = true;
-            PnlMap.BackColor = Color.White;
-            PnlMap.Dock = DockStyle.Fill;
-            PnlMap.Location = new Point(25, 265);
-            PnlMap.Margin = new Padding(25, 5, 25, 5);
-            PnlMap.Name = "PnlMap";
-            PnlMap.Size = new Size(934, 405);
-            PnlMap.TabIndex = 4;
-            PnlMap.DragDrop += PnlMap_DragDrop;
-            PnlMap.DragEnter += PnlMap_DragEnter;
-            // 
-            // TestCable
-            // 
-            TestCable.AutoSize = true;
-            TestCable.BackColor = Color.FromArgb(73, 52, 122);
-            TestCable.BorderStyle = BorderStyle.Fixed3D;
-            TestCable.Dock = DockStyle.Fill;
-            TestCable.Font = new Font("맑은 고딕", 9F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            TestCable.ForeColor = Color.White;
-            TestCable.Location = new Point(5, 5);
-            TestCable.Margin = new Padding(5, 5, 5, 0);
-            TestCable.Name = "TestCable";
-            TestCable.Size = new Size(304, 30);
-            TestCable.TabIndex = 3;
-            TestCable.Text = "시험 대상 케이블";
-            TestCable.TextAlign = ContentAlignment.MiddleCenter;
+            AdapterCable.AutoSize = true;
+            AdapterCable.BackColor = Color.FromArgb(45, 75, 125);
+            AdapterCable.BorderStyle = BorderStyle.Fixed3D;
+            AdapterCable.Dock = DockStyle.Fill;
+            AdapterCable.Font = new Font("맑은 고딕", 9F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            AdapterCable.ForeColor = Color.White;
+            AdapterCable.Location = new Point(633, 5);
+            AdapterCable.Margin = new Padding(5, 5, 5, 0);
+            AdapterCable.Name = "AdapterCable";
+            AdapterCable.Size = new Size(306, 30);
+            AdapterCable.TabIndex = 5;
+            AdapterCable.Text = "어댑터 케이블";
+            AdapterCable.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // JigCable
             // 
@@ -392,21 +340,73 @@
             JigCable.Text = "지그 케이블";
             JigCable.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // AdapterCable
+            // FlpItemBox1
             // 
-            AdapterCable.AutoSize = true;
-            AdapterCable.BackColor = Color.FromArgb(45, 75, 125);
-            AdapterCable.BorderStyle = BorderStyle.Fixed3D;
-            AdapterCable.Dock = DockStyle.Fill;
-            AdapterCable.Font = new Font("맑은 고딕", 9F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            AdapterCable.ForeColor = Color.White;
-            AdapterCable.Location = new Point(633, 5);
-            AdapterCable.Margin = new Padding(5, 5, 5, 0);
-            AdapterCable.Name = "AdapterCable";
-            AdapterCable.Size = new Size(306, 30);
-            AdapterCable.TabIndex = 5;
-            AdapterCable.Text = "어댑터 케이블";
-            AdapterCable.TextAlign = ContentAlignment.MiddleCenter;
+            FlpItemBox1.AutoScroll = true;
+            FlpItemBox1.BackColor = Color.FromArgb(73, 52, 122);
+            FlpItemBox1.BackgroundImageLayout = ImageLayout.Zoom;
+            FlpItemBox1.BorderStyle = BorderStyle.Fixed3D;
+            FlpItemBox1.Location = new Point(5, 35);
+            FlpItemBox1.Margin = new Padding(5, 0, 5, 5);
+            FlpItemBox1.Name = "FlpItemBox1";
+            FlpItemBox1.Padding = new Padding(5);
+            FlpItemBox1.Size = new Size(304, 100);
+            FlpItemBox1.TabIndex = 0;
+            // 
+            // FlpItemBox2
+            // 
+            FlpItemBox2.AutoScroll = true;
+            FlpItemBox2.BackColor = Color.FromArgb(33, 90, 85);
+            FlpItemBox2.BackgroundImageLayout = ImageLayout.Zoom;
+            FlpItemBox2.BorderStyle = BorderStyle.Fixed3D;
+            FlpItemBox2.Location = new Point(319, 35);
+            FlpItemBox2.Margin = new Padding(5, 0, 5, 5);
+            FlpItemBox2.Name = "FlpItemBox2";
+            FlpItemBox2.Padding = new Padding(5);
+            FlpItemBox2.Size = new Size(304, 100);
+            FlpItemBox2.TabIndex = 1;
+            // 
+            // FlpItemBox3
+            // 
+            FlpItemBox3.AutoScroll = true;
+            FlpItemBox3.BackColor = Color.FromArgb(45, 75, 125);
+            FlpItemBox3.BackgroundImageLayout = ImageLayout.Zoom;
+            FlpItemBox3.BorderStyle = BorderStyle.Fixed3D;
+            FlpItemBox3.Location = new Point(633, 35);
+            FlpItemBox3.Margin = new Padding(5, 0, 5, 5);
+            FlpItemBox3.Name = "FlpItemBox3";
+            FlpItemBox3.Padding = new Padding(5);
+            FlpItemBox3.Size = new Size(306, 100);
+            FlpItemBox3.TabIndex = 2;
+            // 
+            // TestCable
+            // 
+            TestCable.AutoSize = true;
+            TestCable.BackColor = Color.FromArgb(73, 52, 122);
+            TestCable.BorderStyle = BorderStyle.Fixed3D;
+            TestCable.Dock = DockStyle.Fill;
+            TestCable.Font = new Font("맑은 고딕", 9F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            TestCable.ForeColor = Color.White;
+            TestCable.Location = new Point(5, 5);
+            TestCable.Margin = new Padding(5, 5, 5, 0);
+            TestCable.Name = "TestCable";
+            TestCable.Size = new Size(304, 30);
+            TestCable.TabIndex = 3;
+            TestCable.Text = "시험 대상 케이블";
+            TestCable.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // PnlMap
+            // 
+            PnlMap.AllowDrop = true;
+            PnlMap.BackColor = Color.White;
+            PnlMap.Dock = DockStyle.Fill;
+            PnlMap.Location = new Point(25, 225);
+            PnlMap.Margin = new Padding(25, 5, 25, 5);
+            PnlMap.Name = "PnlMap";
+            PnlMap.Size = new Size(934, 421);
+            PnlMap.TabIndex = 4;
+            PnlMap.DragDrop += PnlMap_DragDrop;
+            PnlMap.DragEnter += PnlMap_DragEnter;
             // 
             // Main
             // 

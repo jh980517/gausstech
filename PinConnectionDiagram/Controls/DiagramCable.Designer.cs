@@ -39,7 +39,7 @@
             // 
             TlpCableItem.BackColor = Color.White;
             TlpCableItem.ColumnCount = 2;
-            TlpCableItem.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 22F));
+            TlpCableItem.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             TlpCableItem.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             TlpCableItem.Controls.Add(PbConnector, 0, 0);
             TlpCableItem.Controls.Add(LblCableName, 1, 0);
@@ -59,10 +59,10 @@
             PbConnector.BackgroundImageLayout = ImageLayout.Zoom;
             PbConnector.Cursor = Cursors.Hand;
             PbConnector.Dock = DockStyle.Fill;
-            PbConnector.Location = new Point(2, 2);
-            PbConnector.Margin = new Padding(2, 2, 0, 2);
+            PbConnector.Location = new Point(0, 1);
+            PbConnector.Margin = new Padding(0, 1, 0, 1);
             PbConnector.Name = "PbConnector";
-            PbConnector.Size = new Size(20, 26);
+            PbConnector.Size = new Size(20, 28);
             PbConnector.TabIndex = 0;
             PbConnector.TabStop = false;
             // 
@@ -72,10 +72,10 @@
             LblCableName.Cursor = Cursors.Hand;
             LblCableName.Dock = DockStyle.Fill;
             LblCableName.Font = new Font("맑은 고딕", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 129);
-            LblCableName.Location = new Point(25, 2);
+            LblCableName.Location = new Point(23, 2);
             LblCableName.Margin = new Padding(3, 2, 3, 2);
             LblCableName.Name = "LblCableName";
-            LblCableName.Size = new Size(57, 26);
+            LblCableName.Size = new Size(59, 26);
             LblCableName.TabIndex = 1;
             LblCableName.Text = "케이블 명칭";
             LblCableName.TextAlign = ContentAlignment.MiddleCenter;

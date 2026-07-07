@@ -31,5 +31,20 @@ namespace PinConnectionDiagram.Helpers
                 g.FillRectangle(brush, rect);
             }
         }
+
+        public static void DrawBorderLine(Graphics g, int width, int height, int thickness, Color color)
+        {
+            using(Pen pen = new Pen(color, thickness))
+            {
+                pen.Alignment = PenAlignment.Inset;
+
+                g.DrawRectangle(
+                    pen,
+                    0, 
+                    0, 
+                    width-1, 
+                    height-1);
+            }
+        }
     }
 }

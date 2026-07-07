@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GaussTech_이재훈\\source\\PinConnectionDiagram\\PinConnectionDiagram\\PinConnectionDiagram.csproj": {}
+    "D:\\GaussTech_이재훈\\source\\gausstech\\PinConnectionDiagram\\PinConnectionDiagram.csproj": {}
   },
   "projects": {
-    "D:\\GaussTech_이재훈\\source\\PinConnectionDiagram\\PinConnectionDiagram\\PinConnectionDiagram.csproj": {
+    "D:\\GaussTech_이재훈\\source\\gausstech\\PinConnectionDiagram\\PinConnectionDiagram.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GaussTech_이재훈\\source\\PinConnectionDiagram\\PinConnectionDiagram\\PinConnectionDiagram.csproj",
+        "projectUniqueName": "D:\\GaussTech_이재훈\\source\\gausstech\\PinConnectionDiagram\\PinConnectionDiagram.csproj",
         "projectName": "PinConnectionDiagram",
-        "projectPath": "D:\\GaussTech_이재훈\\source\\PinConnectionDiagram\\PinConnectionDiagram\\PinConnectionDiagram.csproj",
+        "projectPath": "D:\\GaussTech_이재훈\\source\\gausstech\\PinConnectionDiagram\\PinConnectionDiagram.csproj",
         "packagesPath": "C:\\Users\\Gauss\\.nuget\\packages\\",
-        "outputPath": "D:\\GaussTech_이재훈\\source\\PinConnectionDiagram\\PinConnectionDiagram\\obj\\",
+        "outputPath": "D:\\GaussTech_이재훈\\source\\gausstech\\PinConnectionDiagram\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

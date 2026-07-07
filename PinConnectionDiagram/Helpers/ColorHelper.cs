@@ -14,10 +14,10 @@ namespace PinConnectionDiagram.Helpers
                     return Color.FromArgb(255, 183, 99, 255); // 보라색
 
                 case "지그 케이블":
-                    return Color.FromArgb(255, 51, 255, 190); // 민트색
+                    return Color.FromArgb(255, 64, 139, 253); // 민트색
 
                 case "어댑터 케이블":
-                    return Color.FromArgb(255, 51, 150, 255); // 파랑색
+                    return Color.FromArgb(255, 145, 223, 251); // 파랑색
 
                 default:
                     return Color.Gray;

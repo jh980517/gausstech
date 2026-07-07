@@ -18,6 +18,8 @@ namespace PinConnectionDiagram
         {
             InitializeComponent();
 
+            this.AcceptButton = btnOk;
+
             ButtonHelper.ApplyButtonEffect(
                 btnOk,
                 Properties.Resources.Button,

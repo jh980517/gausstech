@@ -27,6 +27,18 @@ namespace PinConnectionDiagram
             btnSupAdd,
                 Properties.Resources.추가,
                 Properties.Resources.추가_push);
+            ButtonHelper.ApplyButtonEffect(
+                btnCancel,
+                Properties.Resources.Button,
+                Properties.Resources.Button_push);
+            ButtonHelper.ApplyButtonEffect(
+                btnCreate,
+                Properties.Resources.Button,
+                Properties.Resources.Button_push);
+            ButtonHelper.ApplyButtonEffect(
+                btnDone,
+                Properties.Resources.Button,
+                Properties.Resources.Button_push);
         }
 
         private CableManager cableManager = new CableManager();
@@ -200,6 +212,22 @@ namespace PinConnectionDiagram
         {
             PnlMap.Controls.Remove(cable);
             cable.Dispose();
+        }
+
+        private void TlpDrawBorderLine_Paint(object sender, PaintEventArgs e)
+        {
+            TableLayoutPanel? tlp = sender as TableLayoutPanel;
+
+            if (tlp == null)
+                return;
+
+            DrawHelper.DrawBorderLine(
+                e.Graphics,
+                tlp.Width,
+                tlp.Height,
+                2,
+                Color.FromArgb(255, 145, 223, 251)
+                );
         }
     }
 }

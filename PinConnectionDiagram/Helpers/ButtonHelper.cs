@@ -33,6 +33,7 @@ namespace PinConnectionDiagram.Helpers
 
         public static void CancelButtonFunction(Button btn, Form form)
         {
+            form.CancelButton = btn;
             btn.Click += (s, e) =>
             {
                 form.Close();

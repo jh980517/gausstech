@@ -13,8 +13,8 @@ namespace PinConnectionDiagram.Helpers
             Image normal_image,
             Image pressed_image)
         {
-            btn.FlatAppearance.MouseOverBackColor = btn.BackColor;
-            btn.FlatAppearance.MouseDownBackColor = btn.BackColor;
+            btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
 
             btn.BackgroundImage = normal_image;
 

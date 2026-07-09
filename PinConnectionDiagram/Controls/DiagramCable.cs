@@ -73,16 +73,16 @@ namespace PinConnectionDiagram.Controls
             int newY = p.Y - offset.Y;
 
             if (newX < 0) 
-                newX = 0;
+                newX = 3;
 
             if (newY < 0)
-                newY = 0;
+                newY = 3;
 
             if (newX + Width > Parent.ClientSize.Width)
-                newX = Parent.ClientSize.Width - Width;
+                newX = Parent.ClientSize.Width - Width-3;
 
             if (newY + Height > Parent.ClientSize.Height) 
-                newY = Parent.ClientSize.Height - Height;
+                newY = Parent.ClientSize.Height - Height-3;
 
             Location = new Point(newX, newY);
         }

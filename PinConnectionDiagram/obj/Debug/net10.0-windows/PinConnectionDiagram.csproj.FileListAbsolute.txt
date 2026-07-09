@@ -20,6 +20,5 @@ D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debu
 D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.sourcelink.json
 D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.CableItem.resources
 D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.DiagramCable.resources
-D:\GaussTech_이재훈\source\gausstech\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.dll
-D:\GaussTech_이재훈\source\gausstech\PinConnectionDiagram\obj\Debug\net10.0-windows\refint\PinConnectionDiagram.dll
-D:\GaussTech_이재훈\source\gausstech\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.pdb
+D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.TJControl.resources
+D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.PinConnector.resources

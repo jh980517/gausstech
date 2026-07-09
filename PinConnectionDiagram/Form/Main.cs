@@ -7,6 +7,9 @@ namespace PinConnectionDiagram
 {
     public partial class Main : Form
     {
+        private CableManager cableManager = new CableManager();
+        private MapManager mapManager;
+
         public Main()
         {
             InitializeComponent();
@@ -39,40 +42,182 @@ namespace PinConnectionDiagram
                 btnDone,
                 Properties.Resources.Button,
                 Properties.Resources.Button_push);
+
+            mapManager = new MapManager(
+                PnlJig,
+                PnlAdapter,
+                PnlTest);
+
+            mapManager.RegisterPanels();
+
+            CreateTJControls();
         }
 
-        private CableManager cableManager = new CableManager();
+        private void TJ_StateChanged(TJControl sender, bool isOn)
+        {
+            // TJ 상태 변경 시 처리할 로직을 여기에 작성합니다.
+            // 예: 상태에 따라 다른 동작 수행
+            if (isOn)
+            {
+                // TJ가 켜졌을 때의 동작
+                //MessageBox.Show($"TJ{sender.TJNumber} is ON");
+            }
+            else
+            {
+                // TJ가 꺼졌을 때의 동작
+                //MessageBox.Show($"TJ{sender.TJNumber} is OFF");
+            }
+        }
+
+        private void CreateTJControls()
+        {
+            TlpTJ.Controls.Clear();
+
+            for (int i = 0; i < 5; i++)
+            {
+                TJControl tj = new TJControl(i + 1);
+
+                tj.Anchor = AnchorStyles.Right;
+                tj.Margin = new Padding(5);
+
+                // ★ 이벤트 연결
+                tj.StateChanged += TJ_StateChanged;
+
+                TlpTJ.Controls.Add(tj, 0, i);
+            }
+        }
+        private void TlpTJ_Paint(object sender, PaintEventArgs e)
+        {
+            if (sender is not TableLayoutPanel tlp)
+                return;
+
+            Graphics g = e.Graphics;
+
+            Color borderColor = Color.FromArgb(30, 46, 69);
+
+            using (Pen pen = new Pen(borderColor, 2))
+            {
+                //---------------------------------
+                // 바깥 Border
+                //---------------------------------
+                g.DrawRectangle(
+                    pen,
+                    0,
+                    0,
+                    tlp.Width,
+                    tlp.Height);
+
+                //---------------------------------
+                // Row Border
+                //---------------------------------
+
+                int rowHeight = tlp.Height / tlp.RowCount;
+
+                for (int i = 1; i < tlp.RowCount; i++)
+                {
+                    int y = rowHeight * i;
+
+                    g.DrawLine(
+                        pen,
+                        0,
+                        y,
+                        tlp.Width,
+                        y);
+                }
+            }
+        }
 
         // 배경 그라디언트 효과 함수
         private void TlpBg_Paint(object sender, PaintEventArgs e)
         {
+            if (sender is not Control ctrl)
+                return;
+
+            if (ctrl.Width <= 0 || ctrl.Height <= 0)
+                return;
+
             Color startColor = ColorTranslator.FromHtml("#252525");
             Color endColor = ColorTranslator.FromHtml("#3E4377");
-            float angle = 90F;
 
-            using (LinearGradientBrush brush = new LinearGradientBrush(
-                this.TlpBg.ClientRectangle, startColor, endColor, angle))
+            using (LinearGradientBrush brush =
+                new LinearGradientBrush(
+                    ctrl.ClientRectangle,
+                    startColor,
+                    endColor,
+                    90f))
             {
-                e.Graphics.FillRectangle(brush, this.TlpBg.ClientRectangle);
+                e.Graphics.FillRectangle(brush, ctrl.ClientRectangle);
             }
         }
 
 
-        // TableLayoutPanel에 맞춰 상,하단으로 광선 그리기 함수
-        public void GlowLine_paint(object sender, PaintEventArgs e)
+        // Control에 맞춰 상,하단으로 그라디언트 선 그리기 함수
+        public void GlowHorizontalLine_Paint(object sender, PaintEventArgs e)
         {
-            TableLayoutPanel? tlp = sender as TableLayoutPanel;
-
-            if (tlp == null)
+            if (sender is not Control ctrl)
                 return;
 
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, 0, 4, Color.FromArgb(180, 100, 220, 255));
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, tlp.Height - 4, 4, Color.FromArgb(180, 100, 220, 255));
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, 0, 4, Color.FromArgb(180, 100, 220, 255));
-            DrawHelper.DrawGlowLine(e.Graphics, tlp.Width, tlp.Height - 4, 4, Color.FromArgb(180, 100, 220, 255));
+            DrawHelper.DrawGlowLine(e.Graphics, ctrl.Width, 0, 4, Color.FromArgb(180, 100, 220, 255));
+            DrawHelper.DrawGlowLine(e.Graphics, ctrl.Width, ctrl.Height - 4, 4, Color.FromArgb(180, 100, 220, 255));
+            DrawHelper.DrawGlowLine(e.Graphics, ctrl.Width, 0, 4, Color.FromArgb(180, 100, 220, 255));
+            DrawHelper.DrawGlowLine(e.Graphics, ctrl.Width, ctrl.Height - 4, 4, Color.FromArgb(180, 100, 220, 255));
         }
 
-        // 시험 대상 준비물 추가 버튼 이벤트
+        // Border 그리기 함수
+        private void DrawBorderLine_Paint(object sender, PaintEventArgs e)
+        {
+            if (sender is not Control ctrl)
+                return;
+
+            DrawHelper.DrawBorderLine(
+                e.Graphics,
+                ctrl.Width,
+                ctrl.Height,
+                3,
+                Color.FromArgb(255, 145, 223, 251)
+            );
+        }
+        private void DrawBorderLine_Paint_Skyblue(object sender, PaintEventArgs e)
+        {
+            if (sender is not Control ctrl)
+                return;
+
+            DrawHelper.DrawBorderLine(
+                e.Graphics,
+                ctrl.Width,
+                ctrl.Height,
+                3,
+                Color.FromArgb(255, 63, 202, 255)
+            );
+        }
+        private void DrawBorderLine_Paint_Darkblue(object sender, PaintEventArgs e)
+        {
+            if (sender is not Control ctrl)
+                return;
+
+            DrawHelper.DrawBorderLine(
+                e.Graphics,
+                ctrl.Width,
+                ctrl.Height,
+                3,
+                Color.FromArgb(255, 30, 46, 69)
+            );
+        }
+        private void DrawBorderLine_Paint_Darkpurple(object sender, PaintEventArgs e)
+        {
+            if (sender is not Control ctrl)
+                return;
+
+            DrawHelper.DrawBorderLine(
+                e.Graphics,
+                ctrl.Width,
+                ctrl.Height,
+                3,
+                Color.FromArgb(255, 56, 60, 98)
+            );
+        }
+
+        // 시험 대상 준비물 추가 /////////////////////////////////////////////////////////////////////////////
         private void btnSupAdd_MouseUp(object sender, MouseEventArgs e)
         {
             using (AddCableForm form = new AddCableForm())
@@ -92,6 +237,7 @@ namespace PinConnectionDiagram
             }
         }
 
+        // 시험 준비물 추가 시 해당 카테고리에 아이템 생성 함수
         private void CreateItems(CableInfo info)
         {
             FlowLayoutPanel panel = GetPanel(info.Category);
@@ -101,42 +247,45 @@ namespace PinConnectionDiagram
 
         }
 
+        // 삭제 부분 ///////////////////////////////////////////////////////////////////////////////
+        // 추가된 시험 준비물 삭제 여부 확인 및 삭제함수들 실행
         private void DeleteCable(CableInfo info)
         {
-            if (!DeleteCard(info))
+            DialogResult result = MessageBox.Show(
+                "삭제하시겠습니까?",
+                "확인",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result != DialogResult.Yes)
                 return;
+
             cableManager.Remove(info);
+
+            DeleteCard(info);
             DeleteItem(info);
             DeleteDiagramCableInfo(info);
         }
 
-        private bool DeleteCard(CableInfo info)
+        // 케이블 카드 삭제 함수
+        private void DeleteCard(CableInfo info)
         {
             foreach (CableCard card in FlpSupplies.Controls.OfType<CableCard>().ToList())
             {
                 if (card.Info.Id == info.Id)
                 {
-                    DialogResult result = MessageBox.Show(
-                        "삭제하시겠습니까?",
-                        "확인",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question);
 
-                    if (result == DialogResult.Yes)
-                    {
-                        FlpSupplies.Controls.Remove(card);
-                        card.Dispose();
-                        return true;
-                    }
-                    return false;
+                    FlpSupplies.Controls.Remove(card);
+                    card.Dispose();
+                    break;
                 }
             }
-            return false;
         }
 
+        // 케이블 카드 삭제 시 해당 케이블 아이템 삭제 함수
         private void DeleteItem(CableInfo info)
         {
-            FlowLayoutPanel panel = GetPanel(info.Category);
+            Control panel = GetPanel(info.Category);
 
             foreach (CableItem item in panel.Controls.OfType<CableItem>().ToList())
             {
@@ -148,18 +297,28 @@ namespace PinConnectionDiagram
             }
         }
 
+        // 케이블 카드 삭제 시 관련 아이템 삭제 함수
         private void DeleteDiagramCableInfo(CableInfo info)
         {
-            foreach (DiagramCable cable in PnlMap.Controls.OfType<DiagramCable>().ToList())
+            foreach (Panel panel in new Panel[]
             {
-                if (cable.Info == info)
+                PnlJig,
+                PnlAdapter,
+                PnlTest
+            })
+            {
+                foreach (DiagramCable cable in panel.Controls.OfType<DiagramCable>().ToList())
                 {
-                    PnlMap.Controls.Remove(cable);
-                    cable.Dispose();
+                    if (cable.Info == info)
+                    {
+                        panel.Controls.Remove(cable);
+                        cable.Dispose();
+                    }
                 }
             }
         }
 
+        // 카테고리/////////////////////////////////////////////////////////////////////////
         private FlowLayoutPanel GetPanel(string category)
         {
             switch (category)
@@ -173,61 +332,6 @@ namespace PinConnectionDiagram
                 default:
                     throw new Exception("알 수 없는 카테고리입니다.");
             }
-        }
-
-        private void PnlMap_DragDrop(object sender,  DragEventArgs e)
-        {
-            CableItem item = (CableItem)e.Data.GetData(typeof(CableItem));
-
-
-            Point p = PnlMap.PointToClient(new Point (e.X, e.Y));
-
-            if (item != null)
-            {
-                if (item.Parent == PnlMap)
-                {
-                    item.Location = p;
-                }
-                else
-                {
-                    DiagramCable newItem = new DiagramCable(item.Info);
-                    newItem.Location = p;
-
-                    newItem.DeleteRequested += DeleteDiagramCable;
-
-                    PnlMap.Controls.Add(newItem);
-                }
-            }
-        }
-        
-        private void PnlMap_DragEnter(object sender, DragEventArgs e)
-        {
-            if(e.Data.GetDataPresent(typeof(CableItem)))
-            {
-                e.Effect = DragDropEffects.Copy;
-            }
-        }
-
-        private void DeleteDiagramCable(DiagramCable cable)
-        {
-            PnlMap.Controls.Remove(cable);
-            cable.Dispose();
-        }
-
-        private void TlpDrawBorderLine_Paint(object sender, PaintEventArgs e)
-        {
-            TableLayoutPanel? tlp = sender as TableLayoutPanel;
-
-            if (tlp == null)
-                return;
-
-            DrawHelper.DrawBorderLine(
-                e.Graphics,
-                tlp.Width,
-                tlp.Height,
-                2,
-                Color.FromArgb(255, 145, 223, 251)
-                );
         }
     }
 }

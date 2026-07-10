@@ -28,30 +28,77 @@
         /// </summary>
         private void InitializeComponent()
         {
-            comboBox1 = new ComboBox();
+            TlpPin = new TableLayoutPanel();
+            PnlPin = new Panel();
+            CbxPin = new ComboBox();
+            PnlPoint = new Panel();
+            TlpPin.SuspendLayout();
+            PnlPin.SuspendLayout();
             SuspendLayout();
             // 
-            // comboBox1
+            // TlpPin
             // 
-            comboBox1.Dock = DockStyle.Fill;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(0, 0);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(80, 23);
-            comboBox1.TabIndex = 0;
+            TlpPin.ColumnCount = 2;
+            TlpPin.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            TlpPin.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 18F));
+            TlpPin.Controls.Add(PnlPin, 0, 0);
+            TlpPin.Controls.Add(PnlPoint, 1, 0);
+            TlpPin.Dock = DockStyle.Fill;
+            TlpPin.Location = new Point(0, 0);
+            TlpPin.Name = "TlpPin";
+            TlpPin.RowCount = 1;
+            TlpPin.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TlpPin.Size = new Size(70, 45);
+            TlpPin.TabIndex = 0;
+            // 
+            // PnlPin
+            // 
+            PnlPin.BackgroundImage = Properties.Resources.connectorIcon_left;
+            PnlPin.BackgroundImageLayout = ImageLayout.Stretch;
+            PnlPin.Controls.Add(CbxPin);
+            PnlPin.Dock = DockStyle.Fill;
+            PnlPin.Location = new Point(0, 0);
+            PnlPin.Margin = new Padding(0);
+            PnlPin.Name = "PnlPin";
+            PnlPin.Size = new Size(52, 45);
+            PnlPin.TabIndex = 0;
+            // 
+            // CbxPin
+            // 
+            CbxPin.FormattingEnabled = true;
+            CbxPin.Items.AddRange(new object[] { "P1", "P2", "P3", "P4", "P5", "P5", "P6", "P7", "P8", "P9", "P10" });
+            CbxPin.Location = new Point(17, 11);
+            CbxPin.Name = "CbxPin";
+            CbxPin.Size = new Size(34, 23);
+            CbxPin.TabIndex = 0;
+            // 
+            // PnlPoint
+            // 
+            PnlPoint.BackColor = Color.Red;
+            PnlPoint.Location = new Point(55, 17);
+            PnlPoint.Margin = new Padding(3, 17, 3, 3);
+            PnlPoint.Name = "PnlPoint";
+            PnlPoint.Size = new Size(12, 12);
+            PnlPoint.TabIndex = 1;
+            PnlPoint.Click += PnlPoint_Click;
             // 
             // PinConnector
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(comboBox1);
+            Controls.Add(TlpPin);
             Name = "PinConnector";
-            Size = new Size(80, 40);
+            Size = new Size(70, 45);
+            TlpPin.ResumeLayout(false);
+            PnlPin.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private ComboBox comboBox1;
+        private TableLayoutPanel TlpPin;
+        private Panel PnlPin;
+        private ComboBox CbxPin;
+        private Panel PnlPoint;
     }
 }

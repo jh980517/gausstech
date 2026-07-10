@@ -48,24 +48,70 @@ namespace PinConnectionDiagram
                 PnlAdapter,
                 PnlTest);
 
-            mapManager.RegisterPanels();
+            //mapManager.RegisterPanels();
 
             CreateTJControls();
+            CreateConnectors();
+        }
+
+        private void CreateConnectors()
+        {
+            CreateCategory(PnlJig, "지그 케이블", true);
+            CreateCategory(PnlAdapter, "어댑터 케이블", true);
+            CreateCategory(PnlTest, "시험 대상 케이블", false);
+        }
+
+        private void CreateCategory(Panel panel, String category, bool hasRight)
+        {
+            panel.Controls.Clear();
+            for (int tj = 1; tj <= 5; tj++)
+            {
+                int y = 40 + (tj - 1) * 110;
+                PinConnector left =
+                    new PinConnector(
+                        tj,
+                        category,
+                        ConnectorSide.Left);
+
+                left.Location = new Point(10, y);
+
+                left.Visible = false;
+
+                panel.Controls.Add(left);
+
+                if (hasRight)
+                {
+                    PinConnector right =
+                        new PinConnector(
+                            tj,
+                            category,
+                            ConnectorSide.Right);
+                    right.Location =
+                        new Point(
+                            panel.Width - right.Width - 10,
+                            y);
+                    right.Visible = false;
+                    panel.Controls.Add(right);
+                }
+            }
         }
 
         private void TJ_StateChanged(TJControl sender, bool isOn)
         {
-            // TJ 상태 변경 시 처리할 로직을 여기에 작성합니다.
-            // 예: 상태에 따라 다른 동작 수행
-            if (isOn)
+            UpdateConnectorVisible(PnlJig, sender.TJNumber, isOn);
+            UpdateConnectorVisible(PnlAdapter, sender.TJNumber, isOn);
+            UpdateConnectorVisible(PnlTest, sender.TJNumber, isOn);
+        }
+
+        private void UpdateConnectorVisible(Panel panel, int tj, bool visible)
+        {
+            foreach (PinConnector connector
+                     in panel.Controls.OfType<PinConnector>())
             {
-                // TJ가 켜졌을 때의 동작
-                //MessageBox.Show($"TJ{sender.TJNumber} is ON");
-            }
-            else
-            {
-                // TJ가 꺼졌을 때의 동작
-                //MessageBox.Show($"TJ{sender.TJNumber} is OFF");
+                if (connector.TJNumber == tj)
+                {
+                    connector.Visible = visible;
+                }
             }
         }
 

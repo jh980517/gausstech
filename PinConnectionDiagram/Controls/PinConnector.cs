@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PinConnectionDiagram.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,9 +11,22 @@ namespace PinConnectionDiagram.Controls
 {
     public partial class PinConnector : UserControl
     {
-        public PinConnector()
+        public int TJNumber { get; }
+
+        public string Category { get; }
+
+        public ConnectorSide Side { get; }
+        public PinConnector(int tjNumber, string category, ConnectorSide side)
         {
             InitializeComponent();
+
+            TJNumber = tjNumber;
+            Category = category;
+        }
+
+        private void PnlPoint_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

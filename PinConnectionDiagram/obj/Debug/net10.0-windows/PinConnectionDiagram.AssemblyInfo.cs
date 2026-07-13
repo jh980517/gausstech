@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PinConnectionDiagram")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aeed6ad472f09bbf1175f4799bad8f79bae42376")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef17c7762315c191ffa9ec46587bb35d4837ece0")]
 [assembly: System.Reflection.AssemblyProductAttribute("PinConnectionDiagram")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PinConnectionDiagram")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,69 +1,69 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\",
+  "WorkspaceRootPath": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\form\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\form\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\form\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\managers\\mapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\managers\\mapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\models\\connectorside.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\models\\connectorside.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\controls\\pinconnector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\controls\\pinconnector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\pinconnectiondiagram\\form\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\form\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\form\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\pinconnectiondiagram\\controls\\pinconnector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\managers\\mapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\managers\\mapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\models\\connectorside.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\models\\connectorside.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\controls\\pinconnector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\controls\\pinconnector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\controls\\pinconnector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\controls\\pinconnector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\pinconnectiondiagram\\controls\\cableitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\controls\\cableitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\controls\\cableitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\controls\\tjcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\controls\\tjcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\controls\\tjcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\controls\\diagramcable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\controls\\diagramcable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\controls\\diagramcable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\helpers\\colorhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\helpers\\colorhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\helpers\\colorhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\helpers\\buttonhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\helpers\\buttonhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\helpers\\buttonhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\pinconnectiondiagram\\controls\\tjcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\controls\\tjcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\controls\\tjcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\controls\\tjcontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\controls\\tjcontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\controls\\tjcontrol.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\controls\\cableitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\controls\\cableitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\controls\\cableitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\pinconnectiondiagram\\form\\addcableform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\form\\addcableform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\form\\addcableform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\form\\addcableform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\gausstech\\pinconnectiondiagram\\form\\addcableform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ACF4B13B-2669-6194-53C7-0FD6B8EA8576}|PinConnectionDiagram\\PinConnectionDiagram.csproj|solutionrelative:pinconnectiondiagram\\form\\addcableform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -80,25 +80,24 @@
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "DiagramCable.cs",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\DiagramCable.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\DiagramCable.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Controls\\DiagramCable.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\DiagramCable.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\DiagramCable.cs",
               "RelativeToolTip": "PinConnectionDiagram\\Controls\\DiagramCable.cs",
               "ViewState": "AgIAAD4AAAAAAAAAAAAiwFUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-01T01:09:03.587Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Main.cs",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Form\\Main.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Form\\Main.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Form\\Main.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Form\\Main.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Form\\Main.cs",
               "RelativeToolTip": "PinConnectionDiagram\\Form\\Main.cs",
-              "ViewState": "AgIAAFgAAAAAAAAAAAAIwGwAAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAAGEBAAAAAAAAAAAAADsBAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-01T01:18:20.108Z",
               "IsPinned": true,
@@ -106,37 +105,35 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ConnectorSide.cs",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Models\\ConnectorSide.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Models\\ConnectorSide.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Models\\ConnectorSide.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Models\\ConnectorSide.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Models\\ConnectorSide.cs",
               "RelativeToolTip": "PinConnectionDiagram\\Models\\ConnectorSide.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-10T08:14:03.471Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-10T08:14:03.471Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MapManager.cs",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Managers\\MapManager.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Managers\\MapManager.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Managers\\MapManager.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Managers\\MapManager.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Managers\\MapManager.cs",
               "RelativeToolTip": "PinConnectionDiagram\\Managers\\MapManager.cs",
               "ViewState": "AgIAAIIAAAAAAAAAAAAgwH0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-10T06:39:14.412Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-10T06:39:14.412Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "PinConnector.cs",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\PinConnector.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\PinConnector.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Controls\\PinConnector.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\PinConnector.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\PinConnector.cs",
               "RelativeToolTip": "PinConnectionDiagram\\Controls\\PinConnector.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAswA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -147,21 +144,20 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "PinConnector.cs [\uB514\uC790\uC778]",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\PinConnector.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\PinConnector.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Controls\\PinConnector.cs",
               "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\PinConnector.cs [\uB514\uC790\uC778]",
-              "RelativeToolTip": "PinConnectionDiagram\\Controls\\PinConnector.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "..\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\PinConnector.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-09T07:06:28.07Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "WhenOpened": "2026-07-09T07:06:28.07Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "Main.cs [\uB514\uC790\uC778]",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Form\\Main.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Form\\Main.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Form\\Main.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Form\\Main.cs [\uB514\uC790\uC778]",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Form\\Main.cs [\uB514\uC790\uC778]",
               "RelativeToolTip": "PinConnectionDiagram\\Form\\Main.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-01T01:07:09.612Z",
@@ -171,21 +167,20 @@
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "CableItem.cs [\uB514\uC790\uC778]",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\CableItem.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\CableItem.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Controls\\CableItem.cs",
               "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\CableItem.cs [\uB514\uC790\uC778]",
-              "RelativeToolTip": "PinConnectionDiagram\\Controls\\CableItem.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "..\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\CableItem.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-07T03:53:25.585Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "WhenOpened": "2026-07-07T03:53:25.585Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "TJControl.cs",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\TJControl.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\TJControl.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Controls\\TJControl.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\TJControl.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\TJControl.cs",
               "RelativeToolTip": "PinConnectionDiagram\\Controls\\TJControl.cs",
               "ViewState": "AgIAACwAAAAAAAAAAAAQwD8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -196,9 +191,9 @@
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "ColorHelper.cs",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Helpers\\ColorHelper.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Helpers\\ColorHelper.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Helpers\\ColorHelper.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Helpers\\ColorHelper.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Helpers\\ColorHelper.cs",
               "RelativeToolTip": "PinConnectionDiagram\\Helpers\\ColorHelper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -208,9 +203,9 @@
               "$type": "Document",
               "DocumentIndex": 10,
               "Title": "ButtonHelper.cs",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Helpers\\ButtonHelper.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Helpers\\ButtonHelper.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Helpers\\ButtonHelper.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Helpers\\ButtonHelper.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Helpers\\ButtonHelper.cs",
               "RelativeToolTip": "PinConnectionDiagram\\Helpers\\ButtonHelper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -220,10 +215,10 @@
               "$type": "Document",
               "DocumentIndex": 11,
               "Title": "TJControl.cs [\uB514\uC790\uC778]",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\TJControl.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\TJControl.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Controls\\TJControl.cs",
               "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\TJControl.cs [\uB514\uC790\uC778]",
-              "RelativeToolTip": "PinConnectionDiagram\\Controls\\TJControl.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "..\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\TJControl.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-09T05:50:06.347Z"
             },
@@ -231,9 +226,9 @@
               "$type": "Document",
               "DocumentIndex": 12,
               "Title": "TJControl.Designer.cs",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\TJControl.Designer.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\TJControl.Designer.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Controls\\TJControl.Designer.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\TJControl.Designer.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\TJControl.Designer.cs",
               "RelativeToolTip": "PinConnectionDiagram\\Controls\\TJControl.Designer.cs",
               "ViewState": "AgIAABwAAAAAAAAAAAAAwCQAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -243,9 +238,9 @@
               "$type": "Document",
               "DocumentIndex": 13,
               "Title": "CableItem.cs",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\CableItem.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\CableItem.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Controls\\CableItem.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Controls\\CableItem.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Controls\\CableItem.cs",
               "RelativeToolTip": "PinConnectionDiagram\\Controls\\CableItem.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -255,10 +250,10 @@
               "$type": "Document",
               "DocumentIndex": 14,
               "Title": "AddCableForm.cs [\uB514\uC790\uC778]",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Form\\AddCableForm.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Form\\AddCableForm.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Form\\AddCableForm.cs",
               "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Form\\AddCableForm.cs [\uB514\uC790\uC778]",
-              "RelativeToolTip": "PinConnectionDiagram\\Form\\AddCableForm.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "..\\PinConnectionDiagram\\PinConnectionDiagram\\Form\\AddCableForm.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-07T02:00:48.871Z"
             },
@@ -266,9 +261,9 @@
               "$type": "Document",
               "DocumentIndex": 15,
               "Title": "AddCableForm.cs",
-              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Form\\AddCableForm.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Form\\AddCableForm.cs",
               "RelativeDocumentMoniker": "PinConnectionDiagram\\Form\\AddCableForm.cs",
-              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Form\\AddCableForm.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\gausstech\\PinConnectionDiagram\\Form\\AddCableForm.cs",
               "RelativeToolTip": "PinConnectionDiagram\\Form\\AddCableForm.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABkAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

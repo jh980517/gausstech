@@ -3,13 +3,17 @@ using PinConnectionDiagram.Helpers;
 using PinConnectionDiagram.Managers;
 using PinConnectionDiagram.Models;
 using System.Drawing.Drawing2D;
+using System.Net.Http.Headers;
 namespace PinConnectionDiagram
 {
     public partial class Main : Form
     {
-        private CableManager cableManager = new CableManager();
+        // CableManager
+        // MapManager
+        // ConnectionManager
+        private CableManager cableManager;
         private MapManager mapManager;
-
+        private ConnectionManager connectionManager;
         public Main()
         {
             InitializeComponent();
@@ -43,95 +47,80 @@ namespace PinConnectionDiagram
                 Properties.Resources.Button,
                 Properties.Resources.Button_push);
 
-            mapManager = new MapManager(
-                PnlJig,
-                PnlAdapter,
-                PnlTest);
+            /****************************************************************************/
 
-            //mapManager.RegisterPanels();
+            cableManager = new CableManager();
 
-            CreateTJControls();
-            CreateConnectors();
+            mapManager = new MapManager(TlpMap);
+
+            // connectionManager = new ConnectionManager(PnlLine);
+
+            mapManager.CreateRows();
+
+            //ConnectorRow jig = new ConnectorRow(1, ConnectorType.Jig);
+
+            //ConnectorRow adapter = new ConnectorRow(1, ConnectorType.Adapter);
+
+            //ConnectorRow test = new ConnectorRow(1, ConnectorType.Test);
+
+            //TlpMap.Controls.Add(jig, 1, 1);
+            //TlpMap.Controls.Add(adapter, 2, 1);
+            //TlpMap.Controls.Add(test, 3, 1);
+
+            //CreateTJControls();
+            //CreateConnectors();
         }
 
-        private void CreateConnectors()
-        {
-            CreateCategory(PnlJig, "지그 케이블", true);
-            CreateCategory(PnlAdapter, "어댑터 케이블", true);
-            CreateCategory(PnlTest, "시험 대상 케이블", false);
-        }
+        //private void CreateConnectors()
+        //{
+        //    CreateCategory(PnlJig, "지그 케이블", true);
+        //    CreateCategory(PnlAdapter, "어댑터 케이블", true);
+        //    CreateCategory(PnlTest, "시험 대상 케이블", false);
+        //}
 
-        private void CreateCategory(Panel panel, String category, bool hasRight)
-        {
-            panel.Controls.Clear();
-            for (int tj = 1; tj <= 5; tj++)
-            {
-                int y = 40 + (tj - 1) * 110;
-                PinConnector left =
-                    new PinConnector(
-                        tj,
-                        category,
-                        ConnectorSide.Left);
+        //private void CreateCategory(Panel panel, String category, bool hasRight)
+        //{
+        //    panel.Controls.Clear();
+        //    for (int tj = 1; tj <= 5; tj++)
+        //    {
+        //        int y = 0 + (tj - 1) * 110;
+        //        PinConnector left = new PinConnector(tj, category, ConnectorType.Left);
 
-                left.Location = new Point(10, y);
+        //        left.Location = new Point(10, y);
 
-                left.Visible = false;
+        //        left.Visible = false;
 
-                panel.Controls.Add(left);
+        //        panel.Controls.Add(left);
 
-                if (hasRight)
-                {
-                    PinConnector right =
-                        new PinConnector(
-                            tj,
-                            category,
-                            ConnectorSide.Right);
-                    right.Location =
-                        new Point(
-                            panel.Width - right.Width - 10,
-                            y);
-                    right.Visible = false;
-                    panel.Controls.Add(right);
-                }
-            }
-        }
+        //        if (hasRight)
+        //        {
+        //            PinConnector right = new PinConnector(tj, category, ConnectorType.Right);
+        //            right.Location = new Point(panel.Width - right.Width - 10, y);
+        //            right.Visible = false;
+        //            panel.Controls.Add(right);
+        //        }
+        //    }
+        //}
 
-        private void TJ_StateChanged(TJControl sender, bool isOn)
-        {
-            UpdateConnectorVisible(PnlJig, sender.TJNumber, isOn);
-            UpdateConnectorVisible(PnlAdapter, sender.TJNumber, isOn);
-            UpdateConnectorVisible(PnlTest, sender.TJNumber, isOn);
-        }
 
-        private void UpdateConnectorVisible(Panel panel, int tj, bool visible)
-        {
-            foreach (PinConnector connector
-                     in panel.Controls.OfType<PinConnector>())
-            {
-                if (connector.TJNumber == tj)
-                {
-                    connector.Visible = visible;
-                }
-            }
-        }
 
-        private void CreateTJControls()
-        {
-            TlpTJ.Controls.Clear();
+        //private void CreateTJControls()
+        //{
+        //    TlpTJ.Controls.Clear();
 
-            for (int i = 0; i < 5; i++)
-            {
-                TJControl tj = new TJControl(i + 1);
+        //    for (int i = 0; i < 5; i++)
+        //    {
+        //        TJControl tj = new TJControl(i + 1);
 
-                tj.Anchor = AnchorStyles.Right;
-                tj.Margin = new Padding(5);
+        //        tj.Anchor = AnchorStyles.Right;
+        //        tj.Margin = new Padding(5);
 
-                // ★ 이벤트 연결
-                tj.StateChanged += TJ_StateChanged;
+        //        // ★ 이벤트 연결
+        //        tj.StateChanged += TJ_StateChanged;
 
-                TlpTJ.Controls.Add(tj, 0, i);
-            }
-        }
+        //        TlpTJ.Controls.Add(tj, 0, i);
+        //    }
+        //}
         private void TlpTJ_Paint(object sender, PaintEventArgs e)
         {
             if (sender is not TableLayoutPanel tlp)
@@ -310,7 +299,8 @@ namespace PinConnectionDiagram
 
             DeleteCard(info);
             DeleteItem(info);
-            DeleteDiagramCableInfo(info);
+
+            mapManager.DeleteDiagramCableInfo(info);
         }
 
         // 케이블 카드 삭제 함수
@@ -343,27 +333,7 @@ namespace PinConnectionDiagram
             }
         }
 
-        // 케이블 카드 삭제 시 관련 아이템 삭제 함수
-        private void DeleteDiagramCableInfo(CableInfo info)
-        {
-            foreach (Panel panel in new Panel[]
-            {
-                PnlJig,
-                PnlAdapter,
-                PnlTest
-            })
-            {
-                foreach (DiagramCable cable in panel.Controls.OfType<DiagramCable>().ToList())
-                {
-                    if (cable.Info == info)
-                    {
-                        panel.Controls.Remove(cable);
-                        cable.Dispose();
-                    }
-                }
-            }
-        }
-
+        
         // 카테고리/////////////////////////////////////////////////////////////////////////
         private FlowLayoutPanel GetPanel(string category)
         {

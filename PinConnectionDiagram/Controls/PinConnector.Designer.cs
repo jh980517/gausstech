@@ -30,7 +30,7 @@
         {
             TlpPin = new TableLayoutPanel();
             PnlPin = new Panel();
-            CbxPin = new ComboBox();
+            CmbPin = new ComboBox();
             PnlPoint = new Panel();
             TlpPin.SuspendLayout();
             PnlPin.SuspendLayout();
@@ -40,7 +40,7 @@
             // 
             TlpPin.ColumnCount = 2;
             TlpPin.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            TlpPin.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 18F));
+            TlpPin.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 12F));
             TlpPin.Controls.Add(PnlPin, 0, 0);
             TlpPin.Controls.Add(PnlPoint, 1, 0);
             TlpPin.Dock = DockStyle.Fill;
@@ -48,35 +48,36 @@
             TlpPin.Name = "TlpPin";
             TlpPin.RowCount = 1;
             TlpPin.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TlpPin.Size = new Size(70, 45);
+            TlpPin.Size = new Size(80, 45);
             TlpPin.TabIndex = 0;
             // 
             // PnlPin
             // 
             PnlPin.BackgroundImage = Properties.Resources.connectorIcon_left;
             PnlPin.BackgroundImageLayout = ImageLayout.Stretch;
-            PnlPin.Controls.Add(CbxPin);
+            PnlPin.Controls.Add(CmbPin);
             PnlPin.Dock = DockStyle.Fill;
             PnlPin.Location = new Point(0, 0);
             PnlPin.Margin = new Padding(0);
             PnlPin.Name = "PnlPin";
-            PnlPin.Size = new Size(52, 45);
+            PnlPin.Size = new Size(68, 45);
             PnlPin.TabIndex = 0;
             // 
-            // CbxPin
+            // CmbPin
             // 
-            CbxPin.FormattingEnabled = true;
-            CbxPin.Items.AddRange(new object[] { "P1", "P2", "P3", "P4", "P5", "P5", "P6", "P7", "P8", "P9", "P10" });
-            CbxPin.Location = new Point(17, 11);
-            CbxPin.Name = "CbxPin";
-            CbxPin.Size = new Size(34, 23);
-            CbxPin.TabIndex = 0;
+            CmbPin.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            CmbPin.FormattingEnabled = true;
+            CmbPin.Items.AddRange(new object[] { "P1", "P2", "P3", "P4", "P5", "P5", "P6", "P7", "P8", "P9", "P10" });
+            CmbPin.Location = new Point(12, 8);
+            CmbPin.Name = "CmbPin";
+            CmbPin.Size = new Size(52, 29);
+            CmbPin.TabIndex = 0;
             // 
             // PnlPoint
             // 
             PnlPoint.BackColor = Color.Red;
-            PnlPoint.Location = new Point(55, 17);
-            PnlPoint.Margin = new Padding(3, 17, 3, 3);
+            PnlPoint.Location = new Point(68, 17);
+            PnlPoint.Margin = new Padding(0, 17, 0, 0);
             PnlPoint.Name = "PnlPoint";
             PnlPoint.Size = new Size(12, 12);
             PnlPoint.TabIndex = 1;
@@ -88,7 +89,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(TlpPin);
             Name = "PinConnector";
-            Size = new Size(70, 45);
+            Size = new Size(80, 45);
             TlpPin.ResumeLayout(false);
             PnlPin.ResumeLayout(false);
             ResumeLayout(false);
@@ -98,7 +99,7 @@
 
         private TableLayoutPanel TlpPin;
         private Panel PnlPin;
-        private ComboBox CbxPin;
+        private ComboBox CmbPin;
         private Panel PnlPoint;
     }
 }

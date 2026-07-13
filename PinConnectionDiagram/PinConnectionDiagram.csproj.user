@@ -4,6 +4,9 @@
     <Compile Update="Controls\CableItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\ConnectorRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\DiagramCable.cs">
       <SubType>UserControl</SubType>
     </Compile>

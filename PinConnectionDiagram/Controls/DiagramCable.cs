@@ -16,7 +16,7 @@ namespace PinConnectionDiagram.Controls
         private bool dragging = false;
         private Point offset;
         private readonly Color _categoryColor;
-        public event Action<DiagramCable>? DeleteRequested;
+        public event Action<CableInfo>? DeleteRequested;
         public DiagramCable(CableInfo info)
         {
             InitializeComponent();
@@ -50,7 +50,7 @@ namespace PinConnectionDiagram.Controls
         {
             if (e.Button == MouseButtons.Right)
             {
-                DeleteRequested?.Invoke(this);
+                DeleteRequested?.Invoke(Info);
                 return;
             }
 

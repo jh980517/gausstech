@@ -15,8 +15,10 @@ namespace PinConnectionDiagram.Controls
         // ComboBox(P1~)
         // 연결점(Point)
         public string Category { get; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public int Index { get; set; }
 
-        public ConnectorSide Side { get; private set; }
+        //public ConnectorSide Side { get; private set; }
         public event Action<PinConnector>? PointClicked;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string SelectedPin
@@ -46,7 +48,7 @@ namespace PinConnectionDiagram.Controls
         {
             CmbPin.Items.Clear();
 
-            for (int i= 1; i <= 30; i++)
+            for (int i = 1; i <= 30; i++)
             {
                 CmbPin.Items.Add($"P{i}");
             }
@@ -57,60 +59,60 @@ namespace PinConnectionDiagram.Controls
             CmbPin.SelectedIndex = 0;
         }
 
-        public void SetSide(ConnectorSide side)
-        {
-            if (Side == side)
-                return;
+        //public void SetSide(ConnectorSide side)
+        //{
+        //    if (Side == side)
+        //        return;
 
-            Side = side;
+        //    Side = side;
 
-            ArrangeConnector();
-            UpdateConnectorImage();
-        }
+        //    ArrangeConnector();
+        //    UpdateConnectorImage();
+        //}
 
-        private void ArrangeConnector()
-        {
-            TlpPin.Controls.Clear();
+        //private void ArrangeConnector()
+        //{
+        //    TlpPin.Controls.Clear();
 
-            TlpPin.ColumnStyles[0].SizeType = SizeType.Absolute;
-            TlpPin.ColumnStyles[1].SizeType = SizeType.Absolute;
-            if (Side == ConnectorSide.Left)
-            {
-                TlpPin.ColumnStyles[0].Width = 68;
-                TlpPin.ColumnStyles[1].Width = 12;
+        //    TlpPin.ColumnStyles[0].SizeType = SizeType.Absolute;
+        //    TlpPin.ColumnStyles[1].SizeType = SizeType.Absolute;
+        //    if (Side == ConnectorSide.Left)
+        //    {
+        //        TlpPin.ColumnStyles[0].Width = 68;
+        //        TlpPin.ColumnStyles[1].Width = 12;
 
-                TlpPin.Controls.Add(PnlPin, 0, 0);
-                TlpPin.Controls.Add(PnlPoint, 1, 0);
+        //        TlpPin.Controls.Add(PnlPin, 0, 0);
+        //        TlpPin.Controls.Add(PnlPoint, 1, 0);
 
-                CmbPin.Location = new Point(14, 8);
-            }
-            else
-            {
-                TlpPin.ColumnStyles[0].Width = 12;
-                TlpPin.ColumnStyles[1].Width = 68;
+        //        CmbPin.Location = new Point(14, 8);
+        //    }
+        //    else
+        //    {
+        //        TlpPin.ColumnStyles[0].Width = 12;
+        //        TlpPin.ColumnStyles[1].Width = 68;
 
-                TlpPin.Controls.Add(PnlPoint, 0, 0);
-                TlpPin.Controls.Add(PnlPin, 1, 0);
+        //        TlpPin.Controls.Add(PnlPoint, 0, 0);
+        //        TlpPin.Controls.Add(PnlPin, 1, 0);
 
-                CmbPin.Location = new Point(3, 8);
-            }
-        }
+        //        CmbPin.Location = new Point(3, 8);
+        //    }
+        //}
 
-        private void UpdateConnectorImage()
-        {
-            if (Side == ConnectorSide.Left)
-            {
-                PnlPin.BackgroundImage =
-                    Properties.Resources.connectorIcon_left;
-            }
-            else
-            {
-                PnlPin.BackgroundImage =
-                    Properties.Resources.connectorIcon_right;
-            }
+        //private void UpdateConnectorImage()
+        //{
+        //    if (Side == ConnectorSide.Left)
+        //    {
+        //        PnlPin.BackgroundImage =
+        //            Properties.Resources.connectorIcon_left;
+        //    }
+        //    else
+        //    {
+        //        PnlPin.BackgroundImage =
+        //            Properties.Resources.connectorIcon_right;
+        //    }
 
-            PnlPin.BackgroundImageLayout = ImageLayout.Stretch;
-        }
+        //    PnlPin.BackgroundImageLayout = ImageLayout.Stretch;
+        //}
 
         private void PnlPoint_Click(object sender, EventArgs e)
         {

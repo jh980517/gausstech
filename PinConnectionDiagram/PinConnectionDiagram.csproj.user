@@ -4,10 +4,10 @@
     <Compile Update="Controls\CableItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\ConnectorRow.cs">
+    <Compile Update="Controls\CablePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\DiagramCable.cs">
+    <Compile Update="Controls\DropItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\PinConnector.cs">

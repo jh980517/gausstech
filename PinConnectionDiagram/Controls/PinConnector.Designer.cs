@@ -65,6 +65,7 @@
             // 
             // CmbPin
             // 
+            CmbPin.DropDownStyle = ComboBoxStyle.DropDownList;
             CmbPin.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point, 129);
             CmbPin.FormattingEnabled = true;
             CmbPin.Items.AddRange(new object[] { "P1", "P2", "P3", "P4", "P5", "P5", "P6", "P7", "P8", "P9", "P10" });

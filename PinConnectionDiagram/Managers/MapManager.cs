@@ -12,91 +12,96 @@ namespace PinConnectionDiagram.Managers
 
         private readonly Dictionary<int, TJControl> tjControls = new();
 
-        private readonly Dictionary<(int, ConnectorType), ConnectorRow> connectorRows = new();
-        private readonly ConnectionManager connectionManager = new();
+        //private readonly Dictionary<(int, ConnectorType), ConnectorRow> connectorRows = new();
+        //private readonly ConnectionManager connectionManager = new();
         public MapManager(TableLayoutPanel table)
         {
             TlpMap = table;
         }
 
-        public void CreateRows()
-        {
-            for (int row = 1; row <= 5; row++)
-            {
-                // TJ
-                TJControl tj = new TJControl(row);
+        //public ConnectionManager ConnectionManager
+        //{
+        //    get => connectionManager;
+        //}
 
-                tj.StateChanged += TJ_StateChanged;
+        //public void CreateRows()
+        //{
+        //    for (int row = 1; row <= 5; row++)
+        //    {
+        //        // TJ
+        //        TJControl tj = new TJControl(row);
 
-                tj.Anchor = AnchorStyles.Right;
-                tj.Size = new Size(60, 34);
-                tj.Margin = new Padding(0, 0, 5, 0);
+        //        tj.StateChanged += TJ_StateChanged;
 
-                TlpMap.Controls.Add(tj, 0, row);
+        //        tj.Anchor = AnchorStyles.Right;
+        //        tj.Size = new Size(60, 34);
+        //        tj.Margin = new Padding(0, 0, 5, 0);
 
-                // Jig
+        //        TlpMap.Controls.Add(tj, 0, row);
 
-                ConnectorRow jig = new ConnectorRow(row, ConnectorType.Jig);
+        //        // Jig
 
-                jig.Dock = DockStyle.Fill;
-                jig.SetConnectorVisible(false);
-                TlpMap.Controls.Add(jig, 1, row);
+        //        ConnectorRow jig = new ConnectorRow(row, ConnectorType.Jig);
 
-                jig.LeftConnector.PointClicked += OnPointClicked;
+        //        jig.Dock = DockStyle.Fill;
+        //        jig.SetConnectorVisible(false);
+        //        TlpMap.Controls.Add(jig, 1, row);
 
-                if (jig.RightConnector != null)
-                {
-                    jig.RightConnector.PointClicked += OnPointClicked;
-                }
+        //        jig.LeftConnector.PointClicked += OnPointClicked;
 
-                // Adapter
+        //        if (jig.RightConnector != null)
+        //        {
+        //            jig.RightConnector.PointClicked += OnPointClicked;
+        //        }
 
-                ConnectorRow adapter = new ConnectorRow(row, ConnectorType.Adapter);
+        //        // Adapter
 
-                adapter.Dock = DockStyle.Fill;
-                adapter.SetConnectorVisible(false);
-                TlpMap.Controls.Add(adapter, 2, row);
+        //        ConnectorRow adapter = new ConnectorRow(row, ConnectorType.Adapter);
 
-                adapter.LeftConnector.PointClicked += OnPointClicked;
+        //        adapter.Dock = DockStyle.Fill;
+        //        adapter.SetConnectorVisible(false);
+        //        TlpMap.Controls.Add(adapter, 2, row);
 
-                if (adapter.RightConnector != null)
-                {
-                    adapter.RightConnector.PointClicked += OnPointClicked;
-                }
+        //        adapter.LeftConnector.PointClicked += OnPointClicked;
 
-                // Test
+        //        if (adapter.RightConnector != null)
+        //        {
+        //            adapter.RightConnector.PointClicked += OnPointClicked;
+        //        }
 
-                ConnectorRow test = new ConnectorRow(row, ConnectorType.Test);
+        //        // Test
 
-                test.Dock = DockStyle.Fill;
-                test.SetConnectorVisible(false);
-                TlpMap.Controls.Add(test, 3, row);
+        //        ConnectorRow test = new ConnectorRow(row, ConnectorType.Test);
 
-                test.LeftConnector.PointClicked += OnPointClicked;
-                if (test.RightConnector != null) 
-                {
-                    test.RightConnector.PointClicked += OnPointClicked;
-                }
+        //        test.Dock = DockStyle.Fill;
+        //        test.SetConnectorVisible(false);
+        //        TlpMap.Controls.Add(test, 3, row);
 
-                connectorRows.Add((row, ConnectorType.Jig), jig);
-                connectorRows.Add((row, ConnectorType.Adapter), adapter);
-                connectorRows.Add((row, ConnectorType.Test), test);
+        //        test.LeftConnector.PointClicked += OnPointClicked;
+        //        if (test.RightConnector != null) 
+        //        {
+        //            test.RightConnector.PointClicked += OnPointClicked;
+        //        }
 
-                RegisterDropEvent(jig);
-                RegisterDropEvent(adapter);
-                RegisterDropEvent(test);
-            }
-        }
+        //        connectorRows.Add((row, ConnectorType.Jig), jig);
+        //        connectorRows.Add((row, ConnectorType.Adapter), adapter);
+        //        connectorRows.Add((row, ConnectorType.Test), test);
 
-        private void OnPointClicked(PinConnector connector)
-        {
-            connectionManager.SelectConnector(connector);
-        }
+        //        RegisterDropEvent(jig);
+        //        RegisterDropEvent(adapter);
+        //        RegisterDropEvent(test);
+        //    }
+        ////}
+
+        //private void OnPointClicked(PinConnector connector)
+        //{
+        //    connectionManager.SelectConnector(connector);
+        //}
 
         // 우클릭 한 해당 아이템 삭제 함수
         private void DeleteDiagramCable(Control parent, CableInfo info)
         {
-            foreach (DiagramCable cable in parent.Controls.OfType<DiagramCable>().ToList())
+            foreach (DropItem cable in parent.Controls.OfType<DropItem>().ToList())
             {
                 if (cable.Info.Id == info.Id)
                 {
@@ -115,14 +120,14 @@ namespace PinConnectionDiagram.Managers
 
             Panel panel = (Panel)sender;
 
-            ConnectorRow row = (ConnectorRow)panel.Parent;
+            //ConnectorRow row = (ConnectorRow)panel.Parent;
 
             panel.Controls.Clear();
 
-            DiagramCable cable = new DiagramCable(item.Info);
+            DropItem cable = new DropItem(item.Info);
             cable.Dock = DockStyle.Fill;
             panel.Controls.Add(cable);
-            cable.DeleteRequested += DeleteDiagramCableInfo;
+            //cable.DeleteRequested += DeleteDiagramCableInfo;
 
             //Point p = panel.PointToClient(new Point(e.X, e.Y));
 
@@ -144,68 +149,68 @@ namespace PinConnectionDiagram.Managers
             //}
         }
 
-        private void Panel_DragEnter(object sender, DragEventArgs e)
-        {
-            if (!e.Data.GetDataPresent(typeof(CableItem)))
-            {
-                e.Effect = DragDropEffects.None;
-                return;
-            }
+        //private void Panel_DragEnter(object sender, DragEventArgs e)
+        //{
+        //    if (!e.Data.GetDataPresent(typeof(CableItem)))
+        //    {
+        //        e.Effect = DragDropEffects.None;
+        //        return;
+        //    }
 
-            CableItem item = (CableItem)e.Data.GetData(typeof(CableItem));
+        //    CableItem item = (CableItem)e.Data.GetData(typeof(CableItem));
 
-            Panel panel = (Panel)sender;
+        //    Panel panel = (Panel)sender;
 
-            ConnectorRow row = (ConnectorRow)panel.Parent;
+        //    //ConnectorRow row = (ConnectorRow)panel.Parent;
 
-            bool allow = false;
+        //    bool allow = false;
 
-            switch(row.Type)
-            {
-                case ConnectorType.Jig:
-                    allow = item.Info.Category == "지그 케이블";
-                    break;
-                case ConnectorType.Adapter:
-                    allow = item.Info.Category == "어댑터 케이블";
-                    break;
-                case ConnectorType.Test:
-                    allow = item.Info.Category == "시험 대상 케이블";
-                    break;
-            }
+        //    switch(row.Type)
+        //    {
+        //        case ConnectorType.Jig:
+        //            allow = item.Info.Category == "지그 케이블";
+        //            break;
+        //        case ConnectorType.Adapter:
+        //            allow = item.Info.Category == "어댑터 케이블";
+        //            break;
+        //        case ConnectorType.Test:
+        //            allow = item.Info.Category == "시험 대상 케이블";
+        //            break;
+        //    }
 
-            e.Effect = allow ? DragDropEffects.Copy : DragDropEffects.None;
-        }
+        //    e.Effect = allow ? DragDropEffects.Copy : DragDropEffects.None;
+        //}
 
-        private void TJ_StateChanged(TJControl sender, bool isOn)
-        {
-            UpdateConnectorVisible(sender.TJNumber, isOn);
-        }
+        //private void TJ_StateChanged(TJControl sender, bool isOn)
+        //{
+        //    UpdateConnectorVisible(sender.TJNumber, isOn);
+        //}
 
-        private void UpdateConnectorVisible(int tjNumber, bool visible)
-        {
-            connectorRows[(tjNumber, ConnectorType.Jig)].SetConnectorVisible(visible);
-            connectorRows[(tjNumber, ConnectorType.Adapter)].SetConnectorVisible(visible);
-            connectorRows[(tjNumber, ConnectorType.Test)].SetConnectorVisible(visible);
-        }
+        //private void UpdateConnectorVisible(int tjNumber, bool visible)
+        //{
+        //    connectorRows[(tjNumber, ConnectorType.Jig)].SetConnectorVisible(visible);
+        //    connectorRows[(tjNumber, ConnectorType.Adapter)].SetConnectorVisible(visible);
+        //    connectorRows[(tjNumber, ConnectorType.Test)].SetConnectorVisible(visible);
+        //}
 
-        // 케이블 카드 삭제 시 관련 아이템 삭제 함수
-        public void DeleteDiagramCableInfo(CableInfo info)
-        {
+        //// 케이블 카드 삭제 시 관련 아이템 삭제 함수
+        //public void DeleteDiagramCableInfo(CableInfo info)
+        //{
 
-            foreach (ConnectorRow row in connectorRows.Values)
-            {
-                DeleteDiagramCable(row.DropZone, info);
-            }
+        //    foreach (ConnectorRow row in connectorRows.Values)
+        //    {
+        //        DeleteDiagramCable(row.DropZone, info);
+        //    }
 
-        }
+        //}
 
-        private void RegisterDropEvent(ConnectorRow row)
-        {
-            row.DropZone.AllowDrop = true;
+        //private void RegisterDropEvent(ConnectorRow row)
+        //{
+        //    row.DropZone.AllowDrop = true;
 
-            row.DropZone.DragEnter += Panel_DragEnter;
-            row.DropZone.DragDrop += Panel_DragDrop;
-        }
+        //    row.DropZone.DragEnter += Panel_DragEnter;
+        //    row.DropZone.DragDrop += Panel_DragDrop;
+        //}
 
         //public void CreateConnectors()
         //{

@@ -13,7 +13,8 @@ namespace PinConnectionDiagram
         // ConnectionManager
         private CableManager cableManager;
         private MapManager mapManager;
-        private ConnectionManager connectionManager;
+        //private ConnectionManager connectionManager;
+
         public Main()
         {
             InitializeComponent();
@@ -53,74 +54,15 @@ namespace PinConnectionDiagram
 
             mapManager = new MapManager(TlpMap);
 
-            // connectionManager = new ConnectionManager(PnlLine);
+            //mapManager.CreateRows();
 
-            mapManager.CreateRows();
+            //connectionManager = mapManager.ConnectionManager;
 
-            //ConnectorRow jig = new ConnectorRow(1, ConnectorType.Jig);
-
-            //ConnectorRow adapter = new ConnectorRow(1, ConnectorType.Adapter);
-
-            //ConnectorRow test = new ConnectorRow(1, ConnectorType.Test);
-
-            //TlpMap.Controls.Add(jig, 1, 1);
-            //TlpMap.Controls.Add(adapter, 2, 1);
-            //TlpMap.Controls.Add(test, 3, 1);
-
-            //CreateTJControls();
-            //CreateConnectors();
+            //connectionManager.ConnectionChanged += () =>
+            //{
+            //    PnlLine.Invalidate();
+            //};
         }
-
-        //private void CreateConnectors()
-        //{
-        //    CreateCategory(PnlJig, "지그 케이블", true);
-        //    CreateCategory(PnlAdapter, "어댑터 케이블", true);
-        //    CreateCategory(PnlTest, "시험 대상 케이블", false);
-        //}
-
-        //private void CreateCategory(Panel panel, String category, bool hasRight)
-        //{
-        //    panel.Controls.Clear();
-        //    for (int tj = 1; tj <= 5; tj++)
-        //    {
-        //        int y = 0 + (tj - 1) * 110;
-        //        PinConnector left = new PinConnector(tj, category, ConnectorType.Left);
-
-        //        left.Location = new Point(10, y);
-
-        //        left.Visible = false;
-
-        //        panel.Controls.Add(left);
-
-        //        if (hasRight)
-        //        {
-        //            PinConnector right = new PinConnector(tj, category, ConnectorType.Right);
-        //            right.Location = new Point(panel.Width - right.Width - 10, y);
-        //            right.Visible = false;
-        //            panel.Controls.Add(right);
-        //        }
-        //    }
-        //}
-
-
-
-        //private void CreateTJControls()
-        //{
-        //    TlpTJ.Controls.Clear();
-
-        //    for (int i = 0; i < 5; i++)
-        //    {
-        //        TJControl tj = new TJControl(i + 1);
-
-        //        tj.Anchor = AnchorStyles.Right;
-        //        tj.Margin = new Padding(5);
-
-        //        // ★ 이벤트 연결
-        //        tj.StateChanged += TJ_StateChanged;
-
-        //        TlpTJ.Controls.Add(tj, 0, i);
-        //    }
-        //}
         private void TlpTJ_Paint(object sender, PaintEventArgs e)
         {
             if (sender is not TableLayoutPanel tlp)
@@ -300,7 +242,7 @@ namespace PinConnectionDiagram
             DeleteCard(info);
             DeleteItem(info);
 
-            mapManager.DeleteDiagramCableInfo(info);
+            //mapManager.DeleteDiagramCableInfo(info);
         }
 
         // 케이블 카드 삭제 함수
@@ -333,7 +275,7 @@ namespace PinConnectionDiagram
             }
         }
 
-        
+
         // 카테고리/////////////////////////////////////////////////////////////////////////
         private FlowLayoutPanel GetPanel(string category)
         {
@@ -349,5 +291,34 @@ namespace PinConnectionDiagram
                     throw new Exception("알 수 없는 카테고리입니다.");
             }
         }
+
+        //private void PnlLine_Paint(object sender, PaintEventArgs e)
+        //{
+        //    Graphics g = e.Graphics;
+
+        //    g.SmoothingMode = SmoothingMode.AntiAlias;
+
+        //    foreach (ConnectionInfo connection in connectionManager.Connections)
+        //    {
+        //        Point start = PnlLine.PointToClient(connection.Start.ConnectionPoint);
+
+        //        Point end = PnlLine.PointToClient(connection.End.ConnectionPoint);
+
+        //        DrawConnection(g, start, end);
+        //    }
+        //}
+
+        //private void DrawConnection(Graphics g, Point start, Point end)
+        //{
+        //    int middleX = (start.X + end.X) / 2;
+
+        //    using Pen pen = new Pen(Color.Black, 4);
+
+        //    g.DrawLine(pen, start, new Point(middleX, start.Y));
+
+        //    g.DrawLine(pen, new Point(middleX, start.Y), new Point(middleX, end.Y));
+
+        //    g.DrawLine(pen, new Point(middleX, end.Y), end);
+        //}
     }
 }

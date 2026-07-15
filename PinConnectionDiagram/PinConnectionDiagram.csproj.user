@@ -10,7 +10,7 @@
     <Compile Update="Controls\DropItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Controls\PinConnector.cs">
+    <Compile Update="Controls\Connector.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\TJControl.cs">

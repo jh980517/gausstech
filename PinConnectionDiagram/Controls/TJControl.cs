@@ -47,7 +47,7 @@ namespace PinConnectionDiagram.Controls
 
         private void UpdateUI()
         {
-            BtnTJ.BackgroundImage = IsOn ? Properties.Resources.TJ_on : Properties.Resources.TJ_off;
+            BtnTJ.BackgroundImage = IsOn ? Properties.Resources.TJ_on2 : Properties.Resources.TJ_off;
             BtnTJ.BackgroundImageLayout = ImageLayout.Stretch;
 
             BtnTJ.ForeColor = IsOn

@@ -13,7 +13,6 @@ namespace PinConnectionDiagram
         // ConnectionManager
         private CableManager cableManager;
         private MapManager mapManager;
-        //private ConnectionManager connectionManager;
 
         public Main()
         {
@@ -51,18 +50,15 @@ namespace PinConnectionDiagram
             /****************************************************************************/
 
             cableManager = new CableManager();
+        }
 
+        private void Main_Load(object sender, EventArgs e)
+        {
             mapManager = new MapManager(TlpMap);
 
-            //mapManager.CreateRows();
-
-            //connectionManager = mapManager.ConnectionManager;
-
-            //connectionManager.ConnectionChanged += () =>
-            //{
-            //    PnlLine.Invalidate();
-            //};
+            mapManager.Create();
         }
+
         private void TlpTJ_Paint(object sender, PaintEventArgs e)
         {
             if (sender is not TableLayoutPanel tlp)
@@ -241,8 +237,6 @@ namespace PinConnectionDiagram
 
             DeleteCard(info);
             DeleteItem(info);
-
-            //mapManager.DeleteDiagramCableInfo(info);
         }
 
         // 케이블 카드 삭제 함수

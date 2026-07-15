@@ -19,6 +19,7 @@ D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debu
 D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.CableCard.resources
 D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.sourcelink.json
 D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.CableItem.resources
-D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.DiagramCable.resources
 D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.TJControl.resources
-D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.PinConnector.resources
+D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.CablePanel.resources
+D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.DropItem.resources
+D:\GaussTech_이재훈\source\PinConnectionDiagram\PinConnectionDiagram\obj\Debug\net10.0-windows\PinConnectionDiagram.Controls.Connector.resources

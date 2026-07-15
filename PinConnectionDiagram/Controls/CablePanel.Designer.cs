@@ -33,12 +33,15 @@
             // 
             // PnlCanvas
             // 
-            PnlCanvas.BackColor = Color.Transparent;
+            PnlCanvas.AutoSize = true;
+            PnlCanvas.BackColor = Color.IndianRed;
             PnlCanvas.Dock = DockStyle.Fill;
             PnlCanvas.Location = new Point(0, 0);
+            PnlCanvas.Margin = new Padding(0);
             PnlCanvas.Name = "PnlCanvas";
             PnlCanvas.Size = new Size(425, 150);
             PnlCanvas.TabIndex = 0;
+            PnlCanvas.SizeChanged += PnlCanvas_SizeChanged;
             // 
             // CablePanel
             // 
@@ -48,6 +51,7 @@
             Name = "CablePanel";
             Size = new Size(425, 150);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

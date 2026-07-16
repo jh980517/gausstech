@@ -53,10 +53,10 @@
             // 
             // PnlPin
             // 
+            PnlPin.Anchor = AnchorStyles.Left;
             PnlPin.BackgroundImage = Properties.Resources.connectorIcon_left;
             PnlPin.BackgroundImageLayout = ImageLayout.Stretch;
             PnlPin.Controls.Add(CmbPin);
-            PnlPin.Dock = DockStyle.Left;
             PnlPin.Location = new Point(0, 0);
             PnlPin.Margin = new Padding(0);
             PnlPin.Name = "PnlPin";
@@ -76,21 +76,23 @@
             // 
             // PnlPoint
             // 
+            PnlPoint.Anchor = AnchorStyles.Right;
             PnlPoint.BackColor = Color.Red;
             PnlPoint.Cursor = Cursors.Hand;
-            PnlPoint.Location = new Point(70, 15);
-            PnlPoint.Margin = new Padding(0, 15, 0, 0);
+            PnlPoint.Location = new Point(70, 14);
+            PnlPoint.Margin = new Padding(0);
             PnlPoint.Name = "PnlPoint";
             PnlPoint.Size = new Size(12, 12);
             PnlPoint.TabIndex = 1;
             PnlPoint.Click += PnlPoint_click;
             // 
-            // PinConnector
+            // Connector
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             Controls.Add(TlpPin);
-            Name = "PinConnector";
+            Name = "Connector";
             Size = new Size(82, 40);
             TlpPin.ResumeLayout(false);
             PnlPin.ResumeLayout(false);

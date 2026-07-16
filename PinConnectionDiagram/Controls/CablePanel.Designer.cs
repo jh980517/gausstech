@@ -29,12 +29,15 @@
         private void InitializeComponent()
         {
             PnlCanvas = new Panel();
+            BtnAdd = new Button();
+            PnlCanvas.SuspendLayout();
             SuspendLayout();
             // 
             // PnlCanvas
             // 
             PnlCanvas.AutoSize = true;
-            PnlCanvas.BackColor = Color.IndianRed;
+            PnlCanvas.BackColor = Color.Transparent;
+            PnlCanvas.Controls.Add(BtnAdd);
             PnlCanvas.Dock = DockStyle.Fill;
             PnlCanvas.Location = new Point(0, 0);
             PnlCanvas.Margin = new Padding(0);
@@ -43,13 +46,28 @@
             PnlCanvas.TabIndex = 0;
             PnlCanvas.SizeChanged += PnlCanvas_SizeChanged;
             // 
+            // BtnAdd
+            // 
+            BtnAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BtnAdd.BackgroundImage = Properties.Resources.btnAdd_Up;
+            BtnAdd.BackgroundImageLayout = ImageLayout.Zoom;
+            BtnAdd.FlatAppearance.BorderSize = 0;
+            BtnAdd.FlatStyle = FlatStyle.Flat;
+            BtnAdd.Location = new Point(390, 10);
+            BtnAdd.Name = "BtnAdd";
+            BtnAdd.Size = new Size(25, 25);
+            BtnAdd.TabIndex = 0;
+            BtnAdd.UseVisualStyleBackColor = true;
+            // 
             // CablePanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Transparent;
             Controls.Add(PnlCanvas);
             Name = "CablePanel";
             Size = new Size(425, 150);
+            PnlCanvas.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -57,5 +75,6 @@
         #endregion
 
         private Panel PnlCanvas;
+        private Button BtnAdd;
     }
 }

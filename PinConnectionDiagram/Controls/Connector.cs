@@ -78,14 +78,13 @@ namespace PinConnectionDiagram.Controls
                 PnlPoint.BackgroundImage = Properties.Resources.connectorIcon_left;
 
                 PnlPin.Dock = DockStyle.Fill;
-                PnlPoint.Dock = DockStyle.Right;
+
             }
             else
             {
                 PnlPin.BackgroundImage = Properties.Resources.connectorIcon_right;
 
                 PnlPin.Dock = DockStyle.Fill;
-                PnlPoint.Dock = DockStyle.Left;
             }
 
             PnlPin.BackgroundImageLayout = ImageLayout.Stretch;

@@ -1,4 +1,5 @@
-﻿using PinConnectionDiagram.Models;
+﻿using PinConnectionDiagram.Helpers;
+using PinConnectionDiagram.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,15 +18,31 @@ namespace PinConnectionDiagram.Controls
         private readonly List<Connector> rightConnectors = new();
         public IReadOnlyList<Connector> LeftConnectors => leftConnectors;
         public IReadOnlyList<Connector> RightConnectors => rightConnectors;
+        public event Action<CablePanel>? AddRightConnectorRequested;
+        public event Action<CablePanel>? RemoveRightConnectorRequested;
         
         public CablePanel(int tjNumber, ConnectorType type)
         {
+
             InitializeComponent();
 
             TJNumber = tjNumber;
             Type = type;
 
             DoubleBuffered = true;
+
+            Enabled = false;
+
+            SetActive(false);
+
+            BtnAdd.Visible = false;
+
+            BtnAdd.Click += BtnAdd_Click;
+
+            ButtonHelper.ApplyButtonEffect(
+                BtnAdd,
+                Properties.Resources.btnAdd_Up,
+                Properties.Resources.btnAdd_Down);
         }
 
         public Connector AddConnector(ConnectorSide side, string? connectorName = null)
@@ -34,10 +51,17 @@ namespace PinConnectionDiagram.Controls
 
             connector.Side = side;
 
-            if (connectorName != null)
+            if (string.IsNullOrEmpty(connectorName))
             {
-                connector.ConnectorName = connectorName;
+                int number = 
+                    side == ConnectorSide.Left
+                    ? leftConnectors.Count + 1
+                    : rightConnectors.Count + 1;
+
+                connectorName = $"P{number}";
             }
+
+            connector.ConnectorName = connectorName;
 
             if (side == ConnectorSide.Left)
             {
@@ -87,7 +111,7 @@ namespace PinConnectionDiagram.Controls
 
         private void RefreshLayout()
         {
-            int top = 10;
+            int top = 25;
             int gap = 45;
 
             for (int i = 0; i < leftConnectors.Count; i++)
@@ -99,11 +123,53 @@ namespace PinConnectionDiagram.Controls
             {
                 rightConnectors[i].Location = new Point(PnlCanvas.Width - rightConnectors[i].Width - 10, top + i * gap);
             }
+
+            BtnAdd.BringToFront();
         }
 
         private void PnlCanvas_SizeChanged(object sender, EventArgs e)
         {
             RefreshLayout();
+        }
+
+        public void SetActive(bool active)
+        {
+            //MessageBox.Show($"{Type} / TJ{TJNumber} / {active}");
+            Enabled = active;
+
+            PnlCanvas.Enabled = active;
+
+            BtnAdd.Visible = active; ;
+            //btnRemove.Visible = active;
+
+            BackColor = active
+                ? Color.FromArgb(212, 219, 230)
+                : Color.Transparent;
+
+            foreach (Connector connector in leftConnectors)
+            {
+                connector.Enabled = active;
+            }
+
+            foreach (Connector connector in rightConnectors)
+            {
+                connector.Enabled = active;
+            }
+        }
+
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            AddRightConnectorRequested?.Invoke(this);
+        }
+
+        public int MaxConnectorCount
+        {
+            get
+            {
+                return Math.Max(
+                    leftConnectors.Count,
+                    rightConnectors.Count);
+            }
         }
     }
 }

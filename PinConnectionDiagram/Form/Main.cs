@@ -50,6 +50,10 @@ namespace PinConnectionDiagram
             /****************************************************************************/
 
             cableManager = new CableManager();
+
+            //mapManager = new MapManager(TlpMap);
+
+            //CreateCablePanels();
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -285,6 +289,18 @@ namespace PinConnectionDiagram
                     throw new Exception("알 수 없는 카테고리입니다.");
             }
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////
+        //private void CreateCablePanels() 
+        //{
+        //    CablePanel jig = new CablePanel(1, ConnectorType.Jig);
+        //    CablePanel adapter = new CablePanel(1, ConnectorType.Adapter);
+        //    CablePanel test = new CablePanel(1, ConnectorType.Test);
+
+        //    mapManager.RegisterCablePanel(1, ConnectorType.Jig, jig);
+        //    mapManager.RegisterCablePanel(1, ConnectorType.Adapter, adapter);
+        //    mapManager.RegisterCablePanel(1, ConnectorType.Test, test);
+        //}
 
         //private void PnlLine_Paint(object sender, PaintEventArgs e)
         //{

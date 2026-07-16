@@ -43,15 +43,6 @@
             TlpHead2 = new TableLayoutPanel();
             LblTitle2 = new Label();
             TlpSettingBody = new TableLayoutPanel();
-            TlpMap = new TableLayoutPanel();
-            TlpTestHead = new TableLayoutPanel();
-            LblTestHead = new Label();
-            TlpAdapterHead = new TableLayoutPanel();
-            LblAdapterHead = new Label();
-            TlpJgHead = new TableLayoutPanel();
-            LblJigHead = new Label();
-            TlpTJHead = new TableLayoutPanel();
-            LblTJHead = new Label();
             TlpCableBody = new TableLayoutPanel();
             TlpCable1 = new TableLayoutPanel();
             TlpTestCableHead = new TableLayoutPanel();
@@ -65,6 +56,17 @@
             TlpAdapterCableHead = new TableLayoutPanel();
             AdapterCable = new Label();
             FlpItemBox3 = new FlowLayoutPanel();
+            TlpMapBody = new TableLayoutPanel();
+            PnlMap = new Panel();
+            TlpMap = new TableLayoutPanel();
+            TlpTestHead = new TableLayoutPanel();
+            LblTestHead = new Label();
+            TlpAdapterHead = new TableLayoutPanel();
+            LblAdapterHead = new Label();
+            TlpJgHead = new TableLayoutPanel();
+            LblJigHead = new Label();
+            TlpTJHead = new TableLayoutPanel();
+            LblTJHead = new Label();
             TlpFoot = new TableLayoutPanel();
             pictureBox1 = new PictureBox();
             TlpFootBtn = new TableLayoutPanel();
@@ -80,11 +82,6 @@
             TlpTestSetting.SuspendLayout();
             TlpHead2.SuspendLayout();
             TlpSettingBody.SuspendLayout();
-            TlpMap.SuspendLayout();
-            TlpTestHead.SuspendLayout();
-            TlpAdapterHead.SuspendLayout();
-            TlpJgHead.SuspendLayout();
-            TlpTJHead.SuspendLayout();
             TlpCableBody.SuspendLayout();
             TlpCable1.SuspendLayout();
             TlpTestCableHead.SuspendLayout();
@@ -92,6 +89,13 @@
             TlpJigCableHead.SuspendLayout();
             TlpCable3.SuspendLayout();
             TlpAdapterCableHead.SuspendLayout();
+            TlpMapBody.SuspendLayout();
+            PnlMap.SuspendLayout();
+            TlpMap.SuspendLayout();
+            TlpTestHead.SuspendLayout();
+            TlpAdapterHead.SuspendLayout();
+            TlpJgHead.SuspendLayout();
+            TlpTJHead.SuspendLayout();
             TlpFoot.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             TlpFootBtn.SuspendLayout();
@@ -326,8 +330,8 @@
             TlpSettingBody.ColumnCount = 2;
             TlpSettingBody.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 290F));
             TlpSettingBody.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            TlpSettingBody.Controls.Add(TlpMap, 1, 0);
             TlpSettingBody.Controls.Add(TlpCableBody, 0, 0);
+            TlpSettingBody.Controls.Add(TlpMapBody, 1, 0);
             TlpSettingBody.Dock = DockStyle.Fill;
             TlpSettingBody.Location = new Point(3, 63);
             TlpSettingBody.Name = "TlpSettingBody";
@@ -335,149 +339,6 @@
             TlpSettingBody.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             TlpSettingBody.Size = new Size(1578, 575);
             TlpSettingBody.TabIndex = 5;
-            // 
-            // TlpMap
-            // 
-            TlpMap.BackColor = Color.FromArgb(212, 219, 230);
-            TlpMap.ColumnCount = 4;
-            TlpMap.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
-            TlpMap.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            TlpMap.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            TlpMap.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            TlpMap.Controls.Add(TlpTestHead, 3, 0);
-            TlpMap.Controls.Add(TlpAdapterHead, 2, 0);
-            TlpMap.Controls.Add(TlpJgHead, 1, 0);
-            TlpMap.Controls.Add(TlpTJHead, 0, 0);
-            TlpMap.Location = new Point(295, 18);
-            TlpMap.Margin = new Padding(5, 18, 25, 18);
-            TlpMap.Name = "TlpMap";
-            TlpMap.RowCount = 6;
-            TlpMap.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            TlpMap.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            TlpMap.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            TlpMap.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            TlpMap.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            TlpMap.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            TlpMap.Size = new Size(1258, 539);
-            TlpMap.TabIndex = 4;
-            // 
-            // TlpTestHead
-            // 
-            TlpTestHead.ColumnCount = 1;
-            TlpTestHead.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            TlpTestHead.Controls.Add(LblTestHead, 0, 0);
-            TlpTestHead.Dock = DockStyle.Fill;
-            TlpTestHead.Location = new Point(879, 1);
-            TlpTestHead.Margin = new Padding(1);
-            TlpTestHead.Name = "TlpTestHead";
-            TlpTestHead.Padding = new Padding(2);
-            TlpTestHead.RowCount = 1;
-            TlpTestHead.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TlpTestHead.Size = new Size(378, 48);
-            TlpTestHead.TabIndex = 3;
-            // 
-            // LblTestHead
-            // 
-            LblTestHead.AutoSize = true;
-            LblTestHead.BackColor = Color.FromArgb(56, 60, 98);
-            LblTestHead.Dock = DockStyle.Fill;
-            LblTestHead.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
-            LblTestHead.ForeColor = Color.White;
-            LblTestHead.Location = new Point(2, 2);
-            LblTestHead.Margin = new Padding(0);
-            LblTestHead.Name = "LblTestHead";
-            LblTestHead.Size = new Size(374, 44);
-            LblTestHead.TabIndex = 1;
-            LblTestHead.Text = "시험 대상 케이블";
-            LblTestHead.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // TlpAdapterHead
-            // 
-            TlpAdapterHead.ColumnCount = 1;
-            TlpAdapterHead.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            TlpAdapterHead.Controls.Add(LblAdapterHead, 0, 0);
-            TlpAdapterHead.Dock = DockStyle.Fill;
-            TlpAdapterHead.Location = new Point(500, 1);
-            TlpAdapterHead.Margin = new Padding(1);
-            TlpAdapterHead.Name = "TlpAdapterHead";
-            TlpAdapterHead.Padding = new Padding(2);
-            TlpAdapterHead.RowCount = 1;
-            TlpAdapterHead.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TlpAdapterHead.Size = new Size(377, 48);
-            TlpAdapterHead.TabIndex = 2;
-            // 
-            // LblAdapterHead
-            // 
-            LblAdapterHead.AutoSize = true;
-            LblAdapterHead.BackColor = Color.FromArgb(63, 202, 255);
-            LblAdapterHead.Dock = DockStyle.Fill;
-            LblAdapterHead.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
-            LblAdapterHead.ForeColor = Color.White;
-            LblAdapterHead.Location = new Point(2, 2);
-            LblAdapterHead.Margin = new Padding(0);
-            LblAdapterHead.Name = "LblAdapterHead";
-            LblAdapterHead.Size = new Size(373, 44);
-            LblAdapterHead.TabIndex = 1;
-            LblAdapterHead.Text = "어댑터 케이블";
-            LblAdapterHead.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // TlpJgHead
-            // 
-            TlpJgHead.ColumnCount = 1;
-            TlpJgHead.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            TlpJgHead.Controls.Add(LblJigHead, 0, 0);
-            TlpJgHead.Dock = DockStyle.Fill;
-            TlpJgHead.Location = new Point(121, 1);
-            TlpJgHead.Margin = new Padding(1);
-            TlpJgHead.Name = "TlpJgHead";
-            TlpJgHead.Padding = new Padding(2);
-            TlpJgHead.RowCount = 1;
-            TlpJgHead.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TlpJgHead.Size = new Size(377, 48);
-            TlpJgHead.TabIndex = 1;
-            // 
-            // LblJigHead
-            // 
-            LblJigHead.AutoSize = true;
-            LblJigHead.BackColor = Color.FromArgb(30, 46, 69);
-            LblJigHead.Dock = DockStyle.Fill;
-            LblJigHead.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
-            LblJigHead.ForeColor = Color.White;
-            LblJigHead.Location = new Point(2, 2);
-            LblJigHead.Margin = new Padding(0);
-            LblJigHead.Name = "LblJigHead";
-            LblJigHead.Size = new Size(373, 44);
-            LblJigHead.TabIndex = 1;
-            LblJigHead.Text = "지그 케이블";
-            LblJigHead.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // TlpTJHead
-            // 
-            TlpTJHead.ColumnCount = 1;
-            TlpTJHead.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            TlpTJHead.Controls.Add(LblTJHead, 0, 0);
-            TlpTJHead.Dock = DockStyle.Fill;
-            TlpTJHead.Location = new Point(3, 3);
-            TlpTJHead.Name = "TlpTJHead";
-            TlpTJHead.RowCount = 1;
-            TlpTJHead.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TlpTJHead.Size = new Size(114, 44);
-            TlpTJHead.TabIndex = 0;
-            // 
-            // LblTJHead
-            // 
-            LblTJHead.AutoSize = true;
-            LblTJHead.BackColor = Color.FromArgb(145, 132, 238);
-            LblTJHead.Dock = DockStyle.Fill;
-            LblTJHead.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
-            LblTJHead.ForeColor = Color.White;
-            LblTJHead.Location = new Point(0, 0);
-            LblTJHead.Margin = new Padding(0);
-            LblTJHead.Name = "LblTJHead";
-            LblTJHead.Size = new Size(114, 44);
-            LblTJHead.TabIndex = 0;
-            LblTJHead.Text = "주제어장치";
-            LblTJHead.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // TlpCableBody
             // 
@@ -673,6 +534,180 @@
             FlpItemBox3.TabIndex = 2;
             FlpItemBox3.Paint += DrawBorderLine_Paint_Skyblue;
             // 
+            // TlpMapBody
+            // 
+            TlpMapBody.AutoScroll = true;
+            TlpMapBody.ColumnCount = 1;
+            TlpMapBody.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TlpMapBody.Controls.Add(PnlMap, 0, 0);
+            TlpMapBody.Dock = DockStyle.Fill;
+            TlpMapBody.Location = new Point(290, 10);
+            TlpMapBody.Margin = new Padding(0, 10, 20, 10);
+            TlpMapBody.Name = "TlpMapBody";
+            TlpMapBody.RowCount = 1;
+            TlpMapBody.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TlpMapBody.Size = new Size(1268, 555);
+            TlpMapBody.TabIndex = 2;
+            TlpMapBody.Paint += DrawBorderLine_Paint;
+            // 
+            // PnlMap
+            // 
+            PnlMap.AutoScroll = true;
+            PnlMap.AutoSize = true;
+            PnlMap.Controls.Add(TlpMap);
+            PnlMap.Dock = DockStyle.Fill;
+            PnlMap.Location = new Point(15, 15);
+            PnlMap.Margin = new Padding(15, 15, 25, 15);
+            PnlMap.Name = "PnlMap";
+            PnlMap.Size = new Size(1228, 525);
+            PnlMap.TabIndex = 2;
+            // 
+            // TlpMap
+            // 
+            TlpMap.AutoScroll = true;
+            TlpMap.AutoSize = true;
+            TlpMap.BackColor = Color.FromArgb(38, 38, 38);
+            TlpMap.ColumnCount = 4;
+            TlpMap.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            TlpMap.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TlpMap.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TlpMap.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TlpMap.Controls.Add(TlpTestHead, 3, 0);
+            TlpMap.Controls.Add(TlpAdapterHead, 2, 0);
+            TlpMap.Controls.Add(TlpJgHead, 1, 0);
+            TlpMap.Controls.Add(TlpTJHead, 0, 0);
+            TlpMap.Dock = DockStyle.Top;
+            TlpMap.Location = new Point(0, 0);
+            TlpMap.Margin = new Padding(15, 15, 25, 15);
+            TlpMap.Name = "TlpMap";
+            TlpMap.RowCount = 6;
+            TlpMap.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            TlpMap.RowStyles.Add(new RowStyle(SizeType.Absolute, 90F));
+            TlpMap.RowStyles.Add(new RowStyle(SizeType.Absolute, 90F));
+            TlpMap.RowStyles.Add(new RowStyle(SizeType.Absolute, 90F));
+            TlpMap.RowStyles.Add(new RowStyle(SizeType.Absolute, 90F));
+            TlpMap.RowStyles.Add(new RowStyle(SizeType.Absolute, 90F));
+            TlpMap.Size = new Size(1228, 500);
+            TlpMap.TabIndex = 4;
+            // 
+            // TlpTestHead
+            // 
+            TlpTestHead.ColumnCount = 1;
+            TlpTestHead.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TlpTestHead.Controls.Add(LblTestHead, 0, 0);
+            TlpTestHead.Dock = DockStyle.Fill;
+            TlpTestHead.Location = new Point(859, 1);
+            TlpTestHead.Margin = new Padding(1);
+            TlpTestHead.Name = "TlpTestHead";
+            TlpTestHead.Padding = new Padding(2);
+            TlpTestHead.RowCount = 1;
+            TlpTestHead.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TlpTestHead.Size = new Size(368, 48);
+            TlpTestHead.TabIndex = 3;
+            // 
+            // LblTestHead
+            // 
+            LblTestHead.AutoSize = true;
+            LblTestHead.BackColor = Color.FromArgb(56, 60, 98);
+            LblTestHead.Dock = DockStyle.Fill;
+            LblTestHead.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
+            LblTestHead.ForeColor = Color.White;
+            LblTestHead.Location = new Point(2, 2);
+            LblTestHead.Margin = new Padding(0);
+            LblTestHead.Name = "LblTestHead";
+            LblTestHead.Size = new Size(364, 44);
+            LblTestHead.TabIndex = 1;
+            LblTestHead.Text = "시험 대상 케이블";
+            LblTestHead.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // TlpAdapterHead
+            // 
+            TlpAdapterHead.ColumnCount = 1;
+            TlpAdapterHead.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TlpAdapterHead.Controls.Add(LblAdapterHead, 0, 0);
+            TlpAdapterHead.Dock = DockStyle.Fill;
+            TlpAdapterHead.Location = new Point(490, 1);
+            TlpAdapterHead.Margin = new Padding(1);
+            TlpAdapterHead.Name = "TlpAdapterHead";
+            TlpAdapterHead.Padding = new Padding(2);
+            TlpAdapterHead.RowCount = 1;
+            TlpAdapterHead.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TlpAdapterHead.Size = new Size(367, 48);
+            TlpAdapterHead.TabIndex = 2;
+            // 
+            // LblAdapterHead
+            // 
+            LblAdapterHead.AutoSize = true;
+            LblAdapterHead.BackColor = Color.FromArgb(63, 202, 255);
+            LblAdapterHead.Dock = DockStyle.Fill;
+            LblAdapterHead.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
+            LblAdapterHead.ForeColor = Color.White;
+            LblAdapterHead.Location = new Point(2, 2);
+            LblAdapterHead.Margin = new Padding(0);
+            LblAdapterHead.Name = "LblAdapterHead";
+            LblAdapterHead.Size = new Size(363, 44);
+            LblAdapterHead.TabIndex = 1;
+            LblAdapterHead.Text = "어댑터 케이블";
+            LblAdapterHead.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // TlpJgHead
+            // 
+            TlpJgHead.ColumnCount = 1;
+            TlpJgHead.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TlpJgHead.Controls.Add(LblJigHead, 0, 0);
+            TlpJgHead.Dock = DockStyle.Fill;
+            TlpJgHead.Location = new Point(121, 1);
+            TlpJgHead.Margin = new Padding(1);
+            TlpJgHead.Name = "TlpJgHead";
+            TlpJgHead.Padding = new Padding(2);
+            TlpJgHead.RowCount = 1;
+            TlpJgHead.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TlpJgHead.Size = new Size(367, 48);
+            TlpJgHead.TabIndex = 1;
+            // 
+            // LblJigHead
+            // 
+            LblJigHead.AutoSize = true;
+            LblJigHead.BackColor = Color.FromArgb(30, 46, 69);
+            LblJigHead.Dock = DockStyle.Fill;
+            LblJigHead.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
+            LblJigHead.ForeColor = Color.White;
+            LblJigHead.Location = new Point(2, 2);
+            LblJigHead.Margin = new Padding(0);
+            LblJigHead.Name = "LblJigHead";
+            LblJigHead.Size = new Size(363, 44);
+            LblJigHead.TabIndex = 1;
+            LblJigHead.Text = "지그 케이블";
+            LblJigHead.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // TlpTJHead
+            // 
+            TlpTJHead.ColumnCount = 1;
+            TlpTJHead.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            TlpTJHead.Controls.Add(LblTJHead, 0, 0);
+            TlpTJHead.Dock = DockStyle.Fill;
+            TlpTJHead.Location = new Point(3, 3);
+            TlpTJHead.Name = "TlpTJHead";
+            TlpTJHead.RowCount = 1;
+            TlpTJHead.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TlpTJHead.Size = new Size(114, 44);
+            TlpTJHead.TabIndex = 0;
+            // 
+            // LblTJHead
+            // 
+            LblTJHead.AutoSize = true;
+            LblTJHead.BackColor = Color.FromArgb(145, 132, 238);
+            LblTJHead.Dock = DockStyle.Fill;
+            LblTJHead.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
+            LblTJHead.ForeColor = Color.White;
+            LblTJHead.Location = new Point(0, 0);
+            LblTJHead.Margin = new Padding(0);
+            LblTJHead.Name = "LblTJHead";
+            LblTJHead.Size = new Size(114, 44);
+            LblTJHead.TabIndex = 0;
+            LblTJHead.Text = "주제어장치";
+            LblTJHead.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // TlpFoot
             // 
             TlpFoot.ColumnCount = 3;
@@ -789,15 +824,6 @@
             TlpHead2.ResumeLayout(false);
             TlpHead2.PerformLayout();
             TlpSettingBody.ResumeLayout(false);
-            TlpMap.ResumeLayout(false);
-            TlpTestHead.ResumeLayout(false);
-            TlpTestHead.PerformLayout();
-            TlpAdapterHead.ResumeLayout(false);
-            TlpAdapterHead.PerformLayout();
-            TlpJgHead.ResumeLayout(false);
-            TlpJgHead.PerformLayout();
-            TlpTJHead.ResumeLayout(false);
-            TlpTJHead.PerformLayout();
             TlpCableBody.ResumeLayout(false);
             TlpCable1.ResumeLayout(false);
             TlpTestCableHead.ResumeLayout(false);
@@ -808,6 +834,19 @@
             TlpCable3.ResumeLayout(false);
             TlpAdapterCableHead.ResumeLayout(false);
             TlpAdapterCableHead.PerformLayout();
+            TlpMapBody.ResumeLayout(false);
+            TlpMapBody.PerformLayout();
+            PnlMap.ResumeLayout(false);
+            PnlMap.PerformLayout();
+            TlpMap.ResumeLayout(false);
+            TlpTestHead.ResumeLayout(false);
+            TlpTestHead.PerformLayout();
+            TlpAdapterHead.ResumeLayout(false);
+            TlpAdapterHead.PerformLayout();
+            TlpJgHead.ResumeLayout(false);
+            TlpJgHead.PerformLayout();
+            TlpTJHead.ResumeLayout(false);
+            TlpTJHead.PerformLayout();
             TlpFoot.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             TlpFootBtn.ResumeLayout(false);
@@ -859,5 +898,7 @@
         private Label LblJigHead;
         private TableLayoutPanel TlpTJHead;
         private Label LblTJHead;
+        private TableLayoutPanel TlpMapBody;
+        private Panel PnlMap;
     }
 }

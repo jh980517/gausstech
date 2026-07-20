@@ -53,7 +53,7 @@
             BtnAdd.BackgroundImageLayout = ImageLayout.Zoom;
             BtnAdd.FlatAppearance.BorderSize = 0;
             BtnAdd.FlatStyle = FlatStyle.Flat;
-            BtnAdd.Location = new Point(390, 10);
+            BtnAdd.Location = new Point(400, 0);
             BtnAdd.Name = "BtnAdd";
             BtnAdd.Size = new Size(25, 25);
             BtnAdd.TabIndex = 0;

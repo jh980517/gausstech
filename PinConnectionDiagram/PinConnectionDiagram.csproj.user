@@ -7,6 +7,9 @@
     <Compile Update="Controls\CablePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\ConnectionOverlay.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Controls\DropItem.cs">
       <SubType>UserControl</SubType>
     </Compile>

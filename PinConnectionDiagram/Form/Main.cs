@@ -47,6 +47,10 @@ namespace PinConnectionDiagram
                 Properties.Resources.Button,
                 Properties.Resources.Button_push);
 
+            btnBack.Click += btnBack_Click;
+            btnForward.Click += btnForward_Click;
+            btnReset.Click += btnReset_Click;
+
             /****************************************************************************/
 
             cableManager = new CableManager();
@@ -61,6 +65,66 @@ namespace PinConnectionDiagram
             mapManager = new MapManager(TlpMap);
 
             mapManager.Create();
+            mapManager.HistoryChanged += MapManager_HistoryChanged;
+            UpdateHistoryButtons();
+        }
+
+        private void btnBack_Click(object? sender, EventArgs e)
+        {
+            mapManager.Undo();
+        }
+
+        private void btnForward_Click(object? sender, EventArgs e)
+        {
+            mapManager.Redo();
+        }
+
+        private void btnReset_Click(object? sender, EventArgs e)
+        {
+            if (!mapManager.ResetAll())
+                return;
+
+            ResetSupplies();
+        }
+
+        private void ResetSupplies()
+        {
+            cableManager.Clear();
+
+            foreach (CableCard card in FlpSupplies.Controls.OfType<CableCard>().ToList())
+            {
+                FlpSupplies.Controls.Remove(card);
+                card.Dispose();
+            }
+
+            ClearItemPanel(FlpItemBox1);
+            ClearItemPanel(FlpItemBox2);
+            ClearItemPanel(FlpItemBox3);
+
+            FlpSupplies.AutoScrollPosition = Point.Empty;
+            FlpItemBox1.AutoScrollPosition = Point.Empty;
+            FlpItemBox2.AutoScrollPosition = Point.Empty;
+            FlpItemBox3.AutoScrollPosition = Point.Empty;
+        }
+
+        private void ClearItemPanel(FlowLayoutPanel panel)
+        {
+            foreach (Control control in panel.Controls.Cast<Control>().ToList())
+            {
+                panel.Controls.Remove(control);
+                control.Dispose();
+            }
+        }
+
+        private void MapManager_HistoryChanged()
+        {
+            UpdateHistoryButtons();
+        }
+
+        private void UpdateHistoryButtons()
+        {
+            btnBack.Enabled = mapManager.CanUndo;
+            btnForward.Enabled = mapManager.CanRedo;
         }
 
         private void TlpTJ_Paint(object sender, PaintEventArgs e)

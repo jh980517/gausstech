@@ -12,14 +12,31 @@ namespace PinConnectionDiagram.Controls
 {
     public partial class CablePanel : UserControl
     {
-        public ConnectorType Type { get; }
-        public int TJNumber { get; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public ConnectorType PanelType { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public int TJNumber { get; set; }
         private readonly List<Connector> leftConnectors = new();
         private readonly List<Connector> rightConnectors = new();
         public IReadOnlyList<Connector> LeftConnectors => leftConnectors;
         public IReadOnlyList<Connector> RightConnectors => rightConnectors;
         public event Action<CablePanel>? AddRightConnectorRequested;
         public event Action<CablePanel>? RemoveRightConnectorRequested;
+        public event Action<CablePanel, Connector>? ConnectorDeleteRequested;
+        public event Action<Connector>? ConnectorPointClicked;
+        public event Action<Connector>? ConnectorNameChanged;
+
+        private bool showAddButton = true;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool ShowAddButton
+        {
+            get => showAddButton;
+            set
+            {
+                showAddButton = value;
+                BtnAdd.Visible = Enabled && showAddButton;
+            }
+        }
         
         public CablePanel(int tjNumber, ConnectorType type)
         {
@@ -27,7 +44,7 @@ namespace PinConnectionDiagram.Controls
             InitializeComponent();
 
             TJNumber = tjNumber;
-            Type = type;
+            PanelType = type;
 
             DoubleBuffered = true;
 
@@ -49,8 +66,6 @@ namespace PinConnectionDiagram.Controls
         {
             Connector connector = new Connector();
 
-            connector.Side = side;
-
             if (string.IsNullOrEmpty(connectorName))
             {
                 int number = 
@@ -61,7 +76,14 @@ namespace PinConnectionDiagram.Controls
                 connectorName = $"P{number}";
             }
 
+            connector.Side = side;
+            connector.ConnectorType = PanelType;
+            connector.TJNumber = TJNumber;
             connector.ConnectorName = connectorName;
+
+            connector.RightClicked += Connector_RightClicked;
+            connector.PointClicked += Connector_PointClicked;
+            connector.ConnectorNameChanged += Connector_ConnectorNameChanged;
 
             if (side == ConnectorSide.Left)
             {
@@ -79,49 +101,94 @@ namespace PinConnectionDiagram.Controls
             return connector;
         }
 
-        public void RemoveConnector(Connector connector)
+        public bool RemoveConnector(Connector connector)
         {
-            leftConnectors.Remove(connector);
-            rightConnectors.Remove(connector);         
+            bool removed = leftConnectors.Remove(connector);
+
+            if (!removed)
+            {
+                removed = rightConnectors.Remove(connector);
+            }
+
+            if (!removed)
+            {
+                return false;
+            }
+
+            connector.RightClicked -= Connector_RightClicked;
+
 
             PnlCanvas.Controls.Remove(connector);
 
             connector.Dispose();
 
+            RenumberConnectors();
             RefreshLayout();
+
+            return true;
+        }
+
+        private void RenumberConnectors()
+        {
+            for (int i = 0; i < leftConnectors.Count; i++)
+            {
+                leftConnectors[i].ConnectorName = $"P{i + 1}";
+            }
+
+            for (int i = 0; i < rightConnectors.Count; i++)
+            {
+                rightConnectors[i].ConnectorName = $"P{i + 1}";
+            }
         }
 
         public void ClearConnector()
         {
-            foreach (Connector connector in leftConnectors)
+            foreach (Connector connector in leftConnectors.Concat(rightConnectors).ToList())
             {
-                connector.Dispose();
-            }
-            
-            foreach (Connector connector in rightConnectors)
-            {
+                connector.RightClicked -= Connector_RightClicked;
+                connector.PointClicked -= Connector_PointClicked;
+                connector.ConnectorNameChanged -= Connector_ConnectorNameChanged;
+                PnlCanvas.Controls.Remove(connector);
                 connector.Dispose();
             }
 
             leftConnectors.Clear();
             rightConnectors.Clear();
 
-            PnlCanvas.Controls.Clear();
+            RefreshLayout();
         }
 
         private void RefreshLayout()
         {
-            int top = 25;
-            int gap = 45;
+            const int top = 25;
+            const int gap = 45;
+            const int sideMargin = 0;
 
-            for (int i = 0; i < leftConnectors.Count; i++)
+            if (PanelType == ConnectorType.Jig && leftConnectors.Count == 1)
             {
-                leftConnectors[i].Location = new Point(10, top + i * gap);
+                Connector leftConnector = leftConnectors[0];
+
+                int centerY = (PnlCanvas.ClientSize.Height - leftConnector.Height) / 2;
+
+                leftConnector.Location = new Point(sideMargin, Math.Max(0, centerY));
+            }
+            else
+            {
+                for (int i = 0; i < leftConnectors.Count; i++)
+                {
+                    Connector connector = leftConnectors[i];
+
+                    connector.Location = new Point(sideMargin, top + i * gap);
+                }
             }
 
-            for (int i = 0; i < rightConnectors.Count; i++) 
+            for (int i = 0; i < rightConnectors.Count; i ++)
             {
-                rightConnectors[i].Location = new Point(PnlCanvas.Width - rightConnectors[i].Width - 10, top + i * gap);
+                Connector connector = rightConnectors[i];
+
+                int x = PnlCanvas.ClientSize.Width - connector.Width - sideMargin;
+
+                connector.Location = new Point(Math.Max(0, x), top + i * gap);
             }
 
             BtnAdd.BringToFront();
@@ -139,7 +206,7 @@ namespace PinConnectionDiagram.Controls
 
             PnlCanvas.Enabled = active;
 
-            BtnAdd.Visible = active; ;
+            BtnAdd.Visible = active && showAddButton;
             //btnRemove.Visible = active;
 
             BackColor = active
@@ -170,6 +237,32 @@ namespace PinConnectionDiagram.Controls
                     leftConnectors.Count,
                     rightConnectors.Count);
             }
+        }
+
+        private void Connector_RightClicked(Connector connector)
+        {
+            if (PanelType == ConnectorType.Test)
+            {
+                return;
+            }
+
+            if (connector.Side == ConnectorSide.Left)
+            {
+                return;
+            }
+
+            ConnectorDeleteRequested?.Invoke(this, connector);
+            //MessageBox.Show($"{Type} / {connector.Side} / {connector.ConnectorName}");
+        }
+
+        private void Connector_PointClicked(Connector connector)
+        {
+            ConnectorPointClicked?.Invoke(connector);
+        }
+
+        private void Connector_ConnectorNameChanged(Connector connector)
+        {
+            ConnectorNameChanged?.Invoke(connector);
         }
     }
 }

@@ -559,12 +559,12 @@
             PnlMap.Location = new Point(15, 15);
             PnlMap.Margin = new Padding(15, 15, 25, 15);
             PnlMap.Name = "PnlMap";
+            PnlMap.Padding = new Padding(0, 0, 15, 0);
             PnlMap.Size = new Size(1228, 525);
             PnlMap.TabIndex = 2;
             // 
             // TlpMap
             // 
-            TlpMap.AutoScroll = true;
             TlpMap.AutoSize = true;
             TlpMap.BackColor = Color.FromArgb(38, 38, 38);
             TlpMap.ColumnCount = 4;
@@ -587,7 +587,7 @@
             TlpMap.RowStyles.Add(new RowStyle(SizeType.Absolute, 90F));
             TlpMap.RowStyles.Add(new RowStyle(SizeType.Absolute, 90F));
             TlpMap.RowStyles.Add(new RowStyle(SizeType.Absolute, 90F));
-            TlpMap.Size = new Size(1228, 500);
+            TlpMap.Size = new Size(1213, 500);
             TlpMap.TabIndex = 4;
             // 
             // TlpTestHead
@@ -596,13 +596,13 @@
             TlpTestHead.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             TlpTestHead.Controls.Add(LblTestHead, 0, 0);
             TlpTestHead.Dock = DockStyle.Fill;
-            TlpTestHead.Location = new Point(859, 1);
+            TlpTestHead.Location = new Point(849, 1);
             TlpTestHead.Margin = new Padding(1);
             TlpTestHead.Name = "TlpTestHead";
             TlpTestHead.Padding = new Padding(2);
             TlpTestHead.RowCount = 1;
             TlpTestHead.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TlpTestHead.Size = new Size(368, 48);
+            TlpTestHead.Size = new Size(363, 48);
             TlpTestHead.TabIndex = 3;
             // 
             // LblTestHead
@@ -615,7 +615,7 @@
             LblTestHead.Location = new Point(2, 2);
             LblTestHead.Margin = new Padding(0);
             LblTestHead.Name = "LblTestHead";
-            LblTestHead.Size = new Size(364, 44);
+            LblTestHead.Size = new Size(359, 44);
             LblTestHead.TabIndex = 1;
             LblTestHead.Text = "시험 대상 케이블";
             LblTestHead.TextAlign = ContentAlignment.MiddleCenter;
@@ -626,13 +626,13 @@
             TlpAdapterHead.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             TlpAdapterHead.Controls.Add(LblAdapterHead, 0, 0);
             TlpAdapterHead.Dock = DockStyle.Fill;
-            TlpAdapterHead.Location = new Point(490, 1);
+            TlpAdapterHead.Location = new Point(485, 1);
             TlpAdapterHead.Margin = new Padding(1);
             TlpAdapterHead.Name = "TlpAdapterHead";
             TlpAdapterHead.Padding = new Padding(2);
             TlpAdapterHead.RowCount = 1;
             TlpAdapterHead.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TlpAdapterHead.Size = new Size(367, 48);
+            TlpAdapterHead.Size = new Size(362, 48);
             TlpAdapterHead.TabIndex = 2;
             // 
             // LblAdapterHead
@@ -645,7 +645,7 @@
             LblAdapterHead.Location = new Point(2, 2);
             LblAdapterHead.Margin = new Padding(0);
             LblAdapterHead.Name = "LblAdapterHead";
-            LblAdapterHead.Size = new Size(363, 44);
+            LblAdapterHead.Size = new Size(358, 44);
             LblAdapterHead.TabIndex = 1;
             LblAdapterHead.Text = "어댑터 케이블";
             LblAdapterHead.TextAlign = ContentAlignment.MiddleCenter;
@@ -662,7 +662,7 @@
             TlpJgHead.Padding = new Padding(2);
             TlpJgHead.RowCount = 1;
             TlpJgHead.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TlpJgHead.Size = new Size(367, 48);
+            TlpJgHead.Size = new Size(362, 48);
             TlpJgHead.TabIndex = 1;
             // 
             // LblJigHead
@@ -675,7 +675,7 @@
             LblJigHead.Location = new Point(2, 2);
             LblJigHead.Margin = new Padding(0);
             LblJigHead.Name = "LblJigHead";
-            LblJigHead.Size = new Size(363, 44);
+            LblJigHead.Size = new Size(358, 44);
             LblJigHead.TabIndex = 1;
             LblJigHead.Text = "지그 케이블";
             LblJigHead.TextAlign = ContentAlignment.MiddleCenter;

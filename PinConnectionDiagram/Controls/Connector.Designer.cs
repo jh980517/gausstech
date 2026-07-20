@@ -84,7 +84,7 @@
             PnlPoint.Name = "PnlPoint";
             PnlPoint.Size = new Size(12, 12);
             PnlPoint.TabIndex = 1;
-            PnlPoint.Click += PnlPoint_click;
+            PnlPoint.Click += PnlPoint_Click;
             // 
             // Connector
             // 
@@ -92,6 +92,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             Controls.Add(TlpPin);
+            Margin = new Padding(0, 3, 0, 3);
             Name = "Connector";
             Size = new Size(82, 40);
             TlpPin.ResumeLayout(false);

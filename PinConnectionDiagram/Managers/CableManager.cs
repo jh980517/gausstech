@@ -19,6 +19,11 @@ namespace PinConnectionDiagram.Managers
             Cables.Remove(info);
         }
 
+        public void Clear()
+        {
+            Cables.Clear();
+        }
+
         
     }
 }

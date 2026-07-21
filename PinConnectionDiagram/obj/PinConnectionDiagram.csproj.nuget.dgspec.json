@@ -8,7 +8,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "D:\\GaussTech_이재훈\\source\\PinConnectionDiagram\\PinConnectionDiagram\\PinConnectionDiagram.csproj",
-        "projectName": "PinConnectionDiagram",
+        "projectName": "TestCableConnectionManager",
         "projectPath": "D:\\GaussTech_이재훈\\source\\PinConnectionDiagram\\PinConnectionDiagram\\PinConnectionDiagram.csproj",
         "packagesPath": "C:\\Users\\Gauss\\.nuget\\packages\\",
         "outputPath": "D:\\GaussTech_이재훈\\source\\PinConnectionDiagram\\PinConnectionDiagram\\obj\\",

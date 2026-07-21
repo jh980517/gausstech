@@ -127,11 +127,13 @@
             numCount.Location = new Point(129, 158);
             numCount.Margin = new Padding(20, 15, 130, 10);
             numCount.Maximum = new decimal(new int[] { 9, 0, 0, 0 });
+            numCount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numCount.Name = "numCount";
             numCount.ReadOnly = true;
             numCount.Size = new Size(115, 34);
             numCount.TabIndex = 8;
             numCount.TextAlign = HorizontalAlignment.Center;
+            numCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // txtName
             // 
@@ -142,7 +144,7 @@
             txtName.ForeColor = Color.FromArgb(145, 223, 251);
             txtName.Location = new Point(129, 91);
             txtName.Margin = new Padding(20, 15, 20, 10);
-            txtName.MaxLength = 15;
+            txtName.MaxLength = 10;
             txtName.Name = "txtName";
             txtName.Size = new Size(225, 34);
             txtName.TabIndex = 7;

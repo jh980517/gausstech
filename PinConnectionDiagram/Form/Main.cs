@@ -3,20 +3,45 @@ using PinConnectionDiagram.Helpers;
 using PinConnectionDiagram.Managers;
 using PinConnectionDiagram.Models;
 using System.Drawing.Drawing2D;
-using System.Net.Http.Headers;
 namespace PinConnectionDiagram
 {
+    /// <summary>
+    /// 시험 준비물과 핀 연결도 화면을 구성하고 사용자 작업을 각 관리자에 전달한다.
+    /// </summary>
     public partial class Main : Form
     {
         // CableManager
         // MapManager
         // ConnectionManager
         private CableManager cableManager;
-        private MapManager mapManager;
+        private MapManager mapManager = null!;
+        private readonly Button btnTheme;
 
         public Main()
         {
             InitializeComponent();
+
+            btnTheme = new Button
+            {
+                Anchor = AnchorStyles.Right,
+                BackgroundImage = Properties.Resources.Button,
+                BackgroundImageLayout = ImageLayout.Stretch,
+                Cursor = Cursors.Hand,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("맑은 고딕", 9.5F, FontStyle.Bold),
+                ForeColor = AppTheme.Accent,
+                Margin = new Padding(0, 8, 18, 8),
+                Size = new Size(110, 34),
+                Text = "국방 테마",
+                TabStop = false
+            };
+            btnTheme.FlatAppearance.BorderSize = 0;
+            btnTheme.Click += btnTheme_Click;
+            TlpHead1.Controls.Add(btnTheme, 1, 0);
+            ButtonHelper.ApplyButtonEffect(
+                btnTheme,
+                Properties.Resources.Button,
+                Properties.Resources.Button_push);
 
             ButtonHelper.ApplyButtonEffect(
             btnBack,
@@ -50,23 +75,99 @@ namespace PinConnectionDiagram
             btnBack.Click += btnBack_Click;
             btnForward.Click += btnForward_Click;
             btnReset.Click += btnReset_Click;
+            btnCreate.Click += btnCreate_Click;
+            btnCancel.Click += btnCancel_Click;
+            btnDone.Click += btnDone_Click;
 
             /****************************************************************************/
 
             cableManager = new CableManager();
-
-            //mapManager = new MapManager(TlpMap);
-
-            //CreateCablePanels();
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
-            mapManager = new MapManager(TlpMap);
+            // 디자이너가 모든 부모 컨트롤을 만든 뒤 MapManager를 생성해야 한다.
+            mapManager = new MapManager(
+                TlpMap,
+                () => cableManager.Cables.ToList());
+            mapManager.SuppliesRestoreRequested += RestoreSupplies;
 
             mapManager.Create();
             mapManager.HistoryChanged += MapManager_HistoryChanged;
             UpdateHistoryButtons();
+            ApplyCurrentTheme();
+        }
+
+        private void btnTheme_Click(object? sender, EventArgs e)
+        {
+            AppTheme.Toggle();
+            ApplyCurrentTheme();
+        }
+
+        private void ApplyCurrentTheme()
+        {
+            btnTheme.Text = AppTheme.IsDefense ? "기본 테마" : "국방 테마";
+            btnTheme.ForeColor = AppTheme.Accent;
+            btnCancel.ForeColor = AppTheme.Accent;
+            btnCreate.ForeColor = AppTheme.Accent;
+            btnDone.ForeColor = AppTheme.Accent;
+            LblTitle1.ForeColor = AppTheme.Accent;
+            LblTitle2.ForeColor = AppTheme.Accent;
+            TlpHead1.BackColor = AppTheme.Background;
+            TlpHead2.BackColor = AppTheme.Background;
+            TlpMap.BackColor = AppTheme.Background;
+
+            JigCable.BackColor = ColorHelper.GetMapHeaderColor("지그 케이블");
+            AdapterCable.BackColor = ColorHelper.GetMapHeaderColor("어댑터 케이블");
+            TestCable.BackColor = ColorHelper.GetMapHeaderColor("시험 대상 케이블");
+            LblJigHead.BackColor = JigCable.BackColor;
+            LblAdapterHead.BackColor = AdapterCable.BackColor;
+            LblTestHead.BackColor = TestCable.BackColor;
+
+            foreach (Control control in new Control[]
+            {
+                FlpItemBox1,
+                FlpItemBox2,
+                FlpItemBox3
+            })
+            {
+                control.BackColor = AppTheme.ContentBackground;
+            }
+
+            if (mapManager != null)
+            {
+                for (int tjNumber = 1; tjNumber <= 5; tjNumber++)
+                {
+                    bool isOn = mapManager.GetTJ(tjNumber).IsOn;
+                    foreach (ConnectorType type in Enum.GetValues<ConnectorType>())
+                        mapManager.GetPanel(tjNumber, type).SetActive(isOn);
+                }
+
+                mapManager.RefreshView();
+            }
+
+            // 테마 전환 전에 생성된 목록 항목과 배치 항목도 새 카테고리 색으로 갱신한다.
+            ApplyThemeToCableItems(TlpBg);
+
+            TlpBg.Invalidate(true);
+            FlpSupplies.Invalidate(true);
+            PnlMap.Invalidate(true);
+        }
+
+        private static void ApplyThemeToCableItems(Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                if (control is CableItem cableItem)
+                    cableItem.ApplyTheme();
+                else if (control is DropItem dropItem)
+                    dropItem.ApplyTheme();
+                else if (control is CableCard cableCard)
+                    cableCard.ApplyTheme();
+
+                if (control.HasChildren)
+                    ApplyThemeToCableItems(control);
+            }
         }
 
         private void btnBack_Click(object? sender, EventArgs e)
@@ -85,10 +186,126 @@ namespace PinConnectionDiagram
                 return;
 
             ResetSupplies();
+            mapManager.RecordExternalChange();
+        }
+
+        private void btnCreate_Click(object? sender, EventArgs e)
+        {
+            if (!mapManager.TryBuildTestProcedure(
+                out string title,
+                out string procedure,
+                out string errorMessage))
+            {
+                ProjectMessageBox.Show(
+                    errorMessage,
+                    "설명문 생성",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
+            }
+
+            using DescriptionForm form = new DescriptionForm(title, procedure);
+            form.ShowDialog(this);
+        }
+
+        private void btnDone_Click(object? sender, EventArgs e)
+        {
+            if (!mapManager.TryBuildTestProcedure(
+                out string title,
+                out string procedure,
+                out string errorMessage))
+            {
+                ProjectMessageBox.Show(
+                    errorMessage,
+                    "PDF 생성",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
+            }
+
+            using Bitmap diagram = mapManager.RenderConnectionDiagram();
+            using Bitmap supplies = RenderSuppliesForExport();
+            List<Bitmap> pages = Helpers.PdfExportService.CreatePages(
+                title,
+                diagram,
+                procedure,
+                supplies);
+            using PdfPreviewForm previewForm = new PdfPreviewForm(title, pages);
+            previewForm.ShowDialog(this);
+        }
+
+        private void btnCancel_Click(object? sender, EventArgs e)
+        {
+            Close();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            // Windows 종료처럼 사용자가 선택할 수 없는 시스템 종료 과정은 방해하지 않는다.
+            if (e.CloseReason != CloseReason.UserClosing)
+            {
+                base.OnFormClosing(e);
+                return;
+            }
+
+            DialogResult result = ProjectMessageBox.Show(
+                "현재 작업을 종료하고 창을 닫으시겠습니까?",
+                "프로그램 종료",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2);
+
+            if (result != DialogResult.Yes)
+                e.Cancel = true;
+
+            base.OnFormClosing(e);
+        }
+
+        private Bitmap RenderSuppliesForExport()
+        {
+            List<CableCard> cards = FlpSupplies.Controls
+                .OfType<CableCard>()
+                .OrderBy(card => card.Info.Category switch
+                {
+                    "지그 케이블" => 0,
+                    "어댑터 케이블" => 1,
+                    "시험 대상 케이블" => 2,
+                    _ => 3
+                })
+                .ThenBy(card => card.Info.Name, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+            if (cards.Count == 0)
+                return new Bitmap(1, 1);
+
+            const int columnsPerRow = 4;
+            const int spacing = 5;
+            int columnCount = Math.Min(columnsPerRow, cards.Count);
+            int rowCount = (int)Math.Ceiling(cards.Count / (double)columnsPerRow);
+            int cardWidth = cards.Max(card => card.ExportSize.Width);
+            int cardHeight = cards.Max(card => card.ExportSize.Height);
+            int width = columnCount * cardWidth + Math.Max(0, columnCount - 1) * spacing;
+            int height = rowCount * cardHeight + Math.Max(0, rowCount - 1) * spacing;
+            Bitmap result = new Bitmap(width, height);
+
+            using Graphics graphics = Graphics.FromImage(result);
+            graphics.Clear(Color.Transparent);
+            for (int index = 0; index < cards.Count; index++)
+            {
+                CableCard card = cards[index];
+                int column = index % columnsPerRow;
+                int row = index / columnsPerRow;
+                int x = column * (cardWidth + spacing);
+                int y = row * (cardHeight + spacing);
+                using Bitmap cardImage = card.RenderForExport();
+                graphics.DrawImageUnscaled(cardImage, x, y);
+            }
+
+            return result;
         }
 
         private void ResetSupplies()
         {
+            // 최초 실행 화면처럼 추가 버튼을 제외한 준비물 UI와 데이터를 모두 비운다.
             cableManager.Clear();
 
             foreach (CableCard card in FlpSupplies.Controls.OfType<CableCard>().ToList())
@@ -105,9 +322,11 @@ namespace PinConnectionDiagram
             FlpItemBox1.AutoScrollPosition = Point.Empty;
             FlpItemBox2.AutoScrollPosition = Point.Empty;
             FlpItemBox3.AutoScrollPosition = Point.Empty;
+
+            UpdateHistoryButtons();
         }
 
-        private void ClearItemPanel(FlowLayoutPanel panel)
+        private void ClearItemPanel(Control panel)
         {
             foreach (Control control in panel.Controls.Cast<Control>().ToList())
             {
@@ -123,62 +342,35 @@ namespace PinConnectionDiagram
 
         private void UpdateHistoryButtons()
         {
+            // 이동할 이력이 없는 버튼은 비활성화하여 현재 상태를 명확히 보여준다.
             btnBack.Enabled = mapManager.CanUndo;
             btnForward.Enabled = mapManager.CanRedo;
-        }
+            btnReset.Enabled = mapManager.CanReset || cableManager.Cables.Count > 0;
 
-        private void TlpTJ_Paint(object sender, PaintEventArgs e)
-        {
-            if (sender is not TableLayoutPanel tlp)
-                return;
-
-            Graphics g = e.Graphics;
-
-            Color borderColor = Color.FromArgb(30, 46, 69);
-
-            using (Pen pen = new Pen(borderColor, 2))
-            {
-                //---------------------------------
-                // 바깥 Border
-                //---------------------------------
-                g.DrawRectangle(
-                    pen,
-                    0,
-                    0,
-                    tlp.Width,
-                    tlp.Height);
-
-                //---------------------------------
-                // Row Border
-                //---------------------------------
-
-                int rowHeight = tlp.Height / tlp.RowCount;
-
-                for (int i = 1; i < tlp.RowCount; i++)
-                {
-                    int y = rowHeight * i;
-
-                    g.DrawLine(
-                        pen,
-                        0,
-                        y,
-                        tlp.Width,
-                        y);
-                }
-            }
+            // 활성 상태에 맞는 전용 리소스를 버튼에 직접 지정한다.
+            btnBack.BackgroundImage = btnBack.Enabled
+                ? Properties.Resources.back
+                : Properties.Resources.back_off;
+            btnForward.BackgroundImage = btnForward.Enabled
+                ? Properties.Resources.forward
+                : Properties.Resources.forward_off;
+            btnReset.BackgroundImage = btnReset.Enabled
+                ? Properties.Resources.reset
+                : Properties.Resources.reset_off;
         }
 
         // 배경 그라디언트 효과 함수
         private void TlpBg_Paint(object sender, PaintEventArgs e)
         {
+            // 메인 배경을 위에서 아래로 이어지는 그라데이션으로 채운다.
             if (sender is not Control ctrl)
                 return;
 
             if (ctrl.Width <= 0 || ctrl.Height <= 0)
                 return;
 
-            Color startColor = ColorTranslator.FromHtml("#252525");
-            Color endColor = ColorTranslator.FromHtml("#3E4377");
+            Color startColor = AppTheme.Background;
+            Color endColor = AppTheme.BackgroundEnd;
 
             using (LinearGradientBrush brush =
                 new LinearGradientBrush(
@@ -198,10 +390,9 @@ namespace PinConnectionDiagram
             if (sender is not Control ctrl)
                 return;
 
-            DrawHelper.DrawGlowLine(e.Graphics, ctrl.Width, 0, 4, Color.FromArgb(180, 100, 220, 255));
-            DrawHelper.DrawGlowLine(e.Graphics, ctrl.Width, ctrl.Height - 4, 4, Color.FromArgb(180, 100, 220, 255));
-            DrawHelper.DrawGlowLine(e.Graphics, ctrl.Width, 0, 4, Color.FromArgb(180, 100, 220, 255));
-            DrawHelper.DrawGlowLine(e.Graphics, ctrl.Width, ctrl.Height - 4, 4, Color.FromArgb(180, 100, 220, 255));
+            // 화면 구분선은 기본 테마의 기존 하늘색과 각 테마의 대표 강조색을 사용한다.
+            DrawHelper.DrawGlowLine(e.Graphics, ctrl.Width, 0, 4, AppTheme.Accent);
+            DrawHelper.DrawGlowLine(e.Graphics, ctrl.Width, ctrl.Height - 4, 4, AppTheme.Accent);
         }
 
         // Border 그리기 함수
@@ -215,7 +406,7 @@ namespace PinConnectionDiagram
                 ctrl.Width,
                 ctrl.Height,
                 3,
-                Color.FromArgb(255, 145, 223, 251)
+                AppTheme.Accent
             );
         }
         private void DrawBorderLine_Paint_Skyblue(object sender, PaintEventArgs e)
@@ -228,7 +419,7 @@ namespace PinConnectionDiagram
                 ctrl.Width,
                 ctrl.Height,
                 3,
-                Color.FromArgb(255, 63, 202, 255)
+                ColorHelper.GetMapHeaderColor("어댑터 케이블")
             );
         }
         private void DrawBorderLine_Paint_Darkblue(object sender, PaintEventArgs e)
@@ -241,7 +432,7 @@ namespace PinConnectionDiagram
                 ctrl.Width,
                 ctrl.Height,
                 3,
-                Color.FromArgb(255, 30, 46, 69)
+                ColorHelper.GetMapHeaderColor("지그 케이블")
             );
         }
         private void DrawBorderLine_Paint_Darkpurple(object sender, PaintEventArgs e)
@@ -254,14 +445,16 @@ namespace PinConnectionDiagram
                 ctrl.Width,
                 ctrl.Height,
                 3,
-                Color.FromArgb(255, 56, 60, 98)
+                ColorHelper.GetMapHeaderColor("시험 대상 케이블")
             );
         }
 
         // 시험 대상 준비물 추가 /////////////////////////////////////////////////////////////////////////////
         private void btnSupAdd_MouseUp(object sender, MouseEventArgs e)
         {
-            using (AddCableForm form = new AddCableForm())
+            // 입력 완료 후 데이터, 카드, 드래그 항목을 같은 CableInfo로 생성한다.
+            using (AddCableForm form = new AddCableForm(
+                cableManager.Cables.Select(cable => cable.Name)))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -274,6 +467,10 @@ namespace PinConnectionDiagram
                     FlpSupplies.Controls.Add(card);
 
                     CreateItems(info);
+                    mapManager.RecordExternalChange();
+
+                    // 준비물 추가로 전체 레이아웃 계산이 끝난 다음 연결 화면을 다시 그린다.
+                    BeginInvoke(new Action(mapManager.RefreshView));
                 }
             }
         }
@@ -281,7 +478,7 @@ namespace PinConnectionDiagram
         // 시험 준비물 추가 시 해당 카테고리에 아이템 생성 함수
         private void CreateItems(CableInfo info)
         {
-            FlowLayoutPanel panel = GetPanel(info.Category);
+            VerticalFlowPanel panel = GetPanel(info.Category);
 
             CableItem item = new CableItem(info);
             panel.Controls.Add(item);
@@ -292,7 +489,8 @@ namespace PinConnectionDiagram
         // 추가된 시험 준비물 삭제 여부 확인 및 삭제함수들 실행
         private void DeleteCable(CableInfo info)
         {
-            DialogResult result = MessageBox.Show(
+            // 하나의 준비물 삭제가 데이터와 두 종류의 UI에 함께 반영되게 한다.
+            DialogResult result = ProjectMessageBox.Show(
                 "삭제하시겠습니까?",
                 "확인",
                 MessageBoxButtons.YesNo,
@@ -301,10 +499,41 @@ namespace PinConnectionDiagram
             if (result != DialogResult.Yes)
                 return;
 
+            // 목록 데이터보다 먼저 연결선 배정을 해제해 DropZone의 표시도 동시에 제거한다.
+            mapManager.RemoveCableAssignments(info);
             cableManager.Remove(info);
 
             DeleteCard(info);
             DeleteItem(info);
+            mapManager.RecordExternalChange();
+        }
+
+        private void RestoreSupplies(IReadOnlyList<CableInfo> supplies)
+        {
+            // Undo/Redo 스냅샷의 준비물 데이터로 카드와 드래그 아이템을 함께 재구성한다.
+            ResetSupplies();
+
+            foreach (CableInfo info in supplies)
+            {
+                cableManager.Add(info);
+
+                CableCard card = new CableCard(info);
+                card.DeleteRequested += DeleteCable;
+                FlpSupplies.Controls.Add(card);
+                CreateItems(info);
+            }
+        }
+
+        protected override void OnResizeBegin(EventArgs e)
+        {
+            mapManager?.BeginViewportResize();
+            base.OnResizeBegin(e);
+        }
+
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            base.OnResizeEnd(e);
+            mapManager?.EndViewportResize();
         }
 
         // 케이블 카드 삭제 함수
@@ -339,8 +568,9 @@ namespace PinConnectionDiagram
 
 
         // 카테고리/////////////////////////////////////////////////////////////////////////
-        private FlowLayoutPanel GetPanel(string category)
+        private VerticalFlowPanel GetPanel(string category)
         {
+            // 입력 폼의 분류명과 화면의 케이블 목록 영역을 연결한다.
             switch (category)
             {
                 case "시험 대상 케이블":
@@ -353,46 +583,5 @@ namespace PinConnectionDiagram
                     throw new Exception("알 수 없는 카테고리입니다.");
             }
         }
-
-        ////////////////////////////////////////////////////////////////////////////////////
-        //private void CreateCablePanels() 
-        //{
-        //    CablePanel jig = new CablePanel(1, ConnectorType.Jig);
-        //    CablePanel adapter = new CablePanel(1, ConnectorType.Adapter);
-        //    CablePanel test = new CablePanel(1, ConnectorType.Test);
-
-        //    mapManager.RegisterCablePanel(1, ConnectorType.Jig, jig);
-        //    mapManager.RegisterCablePanel(1, ConnectorType.Adapter, adapter);
-        //    mapManager.RegisterCablePanel(1, ConnectorType.Test, test);
-        //}
-
-        //private void PnlLine_Paint(object sender, PaintEventArgs e)
-        //{
-        //    Graphics g = e.Graphics;
-
-        //    g.SmoothingMode = SmoothingMode.AntiAlias;
-
-        //    foreach (ConnectionInfo connection in connectionManager.Connections)
-        //    {
-        //        Point start = PnlLine.PointToClient(connection.Start.ConnectionPoint);
-
-        //        Point end = PnlLine.PointToClient(connection.End.ConnectionPoint);
-
-        //        DrawConnection(g, start, end);
-        //    }
-        //}
-
-        //private void DrawConnection(Graphics g, Point start, Point end)
-        //{
-        //    int middleX = (start.X + end.X) / 2;
-
-        //    using Pen pen = new Pen(Color.Black, 4);
-
-        //    g.DrawLine(pen, start, new Point(middleX, start.Y));
-
-        //    g.DrawLine(pen, new Point(middleX, start.Y), new Point(middleX, end.Y));
-
-        //    g.DrawLine(pen, new Point(middleX, end.Y), end);
-        //}
     }
 }

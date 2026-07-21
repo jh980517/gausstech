@@ -6,6 +6,9 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>TestCableConnectionManager</AssemblyName>
+    <Product>Test Cable Connection Manager</Product>
+    <Title>Test Cable Connection Manager</Title>
   </PropertyGroup>
 
   <ItemGroup>

@@ -82,7 +82,7 @@
             PnlPoint.Location = new Point(70, 14);
             PnlPoint.Margin = new Padding(0);
             PnlPoint.Name = "PnlPoint";
-            PnlPoint.Size = new Size(12, 12);
+            PnlPoint.Size = new Size(10, 10);
             PnlPoint.TabIndex = 1;
             PnlPoint.Click += PnlPoint_Click;
             // 

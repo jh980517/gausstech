@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5107B66D-B45A-5EC0-4026-6F4371B8478C}|PinConnectionDiagram\\TestCableConnectionManager.csproj|d:\\gausstech_\uC774\uC7AC\uD6C8\\source\\pinconnectiondiagram\\pinconnectiondiagram\\form\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5107B66D-B45A-5EC0-4026-6F4371B8478C}|PinConnectionDiagram\\TestCableConnectionManager.csproj|solutionrelative:pinconnectiondiagram\\form\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Main.cs",
+              "DocumentMoniker": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Form\\Main.cs",
+              "RelativeDocumentMoniker": "PinConnectionDiagram\\Form\\Main.cs",
+              "ToolTip": "D:\\GaussTech_\uC774\uC7AC\uD6C8\\source\\PinConnectionDiagram\\PinConnectionDiagram\\Form\\Main.cs",
+              "RelativeToolTip": "PinConnectionDiagram\\Form\\Main.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-21T03:57:39.56Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

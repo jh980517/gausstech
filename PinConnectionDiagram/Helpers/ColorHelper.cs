@@ -1,27 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace PinConnectionDiagram.Helpers
 {
+    /// <summary>
+    /// 케이블 분류에 맞는 연결도 헤더 색상을 제공한다.
+    /// </summary>
     public static class ColorHelper
     {
-        public static Color GetCategoryColor(string category)
-        {
-            switch (category)
-            {
-                case "시험 대상 케이블":
-                    return Color.FromArgb(255, 183, 99, 255); // Dark Purple
-
-                case "지그 케이블":
-                    return Color.FromArgb(255, 64, 139, 253); // Dark Blue
-
-                case "어댑터 케이블":
-                    return Color.FromArgb(255, 145, 223, 251); // Light Blue
-
-                default:
-                    return Color.Gray;
-            }
-        }
+        public static Color GetMapHeaderColor(string category) =>
+            AppTheme.GetCategoryColor(category);
     }
 }

@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace PinConnectionDiagram.Controls
 {
+    /// <summary>
+    /// 하나의 TJ와 케이블 종류에 속한 좌우 커넥터를 생성, 배치, 삭제한다.
+    /// </summary>
     public partial class CablePanel : UserControl
     {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -21,7 +24,6 @@ namespace PinConnectionDiagram.Controls
         public IReadOnlyList<Connector> LeftConnectors => leftConnectors;
         public IReadOnlyList<Connector> RightConnectors => rightConnectors;
         public event Action<CablePanel>? AddRightConnectorRequested;
-        public event Action<CablePanel>? RemoveRightConnectorRequested;
         public event Action<CablePanel, Connector>? ConnectorDeleteRequested;
         public event Action<Connector>? ConnectorPointClicked;
         public event Action<Connector>? ConnectorNameChanged;
@@ -36,6 +38,13 @@ namespace PinConnectionDiagram.Controls
                 showAddButton = value;
                 BtnAdd.Visible = Enabled && showAddButton;
             }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool AddButtonVisible
+        {
+            get => BtnAdd.Visible;
+            set => BtnAdd.Visible = value;
         }
         
         public CablePanel(int tjNumber, ConnectorType type)
@@ -64,6 +73,7 @@ namespace PinConnectionDiagram.Controls
 
         public Connector AddConnector(ConnectorSide side, string? connectorName = null)
         {
+            // 이름을 지정하지 않으면 같은 방향에서 다음 순번의 P 번호를 사용한다.
             Connector connector = new Connector();
 
             if (string.IsNullOrEmpty(connectorName))
@@ -103,6 +113,7 @@ namespace PinConnectionDiagram.Controls
 
         public bool RemoveConnector(Connector connector)
         {
+            // 전달된 커넥터가 이 패널 소유가 아니면 아무 상태도 변경하지 않는다.
             bool removed = leftConnectors.Remove(connector);
 
             if (!removed)
@@ -130,6 +141,7 @@ namespace PinConnectionDiagram.Controls
 
         private void RenumberConnectors()
         {
+            // 삭제 후 화면에 P 번호가 연속되도록 방향별로 다시 부여한다.
             for (int i = 0; i < leftConnectors.Count; i++)
             {
                 leftConnectors[i].ConnectorName = $"P{i + 1}";
@@ -143,6 +155,7 @@ namespace PinConnectionDiagram.Controls
 
         public void ClearConnector()
         {
+            // BtnAdd는 PnlCanvas에 함께 있으므로 커넥터만 선택적으로 제거해야 한다.
             foreach (Connector connector in leftConnectors.Concat(rightConnectors).ToList())
             {
                 connector.RightClicked -= Connector_RightClicked;
@@ -160,12 +173,14 @@ namespace PinConnectionDiagram.Controls
 
         private void RefreshLayout()
         {
+            // 좌우 커넥터는 독립된 세로 목록으로 배치한다.
             const int top = 25;
             const int gap = 45;
             const int sideMargin = 0;
 
             if (PanelType == ConnectorType.Jig && leftConnectors.Count == 1)
             {
+                // Jig의 고정 입력 커넥터는 행 높이와 관계없이 세로 중앙에 둔다.
                 Connector leftConnector = leftConnectors[0];
 
                 int centerY = (PnlCanvas.ClientSize.Height - leftConnector.Height) / 2;
@@ -201,16 +216,15 @@ namespace PinConnectionDiagram.Controls
 
         public void SetActive(bool active)
         {
-            //MessageBox.Show($"{Type} / TJ{TJNumber} / {active}");
+            // TJ 상태에 맞춰 입력, 추가 버튼, 배경색을 한 번에 갱신한다.
             Enabled = active;
 
             PnlCanvas.Enabled = active;
 
             BtnAdd.Visible = active && showAddButton;
-            //btnRemove.Visible = active;
 
             BackColor = active
-                ? Color.FromArgb(212, 219, 230)
+                ? AppTheme.ContentBackground
                 : Color.Transparent;
 
             foreach (Connector connector in leftConnectors)
@@ -224,7 +238,7 @@ namespace PinConnectionDiagram.Controls
             }
         }
 
-        private void BtnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object? sender, EventArgs e)
         {
             AddRightConnectorRequested?.Invoke(this);
         }
@@ -241,6 +255,7 @@ namespace PinConnectionDiagram.Controls
 
         private void Connector_RightClicked(Connector connector)
         {
+            // 자동 생성되는 왼쪽 및 Test 커넥터는 사용자가 직접 삭제할 수 없다.
             if (PanelType == ConnectorType.Test)
             {
                 return;
@@ -252,7 +267,6 @@ namespace PinConnectionDiagram.Controls
             }
 
             ConnectorDeleteRequested?.Invoke(this, connector);
-            //MessageBox.Show($"{Type} / {connector.Side} / {connector.ConnectorName}");
         }
 
         private void Connector_PointClicked(Connector connector)

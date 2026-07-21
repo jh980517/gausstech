@@ -223,6 +223,7 @@
             btnDelete.BackColor = Color.FromArgb(38, 38, 38);
             btnDelete.BackgroundImage = Properties.Resources.delete;
             btnDelete.BackgroundImageLayout = ImageLayout.Zoom;
+            btnDelete.Cursor = Cursors.Hand;
             btnDelete.FlatAppearance.BorderColor = Color.FromArgb(62, 67, 119);
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Location = new Point(163, 0);

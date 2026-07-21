@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             PnlCanvas = new Panel();
-            BtnAdd = new Button();
+            BtnAdd = new NonSelectableButton();
             PnlCanvas.SuspendLayout();
             SuspendLayout();
             // 
@@ -75,6 +75,6 @@
         #endregion
 
         private Panel PnlCanvas;
-        private Button BtnAdd;
+        private NonSelectableButton BtnAdd;
     }
 }

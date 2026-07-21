@@ -39,7 +39,7 @@
             // 
             TlpCableItem.BackColor = Color.White;
             TlpCableItem.ColumnCount = 2;
-            TlpCableItem.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TlpCableItem.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 16F));
             TlpCableItem.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             TlpCableItem.Controls.Add(PbConnector, 0, 0);
             TlpCableItem.Controls.Add(LblCableName, 1, 0);
@@ -50,7 +50,7 @@
             TlpCableItem.Name = "TlpCableItem";
             TlpCableItem.RowCount = 1;
             TlpCableItem.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TlpCableItem.Size = new Size(90, 34);
+            TlpCableItem.Size = new Size(120, 34);
             TlpCableItem.TabIndex = 0;
             TlpCableItem.Paint += TlpCableItem_Paint;
             // 
@@ -62,19 +62,19 @@
             PbConnector.Location = new Point(0, 1);
             PbConnector.Margin = new Padding(0, 1, 0, 1);
             PbConnector.Name = "PbConnector";
-            PbConnector.Size = new Size(20, 32);
+            PbConnector.Size = new Size(16, 32);
             PbConnector.TabIndex = 0;
             PbConnector.TabStop = false;
             // 
             // LblCableName
             // 
-            LblCableName.AutoSize = true;
+            LblCableName.AutoSize = false;
             LblCableName.Dock = DockStyle.Fill;
-            LblCableName.Font = new Font("맑은 고딕", 7.5F, FontStyle.Bold);
-            LblCableName.Location = new Point(23, 2);
+            LblCableName.Font = new Font("맑은 고딕", 8.5F, FontStyle.Bold);
+            LblCableName.Location = new Point(19, 2);
             LblCableName.Margin = new Padding(3, 2, 3, 2);
             LblCableName.Name = "LblCableName";
-            LblCableName.Size = new Size(64, 30);
+            LblCableName.Size = new Size(98, 30);
             LblCableName.TabIndex = 1;
             LblCableName.Text = "케이블 명칭";
             LblCableName.TextAlign = ContentAlignment.MiddleCenter;
@@ -88,7 +88,7 @@
             Font = new Font("맑은 고딕", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 129);
             Margin = new Padding(5, 0, 5, 11);
             Name = "CableItem";
-            Size = new Size(90, 34);
+            Size = new Size(120, 34);
             TlpCableItem.ResumeLayout(false);
             TlpCableItem.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PbConnector).EndInit();

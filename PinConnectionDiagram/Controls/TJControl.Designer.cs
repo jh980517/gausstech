@@ -34,6 +34,7 @@
             // BtnTJ
             // 
             BtnTJ.BackgroundImageLayout = ImageLayout.Zoom;
+            BtnTJ.Cursor = Cursors.Hand;
             BtnTJ.Dock = DockStyle.Fill;
             BtnTJ.FlatAppearance.BorderSize = 0;
             BtnTJ.FlatStyle = FlatStyle.Flat;

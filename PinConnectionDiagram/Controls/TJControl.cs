@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace PinConnectionDiagram.Controls
 {
+    /// <summary>
+    /// 개별 TJ의 활성 상태를 표시하고 사용자 토글 요청을 관리자에 전달한다.
+    /// </summary>
     public partial class TJControl : UserControl
     {
         public int TJNumber { get; }
@@ -60,6 +63,7 @@ namespace PinConnectionDiagram.Controls
         {
             IsOn = !IsOn;
 
+            // 초기화 경고와 패널 활성화 여부는 MapManager에서 결정한다.
             StateChanged?.Invoke(this, IsOn);
         }
     }

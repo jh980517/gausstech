@@ -68,7 +68,7 @@ namespace PinConnectionDiagram
             Controls.Add(lblPage);
             Controls.Add(pnlPreview);
             Controls.Add(lblTitle);
-            MinimumSize = new Size(900, 720);
+            MinimumSize = new Size(800, 620);
             Name = "PdfPreviewForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterParent;

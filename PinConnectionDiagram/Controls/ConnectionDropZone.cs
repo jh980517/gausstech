@@ -95,8 +95,11 @@ namespace PinConnectionDiagram.Controls
             CableInfo? cableInfo = GetCableInfo();
             DropItem? currentItem = Controls.OfType<DropItem>().FirstOrDefault();
 
-            if (currentItem?.Info.Id == cableInfo?.Id)
+            if (currentItem != null && cableInfo != null && currentItem.Info.Id == cableInfo.Id)
+            {
+                ApplyDisplaySize(currentItem);
                 return;
+            }
 
             if (currentItem != null)
             {
@@ -106,20 +109,23 @@ namespace PinConnectionDiagram.Controls
 
             if (cableInfo == null)
             {
-                Size = new Size(120, 34);
+                Size = new Size(120, CableDisplayHelper.NormalItemHeight);
                 return;
             }
 
             // 기존 DropItem을 이동 기능 없이 사용해 목록과 동일한 디자인을 유지한다.
             DropItem dropItem = new DropItem(cableInfo, false);
-            using Font cableFont = new Font("맑은 고딕", 9.5F, FontStyle.Bold);
-            int textWidth = TextRenderer.MeasureText(cableInfo.Name, cableFont).Width;
-            // 커넥터 영역(16px)과 좌우 여백을 포함해 이름이 한 줄로 표시되도록 한다.
-            Size = new Size(Math.Clamp(textWidth + 28, 120, 280), 34);
+            ApplyDisplaySize(dropItem);
             dropItem.Dock = DockStyle.Fill;
             dropItem.DeleteRequested += _ => ClearCableAssignment();
             Controls.Add(dropItem);
             dropItem.BringToFront();
+        }
+
+        private void ApplyDisplaySize(DropItem dropItem)
+        {
+            // DropZone은 실제로 표시되는 DropItem과 동일한 크기를 사용한다.
+            Size = dropItem.Size;
         }
 
         // DropItem의 삭제 요청과 우클릭 해제를 동일한 데이터 정리 흐름으로 처리한다.

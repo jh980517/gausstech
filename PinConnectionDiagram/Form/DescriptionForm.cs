@@ -9,8 +9,23 @@ namespace PinConnectionDiagram
         {
             InitializeComponent();
             lblTitle.Text = title;
+            ApplyTheme();
             ApplyButtonStyle();
             DisplayProcedure(procedure);
+        }
+
+        private void ApplyTheme()
+        {
+            BackColor = Helpers.AppTheme.BackgroundEnd;
+            lblTitle.BackColor = Helpers.AppTheme.DarkAccent;
+            lblTitle.ForeColor = Helpers.AppTheme.Accent;
+            lblSection.ForeColor = Color.WhiteSmoke;
+            lblGuide.ForeColor = Helpers.AppTheme.Accent;
+            pnlProcedure.BackColor = Helpers.AppTheme.Background;
+            txtProcedure.BackColor = Helpers.AppTheme.Background;
+            txtProcedure.ForeColor = Color.WhiteSmoke;
+            btnCopy.ForeColor = Helpers.AppTheme.Accent;
+            btnClose.ForeColor = Helpers.AppTheme.Accent;
         }
 
         private void ApplyButtonStyle()
@@ -18,12 +33,12 @@ namespace PinConnectionDiagram
             // 메인 화면과 동일한 이미지 버튼 효과를 적용해 디자인 흐름을 맞춘다.
             Helpers.ButtonHelper.ApplyButtonEffect(
                 btnCopy,
-                Properties.Resources.Button,
-                Properties.Resources.Button_push);
+                Helpers.AppTheme.GetStandardButtonImage(false),
+                Helpers.AppTheme.GetStandardButtonImage(true));
             Helpers.ButtonHelper.ApplyButtonEffect(
                 btnClose,
-                Properties.Resources.Button,
-                Properties.Resources.Button_push);
+                Helpers.AppTheme.GetStandardButtonImage(false),
+                Helpers.AppTheme.GetStandardButtonImage(true));
         }
 
         private void DisplayProcedure(string procedure)
@@ -41,7 +56,7 @@ namespace PinConnectionDiagram
                 if (step.StartsWith("[") && step.EndsWith("]"))
                 {
                     string sectionName = step.Trim('[', ']');
-                    txtProcedure.SelectionColor = Color.FromArgb(183, 99, 255);
+                    txtProcedure.SelectionColor = Helpers.ColorHelper.GetMapHeaderColor("시험 대상 케이블");
                     txtProcedure.SelectionFont = new Font("맑은 고딕", 14F, FontStyle.Bold);
                     txtProcedure.AppendText($"◆ {sectionName}");
                     // 영역 제목과 첫 절차 사이를 한 줄 더 띄워 내용 덩어리를 명확히 구분한다.
@@ -54,7 +69,7 @@ namespace PinConnectionDiagram
                     step = step[2..];
 
                 // 순번을 포인트 색상으로 분리해 긴 절차에서도 현재 항목을 쉽게 찾게 한다.
-                txtProcedure.SelectionColor = Color.FromArgb(145, 223, 251);
+                txtProcedure.SelectionColor = Helpers.AppTheme.Accent;
                 txtProcedure.SelectionFont = new Font("맑은 고딕", 13F, FontStyle.Bold);
                 procedureNumber++;
                 txtProcedure.AppendText($"{procedureNumber:00}  ");

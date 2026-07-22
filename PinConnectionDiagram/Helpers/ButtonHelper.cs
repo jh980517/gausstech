@@ -5,11 +5,35 @@ namespace PinConnectionDiagram.Helpers
     /// </summary>
     public static class ButtonHelper
     {
+        private sealed class ButtonImageState
+        {
+            public required Image Normal { get; set; }
+            public required Image Pressed { get; set; }
+        }
+
+        private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<Button, ButtonImageState>
+            ImageStates = new();
+
         public static void ApplyButtonEffect(
             Button btn,
             Image normal_image,
             Image pressed_image)
         {
+            if (ImageStates.TryGetValue(btn, out ButtonImageState? existingState))
+            {
+                existingState.Normal = normal_image;
+                existingState.Pressed = pressed_image;
+                btn.BackgroundImage = normal_image;
+                return;
+            }
+
+            ButtonImageState state = new ButtonImageState
+            {
+                Normal = normal_image,
+                Pressed = pressed_image
+            };
+            ImageStates.Add(btn, state);
+
             // 클릭 가능한 버튼임을 직관적으로 알 수 있도록 손 모양 커서를 사용한다.
             btn.Cursor = Cursors.Hand;
 
@@ -22,13 +46,13 @@ namespace PinConnectionDiagram.Helpers
             btn.MouseEnter += (s, e) =>
             {
                 if (btn.Enabled)
-                    btn.BackgroundImage = pressed_image;
+                    btn.BackgroundImage = state.Pressed;
             };
 
             btn.MouseLeave += (s, e) =>
             {
                 if (btn.Enabled)
-                    btn.BackgroundImage = normal_image;
+                    btn.BackgroundImage = state.Normal;
             };
         }
 

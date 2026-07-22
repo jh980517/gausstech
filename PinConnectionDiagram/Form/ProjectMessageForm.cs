@@ -9,10 +9,20 @@ namespace PinConnectionDiagram
             MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
         {
             InitializeComponent();
+            ApplyTheme();
             lblTitle.Text = title;
             lblMessage.Text = message;
             ApplyIcon(icon);
             CreateButtons(buttons, defaultButton);
+        }
+
+        private void ApplyTheme()
+        {
+            BackColor = AppTheme.Background;
+            lblTitle.BackColor = AppTheme.DarkAccent;
+            lblTitle.ForeColor = AppTheme.Accent;
+            lblMessage.ForeColor = Color.WhiteSmoke;
+            flpButtons.BackColor = AppTheme.Background;
         }
 
         // 메시지 종류별 기호와 강조색을 프로젝트 색상 체계에 맞춰 선택한다.
@@ -21,9 +31,9 @@ namespace PinConnectionDiagram
             (lblIcon.Text, lblIcon.ForeColor) = icon switch
             {
                 MessageBoxIcon.Warning => ("!", Color.FromArgb(255, 190, 80)),
-                MessageBoxIcon.Question => ("?", Color.FromArgb(183, 99, 255)),
+                MessageBoxIcon.Question => ("?", AppTheme.AccentHover),
                 MessageBoxIcon.Error => ("!", Color.FromArgb(255, 90, 100)),
-                _ => ("i", Color.FromArgb(145, 223, 251))
+                _ => ("i", AppTheme.Accent)
             };
         }
 
@@ -59,14 +69,17 @@ namespace PinConnectionDiagram
                 DialogResult = result,
                 FlatStyle = FlatStyle.Flat,
                 Font = new Font("맑은 고딕", 10.5F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(145, 223, 251),
+                ForeColor = AppTheme.Accent,
                 Margin = new Padding(6, 0, 0, 0),
                 Size = new Size(88, 38),
                 Text = text,
                 UseVisualStyleBackColor = true
             };
             button.FlatAppearance.BorderSize = 0;
-            ButtonHelper.ApplyButtonEffect(button, Properties.Resources.Button, Properties.Resources.Button_push);
+            ButtonHelper.ApplyButtonEffect(
+                button,
+                AppTheme.GetStandardButtonImage(false),
+                AppTheme.GetStandardButtonImage(true));
             return button;
         }
     }

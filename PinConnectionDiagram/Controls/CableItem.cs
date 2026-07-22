@@ -26,13 +26,23 @@ namespace PinConnectionDiagram.Controls
 
             Info = info;
 
-            LblCableName.Text = info.Name;
+            LblCableName.Text = CableDisplayHelper.GetDisplayName(info);
+            Height = CableDisplayHelper.GetItemHeight(info);
+            AdjustWidthToCableName();
 
             ApplyTheme();
 
             // 카테고리 색상은 커넥터 이미지 영역과 상·하단 강조선에만 사용한다.
             TlpCableItem.BackColor = Color.White;
             LblCableName.ForeColor = Color.Black;
+        }
+
+        private void AdjustWidthToCableName()
+        {
+            if (Info.Category == "시험 대상 케이블")
+                return;
+
+            Width = CableDisplayHelper.GetItemWidth(Info, LblCableName.Font);
         }
 
         /// <summary>

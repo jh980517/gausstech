@@ -34,13 +34,13 @@ namespace PinConnectionDiagram
 
             ButtonHelper.ApplyButtonEffect(
                 btnOk,
-                Properties.Resources.Button,
-                Properties.Resources.Button_push);
+                AppTheme.GetStandardButtonImage(false),
+                AppTheme.GetStandardButtonImage(true));
 
             ButtonHelper.ApplyButtonEffect(
                 btnCancel,
-                Properties.Resources.Button,
-                Properties.Resources.Button_push);
+                AppTheme.GetStandardButtonImage(false),
+                AppTheme.GetStandardButtonImage(true));
 
             ButtonHelper.CancelButtonFunction(btnCancel, this);
         }

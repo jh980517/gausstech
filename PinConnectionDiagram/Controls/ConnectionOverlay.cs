@@ -175,21 +175,37 @@ namespace PinConnectionDiagram.Controls
 
         public void RefreshConnections()
         {
+            List<ConnectionLine> drawableLines = getConnectionLines()
+                .Where(line => !line.StartConnector.IsDisposed && !line.EndConnector.IsDisposed)
+                .ToList();
+
             // 전체 지도 대신 선 주변만 오버레이 영역으로 만들어 화면 가림을 방지한다.
             using(GraphicsPath lineArea = new GraphicsPath())
             {
                 SyncDropZones();
 
-                foreach (ConnectionLine line in getConnectionLines())
+                foreach (ConnectionLine line in drawableLines)
                 {
-                    if (line.StartConnector.IsDisposed || line.EndConnector.IsDisposed)
-                    {
-                        continue;
-                    }
-
                     // 각 연결선을 별도의 도형으로 추가해야 서로 대각선으로 이어지지 않는다.
                     lineArea.StartFigure();
                     lineArea.AddLines(GetLinePoints(line));
+                }
+
+                RectangleF contentBounds = lineArea.PointCount > 0
+                    ? lineArea.GetBounds()
+                    : RectangleF.Empty;
+                foreach (ConnectionDropZone dropZone in dropZones.Values)
+                    contentBounds = contentBounds.IsEmpty
+                        ? dropZone.Bounds
+                        : RectangleF.Union(contentBounds, dropZone.Bounds);
+
+                // 준비물 추가 도중의 임시 0px 레이아웃으로 기존 정상 Region을 지우지 않는다.
+                RectangleF viewportBounds = new RectangleF(0, 0, Width, Height);
+                if (drawableLines.Count > 0 &&
+                    (contentBounds.IsEmpty || !contentBounds.IntersectsWith(viewportBounds)))
+                {
+                    Invalidate();
+                    return;
                 }
 
                 // 투명 오버레이 영역을 실제 선 두께와 가깝게 제한해 배경 띠가 보이지 않게 한다.
@@ -346,7 +362,12 @@ namespace PinConnectionDiagram.Controls
                 {
                     dropZone = new ConnectionDropZone(group);
                     dropZone.CableAssignmentChanged += () =>
+                    {
+                        // 드롭으로 높이가 바뀐 즉시 위치와 표시 Region을 새 크기로 다시 만든다.
+                        // Region 갱신이 늦으면 실제 크기는 커져도 기존 34px 영역 밖이 잘려 보인다.
+                        RefreshConnections();
                         CableAssignmentChanged?.Invoke();
+                    };
                     dropZones.Add(groupKey, dropZone);
                     Controls.Add(dropZone);
                 }

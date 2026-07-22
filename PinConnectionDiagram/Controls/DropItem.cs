@@ -30,7 +30,9 @@ namespace PinConnectionDiagram.Controls
 
             Info = info;
 
-            LblCableName.Text = info.Name;
+            LblCableName.Text = CableDisplayHelper.GetDisplayName(info);
+            Height = CableDisplayHelper.GetItemHeight(info);
+            Width = CableDisplayHelper.GetItemWidth(info, LblCableName.Font);
 
             ApplyTheme();
 

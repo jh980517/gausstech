@@ -71,6 +71,14 @@ namespace PinConnectionDiagram.Controls
                 Properties.Resources.btnAdd_Down);
         }
 
+        public void ApplyTheme()
+        {
+            ButtonHelper.ApplyButtonEffect(
+                BtnAdd,
+                AppTheme.GetImage("btnAdd_Up", "btnAdd_defense_Up"),
+                AppTheme.GetImage("btnAdd_Down", "btnAdd_defense_Down"));
+        }
+
         public Connector AddConnector(ConnectorSide side, string? connectorName = null)
         {
             // 이름을 지정하지 않으면 같은 방향에서 다음 순번의 P 번호를 사용한다.

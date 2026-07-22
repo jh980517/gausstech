@@ -199,4 +199,52 @@
   <data name="reset_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\reset_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="back_defense" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\back_defense.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="back_defense_push" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\back_defense_push.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="back_defense_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\back_defense_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="forward_defense" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\forward_defense.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="forward_defense_push" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\forward_defense_push.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="forward_defense_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\forward_defense_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="reset_defense" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reset_defense.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="reset_defense_push" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reset_defense_push.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="reset_defense_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reset_defense_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="추가_defense" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\추가_defense.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="추가_defense_push" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\추가_defense_push.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnAdd_defense_Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnAdd_defense_Up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btnAdd_defense_Down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btnAdd_defense_Down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TJ_defense_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TJ_defense_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TJ_defense_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TJ_defense_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="delete_defense" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete_defense.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

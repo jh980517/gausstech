@@ -13,6 +13,7 @@ namespace PinConnectionDiagram
         public PdfPreviewForm(string title, List<Bitmap> pages)
         {
             InitializeComponent();
+            FitToWorkingArea();
             documentTitle = title;
             this.pages = pages;
             lblTitle.Text = $"{title} 출력 미리보기";
@@ -20,6 +21,14 @@ namespace PinConnectionDiagram
             ApplyButtonStyles();
             ApplyNavigationButtonTextStyle();
             ShowPage(0);
+        }
+
+        private void FitToWorkingArea()
+        {
+            Rectangle workingArea = Screen.FromControl(this).WorkingArea;
+            Size = new Size(
+                Math.Max(MinimumSize.Width, Math.Min(1120, workingArea.Width - 40)),
+                Math.Max(MinimumSize.Height, Math.Min(890, workingArea.Height - 40)));
         }
 
         private void ApplyTheme()
@@ -54,8 +63,8 @@ namespace PinConnectionDiagram
             {
                 ButtonHelper.ApplyButtonEffect(
                     button,
-                    Properties.Resources.Button,
-                    Properties.Resources.Button_push);
+                    AppTheme.GetStandardButtonImage(false),
+                    AppTheme.GetStandardButtonImage(true));
             }
         }
 
@@ -67,7 +76,7 @@ namespace PinConnectionDiagram
                 string navigationText = button.Text;
                 button.Cursor = Cursors.Hand;
                 button.UseVisualStyleBackColor = false;
-                button.BackgroundImage = Properties.Resources.Button;
+                button.BackgroundImage = AppTheme.GetStandardButtonImage(false);
                 button.ForeColor = AppTheme.Accent;
                 button.FlatAppearance.MouseOverBackColor = Color.Transparent;
                 button.FlatAppearance.MouseDownBackColor = Color.Transparent;
@@ -76,7 +85,7 @@ namespace PinConnectionDiagram
                     if (!button.Enabled)
                         return;
 
-                    button.BackgroundImage = Properties.Resources.Button_push;
+                    button.BackgroundImage = AppTheme.GetStandardButtonImage(true);
                     button.ForeColor = AppTheme.Accent;
                 };
                 button.MouseUp += (_, _) => RestoreNavigationButton(button);
@@ -87,8 +96,8 @@ namespace PinConnectionDiagram
                 {
                     button.Text = button.Enabled ? navigationText : string.Empty;
                     button.BackgroundImage = button.Enabled
-                        ? Properties.Resources.Button
-                        : Properties.Resources.Button_push;
+                        ? AppTheme.GetStandardButtonImage(false)
+                        : AppTheme.GetStandardButtonImage(true);
                     button.BackgroundImageLayout = ImageLayout.Stretch;
                     button.Cursor = button.Enabled ? Cursors.Hand : Cursors.Default;
                     button.Invalidate();
@@ -117,7 +126,7 @@ namespace PinConnectionDiagram
             if (!button.Enabled)
                 return;
 
-            button.BackgroundImage = Properties.Resources.Button;
+            button.BackgroundImage = AppTheme.GetStandardButtonImage(false);
             button.ForeColor = AppTheme.Accent;
         }
 

@@ -31,7 +31,32 @@ namespace PinConnectionDiagram.Controls
             lblCategory.Text = info.Category;
             lblName.Text = info.Name;
             lblCount.Text = info.Count.ToString();
+            AdjustWidthToContent();
             ApplyTheme();
+        }
+
+        private void AdjustWidthToContent()
+        {
+            int nameWidth = TextRenderer.MeasureText(
+                Info.Name,
+                lblName.Font,
+                new Size(int.MaxValue, lblName.Height),
+                TextFormatFlags.SingleLine | TextFormatFlags.NoPadding).Width;
+            int categoryWidth = TextRenderer.MeasureText(
+                Info.Category,
+                lblCategory.Font,
+                new Size(int.MaxValue, lblCategory.Height),
+                TextFormatFlags.SingleLine | TextFormatFlags.NoPadding).Width;
+
+            const int headerColumnWidth = 54;
+            int valueColumnWidth = Math.Clamp(Math.Max(nameWidth, categoryWidth) + 20, 116, 220);
+            int tableWidth = headerColumnWidth + valueColumnWidth;
+            int cardWidth = tableWidth + 20;
+
+            TlpCableCard.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, headerColumnWidth);
+            TlpCableCard.ColumnStyles[1] = new ColumnStyle(SizeType.Percent, 100F);
+            TlpCableCard.Width = tableWidth;
+            Width = cardWidth;
         }
 
         /// <summary>
@@ -39,13 +64,19 @@ namespace PinConnectionDiagram.Controls
         /// </summary>
         public void ApplyTheme()
         {
-            Color categoryColor = ColorHelper.GetMapHeaderColor(Info.Category);
-            lblCategory.ForeColor = categoryColor;
+            // 화면 상단 준비물 표는 카테고리와 관계없이 기존의 공통 강조색을 사용한다.
+            lblCategory.ForeColor = AppTheme.Accent;
             lblName.ForeColor = AppTheme.Accent;
             lblCount.ForeColor = AppTheme.Accent;
 
             foreach (Label header in new[] { lblCategoryHeader, lblNameHeader, lblCountHeader })
                 header.BackColor = AppTheme.DarkAccent;
+
+            btnDelete.BackgroundImage = AppTheme.GetImage("delete", "delete_defense");
+            btnDelete.BackColor = AppTheme.Background;
+            btnDelete.FlatAppearance.BorderColor = AppTheme.BackgroundEnd;
+            btnDelete.FlatAppearance.MouseOverBackColor = AppTheme.DarkAccent;
+            btnDelete.FlatAppearance.MouseDownBackColor = AppTheme.BackgroundEnd;
 
             TlpCableCard.Invalidate(true);
         }
@@ -89,13 +120,13 @@ namespace PinConnectionDiagram.Controls
             if (tlp == null)
                 return;
 
-            // 카드 하단에 카테고리 영역과 동일한 발광 구분선을 표시한다.
+            // 화면 카드의 구분선은 카테고리별 색상 대신 공통 테마 강조색을 사용한다.
             DrawHelper.DrawGlowLine(
                 e.Graphics,
                 tlp.Width,
                 tlp.Height - 2,
                 2,
-                ColorHelper.GetMapHeaderColor(Info.Category));
+                AppTheme.Accent);
         }
     }
 }

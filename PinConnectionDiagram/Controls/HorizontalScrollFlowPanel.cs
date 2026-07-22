@@ -159,13 +159,21 @@ namespace PinConnectionDiagram.Controls
                 return Rectangle.Empty;
 
             Rectangle track = GetTrackRectangle();
+            if (track.Width <= 0 || track.Height <= 0)
+                return Rectangle.Empty;
+
+            int minimumThumbWidth = Math.Min(MinimumThumbWidth, track.Width);
             int thumbWidth = Math.Clamp(
                 (int)Math.Round(track.Width * ClientSize.Width / (double)contentWidth),
-                MinimumThumbWidth,
+                minimumThumbWidth,
                 track.Width);
             int availableTrack = track.Width - thumbWidth;
+            int scrollMaximum = GetScrollMaximum();
+            if (scrollMaximum <= 0)
+                return Rectangle.Empty;
+
             int thumbX = track.Left + (int)Math.Round(
-                GetScrollPosition() / (double)GetScrollMaximum() * availableTrack);
+                GetScrollPosition() / (double)scrollMaximum * availableTrack);
             return new Rectangle(thumbX, track.Y, thumbWidth, track.Height);
         }
 

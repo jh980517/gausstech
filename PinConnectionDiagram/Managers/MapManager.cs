@@ -8,6 +8,7 @@ namespace PinConnectionDiagram.Managers
     /// </summary>
     public class MapManager
     {
+        private const int MinimumMapWidth = 1050;
         // 화면 컨트롤 및 현재 연결 상태
         private readonly TableLayoutPanel tlpMap;
         private readonly Func<IReadOnlyList<CableInfo>> getSupplies;
@@ -21,7 +22,6 @@ namespace PinConnectionDiagram.Managers
         private bool isRestoringHistory;
         private bool isOverlayRefreshQueued;
         private bool isViewportResizing;
-        private bool overlayRefreshNeeded;
         private bool isSynchronizingMapWidth;
         private Connector? selectedConnector;
 
@@ -79,8 +79,13 @@ namespace PinConnectionDiagram.Managers
             if (isSynchronizingMapWidth || tlpMap.Parent is not ScrollableControl scrollParent)
                 return;
 
+            if (IsViewportUnavailable(scrollParent))
+            {
+                return;
+            }
+
             int viewportWidth = Math.Max(
-                1,
+                MinimumMapWidth,
                 scrollParent.ClientSize.Width - scrollParent.Padding.Horizontal);
             if (tlpMap.Width == viewportWidth)
                 return;
@@ -98,9 +103,9 @@ namespace PinConnectionDiagram.Managers
 
         private void SyncConnectionOverlayBounds()
         {
-            if (isViewportResizing)
+            if (isViewportResizing ||
+                tlpMap.Parent is ScrollableControl scrollParent && IsViewportUnavailable(scrollParent))
             {
-                overlayRefreshNeeded = true;
                 return;
             }
 
@@ -112,6 +117,14 @@ namespace PinConnectionDiagram.Managers
             connectionOverlay.RefreshConnections();
         }
 
+        private static bool IsViewportUnavailable(ScrollableControl viewport)
+        {
+            Form? form = viewport.FindForm();
+            return form?.WindowState == FormWindowState.Minimized ||
+                viewport.ClientSize.Width <= viewport.Padding.Horizontal ||
+                viewport.ClientSize.Height <= viewport.Padding.Vertical;
+        }
+
         public void RefreshView()
         {
             // 준비물 추가로 중첩 레이아웃이 진행 중이어도 현재 상태를 먼저 표시한다.
@@ -119,21 +132,39 @@ namespace PinConnectionDiagram.Managers
             QueueConnectionOverlayRefresh();
         }
 
+        /// <summary>
+        /// 지연된 자식 컨트롤 페인트가 끝난 뒤 연결 오버레이를 즉시 다시 표시한다.
+        /// </summary>
+        public void ForceRefreshView()
+        {
+            if (isViewportResizing || connectionOverlay.IsDisposed)
+            {
+                return;
+            }
+
+            SyncConnectionOverlayBounds();
+            connectionOverlay.Visible = true;
+            connectionOverlay.BringToFront();
+            connectionOverlay.Invalidate(true);
+            connectionOverlay.Refresh();
+        }
+
         public void BeginViewportResize()
         {
+            if (connectionOverlay.IsDisposed)
+                return;
+
             // 사용자가 창 테두리를 드래그하는 동안에는 비용이 큰 Region 재생성을 중단한다.
             isViewportResizing = true;
-            overlayRefreshNeeded = true;
             connectionOverlay.Visible = false;
         }
 
         public void EndViewportResize()
         {
             isViewportResizing = false;
-            if (!overlayRefreshNeeded)
+            if (connectionOverlay.IsDisposed)
                 return;
 
-            overlayRefreshNeeded = false;
             SyncConnectionOverlayBounds();
             connectionOverlay.Visible = true;
             QueueConnectionOverlayRefresh();
@@ -141,9 +172,9 @@ namespace PinConnectionDiagram.Managers
 
         private void QueueConnectionOverlayRefresh()
         {
-            if (isViewportResizing)
+            if (isViewportResizing ||
+                tlpMap.Parent is ScrollableControl viewport && IsViewportUnavailable(viewport))
             {
-                overlayRefreshNeeded = true;
                 return;
             }
 
@@ -163,7 +194,6 @@ namespace PinConnectionDiagram.Managers
             {
                 if (isViewportResizing)
                 {
-                    overlayRefreshNeeded = true;
                     isOverlayRefreshQueued = false;
                     return;
                 }
@@ -177,7 +207,7 @@ namespace PinConnectionDiagram.Managers
                 SyncConnectionOverlayBounds();
                 connectionOverlay.Visible = true;
                 connectionOverlay.BringToFront();
-                connectionOverlay.Update();
+                connectionOverlay.Refresh();
                 isOverlayRefreshQueued = false;
             }));
         }

@@ -50,7 +50,9 @@ namespace PinConnectionDiagram.Controls
 
         private void UpdateUI()
         {
-            BtnTJ.BackgroundImage = IsOn ? Properties.Resources.TJ_on2 : Properties.Resources.TJ_off;
+            BtnTJ.BackgroundImage = IsOn
+                ? AppTheme.GetImage("TJ_on2", "TJ_defense_on")
+                : AppTheme.GetImage("TJ_off", "TJ_defense_off");
             BtnTJ.BackgroundImageLayout = ImageLayout.Stretch;
 
             BtnTJ.ForeColor = IsOn
@@ -58,6 +60,8 @@ namespace PinConnectionDiagram.Controls
        : Color.White;   // 원하는 색상으로 변경
 
         }
+
+        public void ApplyTheme() => UpdateUI();
 
         private void BtnTJ_Click(object sender, EventArgs e)
         {

@@ -802,9 +802,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1584, 961);
+            ClientSize = new Size(1360, 800);
             Controls.Add(TlpBg);
-            MinimumSize = new Size(1600, 1000);
+            MinimumSize = new Size(1280, 700);
             Name = "Main";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Test Cable Connection Manager";

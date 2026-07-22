@@ -144,7 +144,7 @@
             txtName.ForeColor = Color.FromArgb(145, 223, 251);
             txtName.Location = new Point(129, 91);
             txtName.Margin = new Padding(20, 15, 20, 10);
-            txtName.MaxLength = 10;
+            txtName.MaxLength = 18;
             txtName.Name = "txtName";
             txtName.Size = new Size(225, 34);
             txtName.TabIndex = 7;

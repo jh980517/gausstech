@@ -40,6 +40,27 @@ namespace PinConnectionDiagram
         // 요청된 버튼 조합과 기본 버튼을 동적으로 구성해 MessageBox와 같은 사용성을 제공한다.
         private void CreateButtons(MessageBoxButtons buttons, MessageBoxDefaultButton defaultButton)
         {
+            if (buttons == MessageBoxButtons.YesNoCancel)
+            {
+                Button saveButton = CreateButton("저장", DialogResult.Yes);
+                Button discardButton = CreateButton("저장 안 함", DialogResult.No);
+                Button cancelButton = CreateButton("취소", DialogResult.Cancel);
+                flpButtons.Width = 294;
+                flpButtons.Left = ClientSize.Width - flpButtons.Width - 26;
+                flpButtons.Controls.Add(cancelButton);
+                flpButtons.Controls.Add(discardButton);
+                flpButtons.Controls.Add(saveButton);
+                AcceptButton = defaultButton switch
+                {
+                    MessageBoxDefaultButton.Button2 => discardButton,
+                    MessageBoxDefaultButton.Button3 => cancelButton,
+                    _ => saveButton
+                };
+                CancelButton = cancelButton;
+                ActiveControl = AcceptButton as Control;
+                return;
+            }
+
             if (buttons == MessageBoxButtons.YesNo)
             {
                 Button yesButton = CreateButton("예", DialogResult.Yes);

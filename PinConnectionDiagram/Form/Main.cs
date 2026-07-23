@@ -12,6 +12,8 @@ namespace PinConnectionDiagram
     {
         private const int WmSetRedraw = 0x000B;
         private const int WmSysCommand = 0x0112;
+        private const int WmNcLButtonDown = 0x00A1;
+        private const int HtCaption = 2;
         private const int ScMaximize = 0xF030;
         private const int ScRestore = 0xF120;
         private const uint RdwInvalidate = 0x0001;
@@ -41,8 +43,16 @@ namespace PinConnectionDiagram
         private MapManager mapManager = null!;
         private readonly Button btnDefaultTheme;
         private readonly Button btnDefenseTheme;
+        private readonly Button btnNewProject;
+        private readonly Button btnOpenProject;
+        private readonly Button btnSaveProject;
+        private readonly FlowLayoutPanel pnlThemeButtons;
+        private readonly Label lblThemeGroup;
         private readonly ToolTip themeToolTip;
         private readonly Label lblProgramVersion;
+        private string? currentProjectPath;
+        private bool hasUnsavedChanges;
+        private bool isLoadingProject;
         private bool wasMinimized;
         private bool? compactLayoutApplied;
         private int windowStateTransitionVersion;
@@ -82,14 +92,58 @@ namespace PinConnectionDiagram
             ApplyInitialWindowSize();
             ApplyResponsiveLayout();
 
-            FlowLayoutPanel themeButtons = new FlowLayoutPanel
+            TlpHead1.SuspendLayout();
+            TlpHead1.ColumnCount = 4;
+            TlpHead1.ColumnStyles.Clear();
+            TlpHead1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            TlpHead1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 124F));
+            TlpHead1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 141F));
+            TlpHead1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 132F));
+            TlpHead1.SetColumn(LblTitle1, 0);
+            TlpHead1.SetColumn(TlpHeadBtn, 2);
+            TlpHeadBtn.Dock = DockStyle.Fill;
+            // 헤더의 상·하단 그라데이션 선을 가리지 않도록 작업 버튼 영역을 안쪽으로 제한한다.
+            TlpHeadBtn.Margin = new Padding(0, 5, 0, 5);
+            TlpHeadBtn.Padding = Padding.Empty;
+            foreach (Button historyButton in new[] { btnBack, btnForward, btnReset })
+            {
+                historyButton.Anchor = AnchorStyles.None;
+                historyButton.Margin = Padding.Empty;
+            }
+
+            FlowLayoutPanel projectButtons = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
-                FlowDirection = FlowDirection.RightToLeft,
+                FlowDirection = FlowDirection.LeftToRight,
                 Margin = Padding.Empty,
-                Padding = new Padding(0, 11, 16, 0),
+                Padding = new Padding(7, 7, 0, 0),
                 WrapContents = false,
                 BackColor = Color.Transparent
+            };
+
+            pnlThemeButtons = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.LeftToRight,
+                Margin = Padding.Empty,
+                Padding = new Padding(13, 10, 0, 0),
+                WrapContents = false,
+                BackColor = Color.Transparent
+            };
+            pnlThemeButtons.Paint += (_, paintEvent) =>
+            {
+                using Pen separator = new Pen(Color.FromArgb(110, AppTheme.Accent), 1F);
+                paintEvent.Graphics.DrawLine(separator, 3, 11, 3, pnlThemeButtons.Height - 11);
+            };
+
+            lblThemeGroup = new Label
+            {
+                AutoSize = false,
+                Font = new Font("맑은 고딕", 8F, FontStyle.Bold),
+                Margin = new Padding(0, 5, 3, 0),
+                Size = new Size(34, 20),
+                Text = "테마",
+                TextAlign = ContentAlignment.MiddleCenter
             };
 
             btnDefenseTheme = CreateThemeColorButton(
@@ -100,14 +154,34 @@ namespace PinConnectionDiagram
                 Color.FromArgb(145, 223, 251));
             btnDefaultTheme.Click += (_, _) => SelectTheme(false);
             btnDefenseTheme.Click += (_, _) => SelectTheme(true);
+            btnNewProject = CreateProjectFileButton("새 프로젝트");
+            btnOpenProject = CreateProjectFileButton("프로젝트 열기");
+            btnSaveProject = CreateProjectFileButton("프로젝트 저장");
+            btnNewProject.Click += btnNewProject_Click;
+            btnOpenProject.Click += btnOpenProject_Click;
+            btnSaveProject.Click += btnSaveProject_Click;
 
-            themeButtons.Controls.Add(btnDefenseTheme);
-            themeButtons.Controls.Add(btnDefaultTheme);
-            TlpHead1.Controls.Add(themeButtons, 1, 0);
+            projectButtons.Controls.Add(btnNewProject);
+            projectButtons.Controls.Add(btnOpenProject);
+            projectButtons.Controls.Add(btnSaveProject);
+            pnlThemeButtons.Controls.Add(lblThemeGroup);
+            pnlThemeButtons.Controls.Add(btnDefaultTheme);
+            pnlThemeButtons.Controls.Add(btnDefenseTheme);
+            TlpHead1.Controls.Add(projectButtons, 1, 0);
+            TlpHead1.Controls.Add(pnlThemeButtons, 3, 0);
+            TlpHead1.ResumeLayout(true);
 
             themeToolTip = new ToolTip();
             themeToolTip.SetToolTip(btnDefaultTheme, "기본 테마");
             themeToolTip.SetToolTip(btnDefenseTheme, "국방 테마");
+            themeToolTip.SetToolTip(btnNewProject, "새 프로젝트 (Ctrl+N)");
+            themeToolTip.SetToolTip(btnOpenProject, "프로젝트 열기 (Ctrl+O)");
+            themeToolTip.SetToolTip(btnSaveProject, "프로젝트 저장 (Ctrl+S)");
+            themeToolTip.SetToolTip(btnSupAdd, "시험 준비물 추가");
+            themeToolTip.SetToolTip(btnBack, "이전 작업으로 되돌리기 (Ctrl+Z)");
+            themeToolTip.SetToolTip(btnForward, "다음 작업으로 다시 실행 (Ctrl+Shift+Z)");
+            themeToolTip.SetToolTip(btnReset, "모든 설정 초기화");
+            themeToolTip.SetToolTip(btnDone, "출력 미리보기 (Ctrl+P)");
 
             ButtonHelper.ApplyButtonEffect(
             btnBack,
@@ -152,6 +226,8 @@ namespace PinConnectionDiagram
 
         private void Main_Load(object sender, EventArgs e)
         {
+            // 최초 컨트롤 생성과 레이아웃 이벤트는 사용자 변경으로 기록하지 않는다.
+            isLoadingProject = true;
             // 디자이너가 모든 부모 컨트롤을 만든 뒤 MapManager를 생성해야 한다.
             mapManager = new MapManager(
                 TlpMap,
@@ -162,6 +238,15 @@ namespace PinConnectionDiagram
             mapManager.HistoryChanged += MapManager_HistoryChanged;
             UpdateHistoryButtons();
             ApplyCurrentTheme();
+
+            // 초기 레이아웃에서 지연 실행된 이벤트까지 끝난 다음 새 프로젝트를 저장된 상태로 확정한다.
+            BeginInvoke(new Action(() =>
+            {
+                currentProjectPath = null;
+                hasUnsavedChanges = false;
+                isLoadingProject = false;
+                UpdateWindowTitle();
+            }));
         }
 
         private void ApplyInitialWindowSize()
@@ -205,7 +290,8 @@ namespace PinConnectionDiagram
                     ? new Padding(8)
                     : new Padding(15, 15, 25, 15);
                 PnlMap.Padding = useCompactLayout
-                    ? new Padding(0, 0, 6, 0)
+                    // 커스텀 세로 스크롤바(12px)와 오른쪽 여백(4px)을 항상 확보한다.
+                    ? new Padding(0, 0, 16, 0)
                     : new Padding(0, 0, 15, 0);
 
                 float cableHeaderFontSize = useCompactLayout ? 11.5F : 13F;
@@ -260,8 +346,8 @@ namespace PinConnectionDiagram
                 FlatStyle = FlatStyle.Flat,
                 Font = new Font("맑은 고딕", 11F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(30, 38, 35),
-                Margin = new Padding(6, 1, 0, 1),
-                Size = new Size(28, 28),
+                Margin = new Padding(6, 5, 0, 0),
+                Size = new Size(24, 24),
                 TabStop = false,
                 UseVisualStyleBackColor = false
             };
@@ -272,8 +358,29 @@ namespace PinConnectionDiagram
             return button;
         }
 
+        private static Button CreateProjectFileButton(string accessibleName)
+        {
+            Button button = new Button
+            {
+                AccessibleName = accessibleName,
+                BackColor = Color.Transparent,
+                Cursor = Cursors.Hand,
+                FlatStyle = FlatStyle.Flat,
+                Margin = new Padding(6, 0, 0, 0),
+                Size = new Size(30, 30),
+                TabStop = false,
+                UseVisualStyleBackColor = false
+            };
+            button.FlatAppearance.BorderSize = 0;
+            button.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 255, 255, 255);
+            button.FlatAppearance.MouseDownBackColor = Color.FromArgb(75, 255, 255, 255);
+            return button;
+        }
+
         private void SelectTheme(bool useDefenseTheme)
         {
+            // 테마는 화면 표시 환경일 뿐 연결도 프로젝트 데이터의 편집 상태에는 포함하지 않는다.
+            // 따라서 테마만 변경한 경우에는 닫기·새 작업·열기 시 저장 여부를 묻지 않는다.
             AppTheme.SetDefense(useDefenseTheme);
             ApplyCurrentTheme();
         }
@@ -290,6 +397,9 @@ namespace PinConnectionDiagram
             LblTitle1.ForeColor = AppTheme.Accent;
             LblTitle2.ForeColor = AppTheme.Accent;
             lblProgramVersion.ForeColor = ControlPaint.Dark(AppTheme.Accent, 0.15F);
+            lblThemeGroup.ForeColor = AppTheme.Accent;
+            pnlThemeButtons.Invalidate();
+            UpdateProjectButtonIcons();
             TlpHead1.BackColor = AppTheme.Background;
             TlpHead2.BackColor = AppTheme.Background;
             TlpMap.BackColor = AppTheme.Background;
@@ -336,6 +446,75 @@ namespace PinConnectionDiagram
             TlpBg.Invalidate(true);
             FlpSupplies.Invalidate(true);
             PnlMap.Invalidate(true);
+        }
+
+        private void UpdateProjectButtonIcons()
+        {
+            ReplaceButtonImage(btnNewProject, CreateNewProjectIcon(AppTheme.Accent));
+            ReplaceButtonImage(btnOpenProject, CreateOpenProjectIcon(AppTheme.Accent));
+            ReplaceButtonImage(btnSaveProject, CreateSaveProjectIcon(AppTheme.Accent));
+        }
+
+        private static void ReplaceButtonImage(Button button, Image image)
+        {
+            Image? previous = button.Image;
+            button.Image = image;
+            previous?.Dispose();
+        }
+
+        private static Bitmap CreateOpenProjectIcon(Color accent)
+        {
+            Bitmap bitmap = new Bitmap(28, 28);
+            using Graphics graphics = Graphics.FromImage(bitmap);
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            using Pen pen = new Pen(accent, 2F) { LineJoin = LineJoin.Round };
+            using SolidBrush fill = new SolidBrush(Color.FromArgb(55, accent));
+            Point[] folder =
+            {
+                new Point(3, 8), new Point(11, 8), new Point(13, 11),
+                new Point(25, 11), new Point(22, 23), new Point(3, 23)
+            };
+            graphics.FillPolygon(fill, folder);
+            graphics.DrawPolygon(pen, folder);
+            graphics.DrawLine(pen, 6, 5, 14, 5);
+            graphics.DrawLine(pen, 14, 5, 17, 8);
+            return bitmap;
+        }
+
+        private static Bitmap CreateNewProjectIcon(Color accent)
+        {
+            Bitmap bitmap = new Bitmap(28, 28);
+            using Graphics graphics = Graphics.FromImage(bitmap);
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            using Pen pen = new Pen(accent, 2F) { LineJoin = LineJoin.Round };
+            using SolidBrush fill = new SolidBrush(Color.FromArgb(55, accent));
+            Point[] page =
+            {
+                new Point(5, 3), new Point(17, 3), new Point(23, 9),
+                new Point(23, 25), new Point(5, 25)
+            };
+            graphics.FillPolygon(fill, page);
+            graphics.DrawPolygon(pen, page);
+            graphics.DrawLine(pen, 17, 3, 17, 9);
+            graphics.DrawLine(pen, 17, 9, 23, 9);
+            graphics.DrawLine(pen, 9, 17, 19, 17);
+            graphics.DrawLine(pen, 14, 12, 14, 22);
+            return bitmap;
+        }
+
+        private static Bitmap CreateSaveProjectIcon(Color accent)
+        {
+            Bitmap bitmap = new Bitmap(28, 28);
+            using Graphics graphics = Graphics.FromImage(bitmap);
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            using Pen pen = new Pen(accent, 2F) { LineJoin = LineJoin.Round };
+            using SolidBrush fill = new SolidBrush(Color.FromArgb(55, accent));
+            Rectangle body = new Rectangle(4, 3, 20, 22);
+            graphics.FillRectangle(fill, body);
+            graphics.DrawRectangle(pen, body);
+            graphics.DrawRectangle(pen, 8, 4, 11, 7);
+            graphics.DrawRectangle(pen, 8, 16, 12, 9);
+            return bitmap;
         }
 
         private void ApplyThemeButtonImages()
@@ -394,9 +573,216 @@ namespace PinConnectionDiagram
             }
         }
 
+        private void btnNewProject_Click(object? sender, EventArgs e)
+        {
+            if (!ConfirmSaveBeforeReplacingProject())
+                return;
+
+            isLoadingProject = true;
+            try
+            {
+                mapManager.StartNewProject();
+            }
+            finally
+            {
+                isLoadingProject = false;
+            }
+
+            currentProjectPath = null;
+            hasUnsavedChanges = false;
+            UpdateWindowTitle();
+            RefreshMapAfterSupplyChange();
+        }
+
+        private bool ConfirmSaveBeforeReplacingProject()
+        {
+            if (!hasUnsavedChanges)
+                return true;
+
+            DialogResult result = ProjectMessageBox.Show(
+                "현재 프로젝트의 변경 사항을 저장하시겠습니까?",
+                "변경 사항 저장",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button1);
+            return result switch
+            {
+                DialogResult.Yes => SaveProject(false),
+                DialogResult.No => true,
+                _ => false
+            };
+        }
+
+        private void btnOpenProject_Click(object? sender, EventArgs e)
+        {
+            if (!ConfirmSaveBeforeReplacingProject())
+                return;
+
+            using OpenFileDialog dialog = new OpenFileDialog
+            {
+                Filter = ProjectFileService.DialogFilter,
+                DefaultExt = ProjectFileService.Extension.TrimStart('.'),
+                CheckFileExists = true,
+                InitialDirectory = DialogDirectoryStore.GetProjectDirectory(),
+                Multiselect = false,
+                RestoreDirectory = true,
+                Title = "시험 연결 프로젝트 열기"
+            };
+            if (dialog.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            try
+            {
+                ProjectFileData data = ProjectFileService.Load(dialog.FileName);
+                isLoadingProject = true;
+                try
+                {
+                    mapManager.ImportProjectData(data);
+                    SelectTheme(data.UseDefenseTheme);
+                }
+                finally
+                {
+                    isLoadingProject = false;
+                }
+                currentProjectPath = dialog.FileName;
+                DialogDirectoryStore.RememberProjectPath(dialog.FileName);
+                hasUnsavedChanges = false;
+                UpdateWindowTitle();
+                RefreshMapAfterSupplyChange();
+            }
+            catch (Exception exception)
+            {
+                ErrorLogger.Write(exception, "ProjectOpen");
+                ProjectMessageBox.Show(
+                    $"프로젝트 파일을 열 수 없습니다.\n{exception.Message}",
+                    "열기 오류",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSaveProject_Click(object? sender, EventArgs e)
+        {
+            SaveProject(true);
+        }
+
+        private bool SaveProject(bool showCompletionMessage)
+        {
+            string? path = currentProjectPath;
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                using SaveFileDialog dialog = new SaveFileDialog
+                {
+                    Filter = ProjectFileService.DialogFilter,
+                    DefaultExt = ProjectFileService.Extension.TrimStart('.'),
+                    AddExtension = true,
+                    FileName = GetDefaultProjectFileName(),
+                    InitialDirectory = DialogDirectoryStore.GetProjectDirectory(),
+                    OverwritePrompt = true,
+                    RestoreDirectory = true,
+                    Title = "시험 연결 프로젝트 저장"
+                };
+                if (dialog.ShowDialog(this) != DialogResult.OK)
+                    return false;
+                path = dialog.FileName;
+            }
+
+            try
+            {
+                ProjectFileData data = mapManager.ExportProjectData(AppTheme.IsDefense);
+                ProjectFileService.Save(path, data);
+                currentProjectPath = path;
+                DialogDirectoryStore.RememberProjectPath(path);
+                hasUnsavedChanges = false;
+                UpdateWindowTitle();
+                if (showCompletionMessage)
+                {
+                    ProjectMessageBox.Show(
+                        "프로젝트를 저장했습니다.",
+                        "저장 완료",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                return true;
+            }
+            catch (Exception exception)
+            {
+                ErrorLogger.Write(exception, "ProjectSave");
+                ProjectMessageBox.Show(
+                    $"프로젝트를 저장할 수 없습니다.\n{exception.Message}",
+                    "저장 오류",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private string GetDefaultProjectFileName()
+        {
+            string fileName = cableManager.Cables
+                .FirstOrDefault(cable => cable.Category == "시험 대상 케이블")?.Name
+                ?? $"시험연결프로젝트_{DateTime.Now:yyyyMMdd}";
+
+            foreach (char invalidCharacter in Path.GetInvalidFileNameChars())
+                fileName = fileName.Replace(invalidCharacter, '_');
+
+            fileName = fileName.Trim().TrimEnd('.');
+            return string.IsNullOrWhiteSpace(fileName)
+                ? $"시험연결프로젝트_{DateTime.Now:yyyyMMdd}"
+                : fileName;
+        }
+
+        private void MarkProjectChanged()
+        {
+            if (isLoadingProject)
+                return;
+
+            hasUnsavedChanges = true;
+            UpdateWindowTitle();
+        }
+
+        private void UpdateWindowTitle()
+        {
+            string projectName = string.IsNullOrWhiteSpace(currentProjectPath)
+                ? string.Empty
+                : $" - {Path.GetFileNameWithoutExtension(currentProjectPath)}";
+            Text = $"Test Cable Connection Manager{projectName}{(hasUnsavedChanges ? " *" : string.Empty)}";
+        }
+
         private void btnBack_Click(object? sender, EventArgs e)
         {
             mapManager.Undo();
+        }
+
+        /// <summary>메뉴가 없는 메인 화면에서도 표준 편집·파일 단축키를 전역 처리한다.</summary>
+        protected override bool ProcessCmdKey(ref Message message, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Control | Keys.N:
+                    btnNewProject.PerformClick();
+                    return true;
+                case Keys.Control | Keys.O:
+                    btnOpenProject.PerformClick();
+                    return true;
+                case Keys.Control | Keys.S:
+                    btnSaveProject.PerformClick();
+                    return true;
+                case Keys.Control | Keys.Z:
+                    if (mapManager.CanUndo)
+                        mapManager.Undo();
+                    return true;
+                case Keys.Control | Keys.Shift | Keys.Z:
+                case Keys.Control | Keys.Y:
+                    if (mapManager.CanRedo)
+                        mapManager.Redo();
+                    return true;
+                case Keys.Control | Keys.P:
+                    btnDone.PerformClick();
+                    return true;
+                default:
+                    return base.ProcessCmdKey(ref message, keyData);
+            }
         }
 
         private void btnForward_Click(object? sender, EventArgs e)
@@ -454,8 +840,19 @@ namespace PinConnectionDiagram
                 diagram,
                 procedure,
                 supplies);
-            using PdfPreviewForm previewForm = new PdfPreviewForm(title, pages);
+            using PdfPreviewForm previewForm = new PdfPreviewForm(
+                title,
+                pages,
+                SaveProjectBeforeExport);
             previewForm.ShowDialog(this);
+        }
+
+        private bool SaveProjectBeforeExport()
+        {
+            if (!hasUnsavedChanges && !string.IsNullOrWhiteSpace(currentProjectPath))
+                return true;
+
+            return SaveProject(false);
         }
 
         private void btnCancel_Click(object? sender, EventArgs e)
@@ -472,15 +869,32 @@ namespace PinConnectionDiagram
                 return;
             }
 
-            DialogResult result = ProjectMessageBox.Show(
-                "현재 작업을 종료하고 창을 닫으시겠습니까?",
-                "프로그램 종료",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning,
-                MessageBoxDefaultButton.Button2);
+            if (hasUnsavedChanges)
+            {
+                DialogResult saveResult = ProjectMessageBox.Show(
+                    "변경된 연결도 프로젝트를 저장하시겠습니까?",
+                    "변경 사항 저장",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Warning,
+                    MessageBoxDefaultButton.Button1);
 
-            if (result != DialogResult.Yes)
-                e.Cancel = true;
+                if (saveResult == DialogResult.Cancel ||
+                    saveResult == DialogResult.Yes && !SaveProject(false))
+                {
+                    e.Cancel = true;
+                }
+            }
+            else
+            {
+                DialogResult closeResult = ProjectMessageBox.Show(
+                    "프로그램을 종료하고 창을 닫으시겠습니까?",
+                    "프로그램 종료",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning,
+                    MessageBoxDefaultButton.Button2);
+                if (closeResult != DialogResult.Yes)
+                    e.Cancel = true;
+            }
 
             base.OnFormClosing(e);
         }
@@ -562,6 +976,7 @@ namespace PinConnectionDiagram
         private void MapManager_HistoryChanged()
         {
             UpdateHistoryButtons();
+            MarkProjectChanged();
         }
 
         private void UpdateHistoryButtons()
@@ -797,7 +1212,16 @@ namespace PinConnectionDiagram
             bool isRestoreFromMaximizedCommand = message.Msg == WmSysCommand &&
                 systemCommand == ScRestore &&
                 WindowState == FormWindowState.Maximized;
-            bool isWindowStateCommand = isMaximizeCommand || isRestoreFromMaximizedCommand;
+            // 최대화된 제목 표시줄을 아래로 끌어 복원하면 SC_RESTORE보다 먼저
+            // WM_NCLBUTTONDOWN(HTCAPTION) 경로에서 창 크기 변경이 시작된다.
+            bool isDragRestoreFromMaximized =
+                message.Msg == WmNcLButtonDown &&
+                message.WParam.ToInt32() == HtCaption &&
+                WindowState == FormWindowState.Maximized;
+            bool isWindowStateCommand =
+                isMaximizeCommand ||
+                isRestoreFromMaximizedCommand ||
+                isDragRestoreFromMaximized;
 
             if (!isWindowStateCommand)
             {

@@ -7,7 +7,7 @@ namespace PinConnectionDiagram.Models
     public class CableInfo
     {
         // 이름이 같은 항목도 독립적으로 삭제할 수 있도록 고유 ID를 부여한다.
-        public Guid Id { get; } = Guid.NewGuid();
+        public Guid Id { get; init; } = Guid.NewGuid();
         public required string Category { get; set; }
         public required string Name { get; set; }
         public int Count { get; set; }

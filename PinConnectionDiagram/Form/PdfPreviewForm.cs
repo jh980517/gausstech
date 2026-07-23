@@ -8,14 +8,19 @@ namespace PinConnectionDiagram
     {
         private readonly string documentTitle;
         private readonly List<Bitmap> pages;
+        private readonly Func<bool>? beforeExportSave;
         private int pageIndex;
 
-        public PdfPreviewForm(string title, List<Bitmap> pages)
+        public PdfPreviewForm(
+            string title,
+            List<Bitmap> pages,
+            Func<bool>? beforeExportSave = null)
         {
             InitializeComponent();
             FitToWorkingArea();
             documentTitle = title;
             this.pages = pages;
+            this.beforeExportSave = beforeExportSave;
             lblTitle.Text = $"{title} 출력 미리보기";
             ApplyTheme();
             ApplyButtonStyles();
@@ -147,13 +152,19 @@ namespace PinConnectionDiagram
         // 선택한 확장자에 따라 PDF 또는 페이지별 이미지 저장 기능을 호출한다.
         private void btnSave_Click(object? sender, EventArgs e)
         {
+            // 출력 파일보다 프로젝트 원본(.tccm)을 먼저 저장해 편집 데이터를 보존한다.
+            if (beforeExportSave != null && !beforeExportSave())
+                return;
+
             using SaveFileDialog dialog = new SaveFileDialog
             {
                 AddExtension = true,
                 FileName = SanitizeFileName(GetDefaultFileName(documentTitle)),
                 Filter = "PNG 이미지 (*.png)|*.png|PDF 문서 (*.pdf)|*.pdf|JPEG 이미지 (*.jpg)|*.jpg",
                 FilterIndex = 1,
+                InitialDirectory = DialogDirectoryStore.GetExportDirectory(),
                 OverwritePrompt = true,
+                RestoreDirectory = true,
                 Title = "연결도 및 시험 절차 저장"
             };
 
@@ -169,6 +180,8 @@ namespace PinConnectionDiagram
                     PdfExportService.SaveImages(dialog.FileName, pages, ImageFormat.Jpeg);
                 else
                     PdfExportService.SaveImages(dialog.FileName, pages, ImageFormat.Png);
+
+                DialogDirectoryStore.RememberExportPath(dialog.FileName);
 
                 ProjectMessageBox.Show(
                     "연결도와 시험 절차가 저장되었습니다.",

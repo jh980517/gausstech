@@ -16,17 +16,22 @@ namespace PinConnectionDiagram.Managers
         private readonly Dictionary<(int, ConnectorType), CablePanel> cablePanels = new();
         private readonly List<ConnectionLine> connectionLines = new();
         private readonly ConnectionOverlay connectionOverlay;
+        private readonly System.Windows.Forms.Timer settledOverlayRefreshTimer;
         private readonly List<MapSnapshot> history = new();
+        private MapSnapshot? initialSnapshot;
         // historyIndex는 현재 화면에 적용된 스냅샷 위치를 가리킨다.
         private int historyIndex = -1;
         private bool isRestoringHistory;
         private bool isOverlayRefreshQueued;
+        private bool isOverlayRefreshPending;
         private bool isViewportResizing;
         private bool isSynchronizingMapWidth;
         private Connector? selectedConnector;
 
         public bool CanUndo => historyIndex > 0;
         public bool CanRedo => historyIndex >= 0 && historyIndex < history.Count - 1;
+        public bool HasConfiguredData => connectionLines.Count > 0 ||
+            tjControls.Values.Any(tj => tj.IsOn);
         public bool CanReset => connectionLines.Count > 0 ||
             Enumerable.Range(1, 5).Any(tjNumber =>
                 GetTJ(tjNumber).IsOn ||
@@ -43,8 +48,24 @@ namespace PinConnectionDiagram.Managers
             this.getSupplies = getSupplies ?? (() => Array.Empty<CableInfo>());
 
             connectionOverlay = new ConnectionOverlay(() => connectionLines);
-            connectionOverlay.CableAssignmentChanged += RecordHistory;
             connectionOverlay.ConnectionDeleteRequested += DeleteConnection;
+
+            // 중첩 레이아웃이 모두 끝난 시점에 오버레이를 한 번 더 검증한다.
+            // 즉시 갱신 때 임시 좌표가 들어와 선과 DropZone이 사라지는 경합을 방지한다.
+            settledOverlayRefreshTimer = new System.Windows.Forms.Timer
+            {
+                Interval = 60
+            };
+            settledOverlayRefreshTimer.Tick += (_, _) =>
+            {
+                settledOverlayRefreshTimer.Stop();
+                RefreshSettledConnectionOverlay();
+            };
+            connectionOverlay.CableAssignmentChanged += () =>
+            {
+                RecordHistory();
+                QueueConnectionOverlayRefresh();
+            };
             tlpMap.Parent?.Controls.Add(connectionOverlay);
             SyncConnectionOverlayBounds();
             connectionOverlay.BringToFront();
@@ -165,8 +186,11 @@ namespace PinConnectionDiagram.Managers
             if (connectionOverlay.IsDisposed)
                 return;
 
+            if (isOverlayRefreshPending)
+                isOverlayRefreshPending = false;
             SyncConnectionOverlayBounds();
             connectionOverlay.Visible = true;
+            // 크기 전환 중 누락된 요청이 있든 없든 최종 좌표를 한 번 검증한다.
             QueueConnectionOverlayRefresh();
         }
 
@@ -175,8 +199,15 @@ namespace PinConnectionDiagram.Managers
             if (isViewportResizing ||
                 tlpMap.Parent is ScrollableControl viewport && IsViewportUnavailable(viewport))
             {
+                // 최소화·크기 전환 중 요청을 버리지 않고 정상 뷰포트가 돌아왔을 때 처리한다.
+                isOverlayRefreshPending = true;
                 return;
             }
+
+            isOverlayRefreshPending = false;
+            // 연속 Layout/SizeChanged가 발생하면 마지막 변경 후 60ms 시점으로 미룬다.
+            settledOverlayRefreshTimer.Stop();
+            settledOverlayRefreshTimer.Start();
 
             if (isOverlayRefreshQueued || connectionOverlay.IsDisposed)
                 return;
@@ -192,24 +223,40 @@ namespace PinConnectionDiagram.Managers
             // 모든 하위 컨트롤의 위치 계산이 끝난 다음 선의 Region과 좌표를 다시 만든다.
             invokeControl.BeginInvoke(new Action(() =>
             {
-                if (isViewportResizing)
+                try
+                {
+                    if (isViewportResizing || connectionOverlay.IsDisposed)
+                        return;
+
+                    SyncConnectionOverlayBounds();
+                    connectionOverlay.Visible = true;
+                    connectionOverlay.BringToFront();
+                    connectionOverlay.Refresh();
+                }
+                finally
                 {
                     isOverlayRefreshQueued = false;
-                    return;
                 }
-
-                if (connectionOverlay.IsDisposed)
-                {
-                    isOverlayRefreshQueued = false;
-                    return;
-                }
-
-                SyncConnectionOverlayBounds();
-                connectionOverlay.Visible = true;
-                connectionOverlay.BringToFront();
-                connectionOverlay.Refresh();
-                isOverlayRefreshQueued = false;
             }));
+        }
+
+        /// <summary>
+        /// 마지막 레이아웃 이벤트 이후 확정된 좌표로 선, 표시 영역, DropZone을 다시 만든다.
+        /// </summary>
+        private void RefreshSettledConnectionOverlay()
+        {
+            if (isViewportResizing || connectionOverlay.IsDisposed ||
+                tlpMap.Parent is ScrollableControl viewport && IsViewportUnavailable(viewport))
+            {
+                isOverlayRefreshPending = true;
+                return;
+            }
+
+            SyncConnectionOverlayBounds();
+            connectionOverlay.Visible = true;
+            connectionOverlay.BringToFront();
+            connectionOverlay.Invalidate(true);
+            connectionOverlay.Update();
         }
 
         public Bitmap RenderConnectionDiagram()
@@ -351,6 +398,48 @@ namespace PinConnectionDiagram.Managers
             {
                 RemoveConnector(test, test.LeftConnectors.Last());
             }
+
+            RebuildAutomaticTestConnections();
+        }
+
+        /// <summary>
+        /// 시험 대상 케이블의 모든 활성 커넥터를 하나의 공통 연결 그룹으로 자동 구성한다.
+        /// 선은 첫 커넥터를 중심으로 한 최소 개수의 분기만 저장하지만, 연결 판정상 모두 연결된다.
+        /// </summary>
+        private void RebuildAutomaticTestConnections()
+        {
+            CableInfo? assignedCable = connectionLines
+                .Where(line =>
+                    line.StartConnector.ConnectorType == ConnectorType.Test &&
+                    line.EndConnector.ConnectorType == ConnectorType.Test)
+                .Select(line => line.CableInfo)
+                .FirstOrDefault(cable => cable != null);
+
+            connectionLines.RemoveAll(line =>
+                line.StartConnector.ConnectorType == ConnectorType.Test &&
+                line.EndConnector.ConnectorType == ConnectorType.Test);
+
+            List<Connector> testConnectors = tjControls.Values
+                .Where(tj => tj.IsOn)
+                .OrderBy(tj => tj.TJNumber)
+                .SelectMany(tj => GetPanel(tj.TJNumber, ConnectorType.Test).LeftConnectors)
+                .ToList();
+            if (testConnectors.Count > 1)
+            {
+                Connector hub = testConnectors[0];
+                foreach (Connector connector in testConnectors.Skip(1))
+                {
+                    connectionLines.Add(new ConnectionLine
+                    {
+                        StartConnector = hub,
+                        EndConnector = connector,
+                        CableInfo = assignedCable
+                    });
+                }
+            }
+
+            RefreshConnectedStates();
+            connectionOverlay.RefreshConnections();
         }
 
         public void Create()
@@ -358,7 +447,22 @@ namespace PinConnectionDiagram.Managers
             CreateRows();
 
             InitializeDefaultConnector();
+            initialSnapshot = CaptureSnapshot();
             RecordHistory();
+        }
+
+        /// <summary>프로그램 최초 실행 상태로 복원하고 Undo/Redo 이력을 새로 시작한다.</summary>
+        public void StartNewProject()
+        {
+            if (initialSnapshot == null)
+                throw new InvalidOperationException("초기 프로젝트 상태가 준비되지 않았습니다.");
+
+            RestoreSnapshot(initialSnapshot);
+            history.Clear();
+            history.Add(CaptureSnapshot());
+            historyIndex = 0;
+            HistoryChanged?.Invoke();
+            QueueConnectionOverlayRefresh();
         }
 
         private void InitializeDefaultConnector()
@@ -423,7 +527,7 @@ namespace PinConnectionDiagram.Managers
                 panel.AddConnector(ConnectorSide.Left);
             }
 
-            if (type == ConnectorType.Test)
+            if (type is ConnectorType.Jig or ConnectorType.Test)
             {
                 panel.ShowAddButton = false;
             }
@@ -454,6 +558,10 @@ namespace PinConnectionDiagram.Managers
                 }
 
                 ResetTJ(tj.TJNumber);
+            }
+            else
+            {
+                EnsureDefaultJigConnection(tj.TJNumber);
             }
 
             GetPanel(tj.TJNumber, ConnectorType.Jig).SetActive(isOn);
@@ -491,6 +599,7 @@ namespace PinConnectionDiagram.Managers
 
             jig.AddConnector(ConnectorSide.Left, "P1");
 
+            RebuildAutomaticTestConnections();
             RefreshConnectedStates();
             UpdateRowHeight(tjNumber);
             connectionOverlay.RefreshConnections();
@@ -758,8 +867,17 @@ namespace PinConnectionDiagram.Managers
 
         private void DeleteConnection(ConnectionLine line)
         {
+            // 연결 생성 클릭 순서와 관계없이 어댑터는 항상 P(Left) → J(Right) 순서로 안내한다.
+            Connector firstConnector = line.StartConnector;
+            Connector secondConnector = line.EndConnector;
+            if (line.StartConnector.ConnectorType == ConnectorType.Adapter &&
+                firstConnector.Side == ConnectorSide.Right)
+            {
+                (firstConnector, secondConnector) = (secondConnector, firstConnector);
+            }
+
             DialogResult result = PinConnectionDiagram.Helpers.ProjectMessageBox.Show(
-                $"{line.StartConnector.ConnectorName}과 {line.EndConnector.ConnectorName} 사이의 연결선을 삭제하시겠습니까?",
+                $"{firstConnector.ConnectorName}과 {secondConnector.ConnectorName} 사이의 연결선을 삭제하시겠습니까?",
                 "연결선 삭제",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
@@ -772,6 +890,40 @@ namespace PinConnectionDiagram.Managers
             RefreshConnectedStates();
             connectionOverlay.RefreshConnections();
             RecordHistory();
+        }
+
+        /// <summary>
+        /// TJ를 켜면 지그 P2와 대응 어댑터 Left를 만들고 지그 P1-P2 선을 즉시 연결한다.
+        /// 이 작업은 TJ ON 이력 하나에 포함되도록 내부에서 별도 이력을 기록하지 않는다.
+        /// </summary>
+        private void EnsureDefaultJigConnection(int tjNumber)
+        {
+            CablePanel jig = GetPanel(tjNumber, ConnectorType.Jig);
+            if (jig.LeftConnectors.Count == 0)
+                jig.AddConnector(ConnectorSide.Left, "P1");
+            if (jig.RightConnectors.Count == 0)
+                jig.AddConnector(ConnectorSide.Right, "P2");
+
+            Connector left = jig.LeftConnectors[0];
+            Connector right = jig.RightConnectors[0];
+            bool alreadyConnected = connectionLines.Any(line =>
+                ReferenceEquals(line.StartConnector, left) &&
+                ReferenceEquals(line.EndConnector, right) ||
+                ReferenceEquals(line.StartConnector, right) &&
+                ReferenceEquals(line.EndConnector, left));
+            if (!alreadyConnected)
+            {
+                connectionLines.Add(new ConnectionLine
+                {
+                    StartConnector = left,
+                    EndConnector = right
+                });
+            }
+
+            SyncAdapterLeft(tjNumber);
+            RefreshConnectedStates();
+            UpdateRowHeight(tjNumber);
+            connectionOverlay.RefreshConnections();
         }
 
         public bool TryBuildTestProcedure(
@@ -787,6 +939,54 @@ namespace PinConnectionDiagram.Managers
             {
                 errorMessage = "설명문을 생성하려면 먼저 커넥터 사이에 연결선을 만들어 주세요.";
                 return false;
+            }
+
+            // 다른 영역의 선만 존재해도 전체 연결이 완료된 것으로 오인하지 않도록,
+            // 켜진 TJ의 모든 커넥터가 각 케이블 영역의 연결망에 포함됐는지 검사한다.
+            foreach (ConnectorType connectorType in new[]
+            {
+                ConnectorType.Jig,
+                ConnectorType.Adapter,
+                ConnectorType.Test
+            })
+            {
+                List<Connector> requiredConnectors = tjControls.Values
+                    .Where(tj => tj.IsOn)
+                    .OrderBy(tj => tj.TJNumber)
+                    .SelectMany(tj =>
+                    {
+                        CablePanel panel = GetPanel(tj.TJNumber, connectorType);
+                        return panel.LeftConnectors.Concat(panel.RightConnectors);
+                    })
+                    .ToList();
+                List<ConnectionLine> typeConnectionLines = connectionLines
+                    .Where(line =>
+                        line.StartConnector.ConnectorType == connectorType &&
+                        line.EndConnector.ConnectorType == connectorType)
+                    .ToList();
+                string cableTypeName = GetCableTypeName(connectorType);
+
+                if (requiredConnectors.Count > 0 && typeConnectionLines.Count == 0)
+                {
+                    errorMessage = $"{cableTypeName} 영역의 연결선이 없습니다.\n" +
+                        $"{cableTypeName} 커넥터를 연결한 후 다시 완료해 주세요.";
+                    return false;
+                }
+
+                List<Connector> unconnectedConnectors = requiredConnectors
+                    .Where(connector => !typeConnectionLines.Any(line =>
+                        ReferenceEquals(line.StartConnector, connector) ||
+                        ReferenceEquals(line.EndConnector, connector)))
+                    .ToList();
+                if (unconnectedConnectors.Count > 0)
+                {
+                    string connectorNames = string.Join(", ",
+                        unconnectedConnectors.Select(connector =>
+                            $"TJ{connector.TJNumber} {connector.ConnectorName}"));
+                    errorMessage = $"{cableTypeName} 영역에 연결되지 않은 커넥터가 있습니다.\n" +
+                        $"{connectorNames}\n모든 커넥터를 연결한 후 다시 완료해 주세요.";
+                    return false;
+                }
             }
 
             if (connectionLines.Any(line => line.CableInfo == null))
@@ -1049,6 +1249,172 @@ namespace PinConnectionDiagram.Managers
             RecordHistory();
         }
 
+        /// <summary>현재 편집 상태를 파일 저장용 참조 데이터로 변환한다.</summary>
+        public ProjectFileData ExportProjectData(bool useDefenseTheme)
+        {
+            MapSnapshot snapshot = CaptureSnapshot();
+            ProjectFileData data = new ProjectFileData
+            {
+                ApplicationVersion = Application.ProductVersion.Split('+')[0],
+                SavedAt = DateTime.Now,
+                UseDefenseTheme = useDefenseTheme,
+                Supplies = snapshot.Supplies.ToList()
+            };
+
+            foreach (TJState tj in snapshot.TJs)
+            {
+                data.TJs.Add(new ProjectTJState
+                {
+                    TJNumber = tj.TJNumber,
+                    IsOn = tj.IsOn,
+                    Panels = tj.Panels.Select(panel => new ProjectPanelState
+                    {
+                        ConnectorType = panel.ConnectorType,
+                        Connectors = panel.Connectors.Select(connector => new ProjectConnectorState
+                        {
+                            Side = connector.Side,
+                            ConnectorName = connector.ConnectorName
+                        }).ToList()
+                    }).ToList()
+                });
+            }
+
+            foreach (ConnectionState connection in snapshot.Connections)
+            {
+                data.Connections.Add(new ProjectConnectionState
+                {
+                    Start = ToProjectKey(connection.Start),
+                    End = ToProjectKey(connection.End),
+                    CableId = connection.CableInfo?.Id
+                });
+            }
+
+            return data;
+        }
+
+        /// <summary>파일에서 읽은 프로젝트를 화면에 복원하고 새 Undo 기준점으로 설정한다.</summary>
+        public void ImportProjectData(ProjectFileData data)
+        {
+            ValidateProjectData(data);
+            Dictionary<Guid, CableInfo> suppliesById = data.Supplies.ToDictionary(item => item.Id);
+            MapSnapshot snapshot = new MapSnapshot();
+            snapshot.Supplies.AddRange(data.Supplies);
+
+            foreach (ProjectTJState tj in data.TJs.OrderBy(item => item.TJNumber))
+            {
+                TJState tjState = new TJState { TJNumber = tj.TJNumber, IsOn = tj.IsOn };
+                foreach (ProjectPanelState panel in tj.Panels)
+                {
+                    PanelState panelState = new PanelState { ConnectorType = panel.ConnectorType };
+                    panelState.Connectors.AddRange(panel.Connectors.Select(connector => new ConnectorState
+                    {
+                        Side = connector.Side,
+                        ConnectorName = connector.ConnectorName
+                    }));
+                    tjState.Panels.Add(panelState);
+                }
+                snapshot.TJs.Add(tjState);
+            }
+
+            foreach (ProjectConnectionState connection in data.Connections)
+            {
+                CableInfo? cable = connection.CableId.HasValue
+                    ? suppliesById[connection.CableId.Value]
+                    : null;
+                snapshot.Connections.Add(new ConnectionState
+                {
+                    Start = FromProjectKey(connection.Start),
+                    End = FromProjectKey(connection.End),
+                    CableInfo = cable
+                });
+            }
+
+            RestoreSnapshot(snapshot);
+            history.Clear();
+            history.Add(CaptureSnapshot());
+            historyIndex = 0;
+            HistoryChanged?.Invoke();
+            QueueConnectionOverlayRefresh();
+        }
+
+        private static ProjectConnectorKey ToProjectKey(ConnectorKey key) => new()
+        {
+            TJNumber = key.TJNumber,
+            ConnectorType = key.ConnectorType,
+            Side = key.Side,
+            Index = key.Index
+        };
+
+        private static ConnectorKey FromProjectKey(ProjectConnectorKey key) => new()
+        {
+            TJNumber = key.TJNumber,
+            ConnectorType = key.ConnectorType,
+            Side = key.Side,
+            Index = key.Index
+        };
+
+        private static void ValidateProjectData(ProjectFileData data)
+        {
+            if (data.TJs.Count != 5 ||
+                data.TJs.Select(tj => tj.TJNumber).Distinct().Count() != 5 ||
+                data.TJs.Any(tj => tj.TJNumber is < 1 or > 5))
+            {
+                throw new InvalidDataException("TJ 구성이 올바르지 않습니다.");
+            }
+
+            if (data.Supplies.Any(item =>
+                    item.Id == Guid.Empty ||
+                    string.IsNullOrWhiteSpace(item.Category) ||
+                    string.IsNullOrWhiteSpace(item.Name) ||
+                    item.Count < 1) ||
+                data.Supplies.Select(item => item.Id).Distinct().Count() != data.Supplies.Count)
+            {
+                throw new InvalidDataException("시험 준비물 데이터가 올바르지 않습니다.");
+            }
+
+            foreach (ProjectTJState tj in data.TJs)
+            {
+                if (tj.Panels.Count != Enum.GetValues<ConnectorType>().Length ||
+                    tj.Panels.Select(panel => panel.ConnectorType).Distinct().Count() !=
+                    Enum.GetValues<ConnectorType>().Length ||
+                    tj.Panels.Any(panel =>
+                        !Enum.IsDefined(panel.ConnectorType) ||
+                        panel.Connectors.Any(connector =>
+                            !Enum.IsDefined(connector.Side) ||
+                            string.IsNullOrWhiteSpace(connector.ConnectorName))))
+                {
+                    throw new InvalidDataException($"TJ{tj.TJNumber} 커넥터 구성이 올바르지 않습니다.");
+                }
+            }
+
+            HashSet<Guid> supplyIds = data.Supplies.Select(item => item.Id).ToHashSet();
+            if (data.Connections.Any(connection =>
+                connection.CableId.HasValue && !supplyIds.Contains(connection.CableId.Value)))
+            {
+                throw new InvalidDataException("연결선이 존재하지 않는 준비물을 참조합니다.");
+            }
+
+
+            foreach (ProjectConnectionState connection in data.Connections)
+            {
+                ValidateProjectConnectorKey(data, connection.Start);
+                ValidateProjectConnectorKey(data, connection.End);
+            }
+        }
+
+        private static void ValidateProjectConnectorKey(
+            ProjectFileData data,
+            ProjectConnectorKey key)
+        {
+            ProjectTJState? tj = data.TJs.FirstOrDefault(item => item.TJNumber == key.TJNumber);
+            ProjectPanelState? panel = tj?.Panels.FirstOrDefault(
+                item => item.ConnectorType == key.ConnectorType);
+            int connectorCount = panel?.Connectors.Count(
+                connector => connector.Side == key.Side) ?? 0;
+            if (key.Index < 0 || key.Index >= connectorCount)
+                throw new InvalidDataException("연결선의 커넥터 참조가 올바르지 않습니다.");
+        }
+
         private void RecordHistory()
         {
             // Undo 이후 새 작업이 시작되면 더 이상 유효하지 않은 Redo 분기를 버린다.
@@ -1065,6 +1431,10 @@ namespace PinConnectionDiagram.Managers
             history.Add(CaptureSnapshot());
             historyIndex = history.Count - 1;
             HistoryChanged?.Invoke();
+
+            // 모든 모델 변경은 이 공통 지점을 통과한다. 개별 기능이 즉시 Refresh를 빠뜨려도
+            // 최종 레이아웃 좌표가 확정된 뒤 선과 DropZone을 반드시 다시 생성한다.
+            QueueConnectionOverlayRefresh();
         }
 
         private MapSnapshot CaptureSnapshot()
@@ -1191,6 +1561,11 @@ namespace PinConnectionDiagram.Managers
             {
                 isRestoringHistory = false;
             }
+
+            // Undo/Redo 복원 중 준비물·커넥터 UI가 재생성되면서 레이아웃이 여러 번 바뀐다.
+            // 즉시 그린 결과만 사용하면 이전 좌표가 남을 수 있으므로, 레이아웃이 안정된 뒤
+            // 연결선과 DropZone을 확정 좌표로 한 번 더 그린다.
+            QueueConnectionOverlayRefresh();
         }
 
         private Connector FindConnector(ConnectorKey key)

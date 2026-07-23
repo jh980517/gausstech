@@ -81,22 +81,31 @@ namespace PinConnectionDiagram.Controls
 
         public Connector AddConnector(ConnectorSide side, string? connectorName = null)
         {
-            // 이름을 지정하지 않으면 같은 방향에서 다음 순번의 P 번호를 사용한다.
+            // 어댑터 출력은 J, 나머지 커넥터는 P 접두사를 사용한다.
             Connector connector = new Connector();
+            string namePrefix = GetConnectorNamePrefix(side);
 
             if (string.IsNullOrEmpty(connectorName))
             {
                 int number = 
                     side == ConnectorSide.Left
                     ? leftConnectors.Count + 1
-                    : rightConnectors.Count + 1;
+                    : PanelType == ConnectorType.Jig
+                        ? leftConnectors.Count + rightConnectors.Count + 1
+                        : rightConnectors.Count + 1;
 
-                connectorName = $"P{number}";
+                connectorName = $"{namePrefix}{number}";
+            }
+            else if (namePrefix == "J" && connectorName.StartsWith("P", StringComparison.OrdinalIgnoreCase))
+            {
+                // 이전 이력에 저장된 어댑터 출력 P 명칭도 새 J 규칙으로 복원한다.
+                connectorName = $"J{connectorName[1..]}";
             }
 
             connector.Side = side;
             connector.ConnectorType = PanelType;
             connector.TJNumber = TJNumber;
+            connector.ConfigureNamePrefix(namePrefix);
             connector.ConnectorName = connectorName;
 
             connector.RightClicked += Connector_RightClicked;
@@ -149,17 +158,26 @@ namespace PinConnectionDiagram.Controls
 
         private void RenumberConnectors()
         {
-            // 삭제 후 화면에 P 번호가 연속되도록 방향별로 다시 부여한다.
+            // 삭제 후 각 방향의 명명 규칙에 맞춰 번호를 연속으로 다시 부여한다.
             for (int i = 0; i < leftConnectors.Count; i++)
             {
-                leftConnectors[i].ConnectorName = $"P{i + 1}";
+                leftConnectors[i].ConnectorName = $"{GetConnectorNamePrefix(ConnectorSide.Left)}{i + 1}";
             }
 
             for (int i = 0; i < rightConnectors.Count; i++)
             {
-                rightConnectors[i].ConnectorName = $"P{i + 1}";
+                int number = PanelType == ConnectorType.Jig
+                    ? leftConnectors.Count + i + 1
+                    : i + 1;
+                rightConnectors[i].ConnectorName =
+                    $"{GetConnectorNamePrefix(ConnectorSide.Right)}{number}";
             }
         }
+
+        private string GetConnectorNamePrefix(ConnectorSide side) =>
+            PanelType == ConnectorType.Adapter && side == ConnectorSide.Right
+                ? "J"
+                : "P";
 
         public void ClearConnector()
         {
@@ -195,6 +213,19 @@ namespace PinConnectionDiagram.Controls
 
                 leftConnector.Location = new Point(sideMargin, Math.Max(0, centerY));
             }
+            else if (PanelType == ConnectorType.Adapter && leftConnectors.Count > 0)
+            {
+                // Adapter Left는 맞닿는 Jig Right와 동일한 중앙 정렬 규칙을 사용한다.
+                int startY = GetCenteredConnectorStartY(
+                    leftConnectors.Count,
+                    leftConnectors[0].Height,
+                    gap);
+                for (int i = 0; i < leftConnectors.Count; i++)
+                {
+                    leftConnectors[i].Location =
+                        new Point(sideMargin, startY + i * gap);
+                }
+            }
             else
             {
                 for (int i = 0; i < leftConnectors.Count; i++)
@@ -205,16 +236,33 @@ namespace PinConnectionDiagram.Controls
                 }
             }
 
+            int rightStartY = PanelType == ConnectorType.Jig &&
+                rightConnectors.Count > 0
+                ? GetCenteredConnectorStartY(
+                    rightConnectors.Count,
+                    rightConnectors[0].Height,
+                    gap)
+                : top;
             for (int i = 0; i < rightConnectors.Count; i ++)
             {
                 Connector connector = rightConnectors[i];
 
                 int x = PnlCanvas.ClientSize.Width - connector.Width - sideMargin;
 
-                connector.Location = new Point(Math.Max(0, x), top + i * gap);
+                connector.Location =
+                    new Point(Math.Max(0, x), rightStartY + i * gap);
             }
 
             BtnAdd.BringToFront();
+        }
+
+        private int GetCenteredConnectorStartY(
+            int connectorCount,
+            int connectorHeight,
+            int gap)
+        {
+            int listHeight = connectorHeight + Math.Max(0, connectorCount - 1) * gap;
+            return Math.Max(0, (PnlCanvas.ClientSize.Height - listHeight) / 2);
         }
 
         private void PnlCanvas_SizeChanged(object sender, EventArgs e)

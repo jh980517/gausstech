@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pzIuH8flCKQ=",
+  "dgSpecHash": "J+qQT7S+DaY=",
   "success": true,
-  "projectFilePath": "D:\\GaussTech_이재훈\\source\\PinConnectionDiagram\\PinConnectionDiagram\\PinConnectionDiagram.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Gauss\\.nuget\\packages\\microsoft.net.illink.tasks\\10.0.9\\microsoft.net.illink.tasks.10.0.9.nupkg.sha512",
-    "C:\\Users\\Gauss\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\10.0.9\\microsoft.netcore.app.runtime.win-x64.10.0.9.nupkg.sha512",
-    "C:\\Users\\Gauss\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\10.0.9\\microsoft.windowsdesktop.app.runtime.win-x64.10.0.9.nupkg.sha512",
-    "C:\\Users\\Gauss\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\10.0.9\\microsoft.aspnetcore.app.runtime.win-x64.10.0.9.nupkg.sha512"
-  ],
+  "projectFilePath": "D:\\GaussTech_이재훈\\source\\gausstech\\PinConnectionDiagram\\PinConnectionDiagram.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

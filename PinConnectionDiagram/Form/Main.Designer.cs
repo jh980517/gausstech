@@ -795,7 +795,7 @@
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(76, 34);
             btnCancel.TabIndex = 0;
-            btnCancel.Text = "취소";
+            btnCancel.Text = "닫기";
             btnCancel.UseVisualStyleBackColor = true;
             // 
             // Main

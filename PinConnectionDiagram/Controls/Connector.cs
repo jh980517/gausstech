@@ -62,18 +62,29 @@ namespace PinConnectionDiagram.Controls
 
         private void InitializeComboBox()
         {
-            CmbPin.Items.Clear();
+            ConfigureNamePrefix("P");
+        }
 
-            // [변경예정]CablePanel이 Pin 목록을 관리
-            for (int i = 1; i <= 30; i++)
+        /// <summary>
+        /// 커넥터 용도에 맞춰 선택 가능한 명칭을 P1~P30 또는 J1~J30으로 구성한다.
+        /// </summary>
+        public void ConfigureNamePrefix(string prefix)
+        {
+            CmbPin.BeginUpdate();
+            try
             {
-                CmbPin.Items.Add($"P{i}");
+                CmbPin.Items.Clear();
+                for (int i = 1; i <= 30; i++)
+                    CmbPin.Items.Add($"{prefix}{i}");
+
+                CmbPin.MaxDropDownItems = 10;
+                CmbPin.IntegralHeight = false;
+                CmbPin.SelectedIndex = 0;
             }
-
-            CmbPin.MaxDropDownItems = 10;
-            CmbPin.IntegralHeight = false;
-
-            CmbPin.SelectedIndex = 0;
+            finally
+            {
+                CmbPin.EndUpdate();
+            }
         }
 
         public Point GetConnectionPoint(Control parent)

@@ -71,6 +71,7 @@ namespace PinConnectionDiagram.Controls
             UpdateCableDisplay();
             Invalidate();
             CableAssignmentChanged?.Invoke();
+            QueueFinalDisplayRefresh();
         }
 
         // 우클릭하면 해당 분기 그룹에 배정된 준비물을 해제한다.
@@ -95,9 +96,14 @@ namespace PinConnectionDiagram.Controls
             CableInfo? cableInfo = GetCableInfo();
             DropItem? currentItem = Controls.OfType<DropItem>().FirstOrDefault();
 
-            if (currentItem != null && cableInfo != null && currentItem.Info.Id == cableInfo.Id)
+            if (currentItem != null &&
+                cableInfo != null &&
+                ReferenceEquals(currentItem.Info, cableInfo))
             {
                 ApplyDisplaySize(currentItem);
+                currentItem.Visible = true;
+                currentItem.BringToFront();
+                currentItem.Invalidate(true);
                 return;
             }
 
@@ -119,7 +125,46 @@ namespace PinConnectionDiagram.Controls
             dropItem.Dock = DockStyle.Fill;
             dropItem.DeleteRequested += _ => ClearCableAssignment();
             Controls.Add(dropItem);
+            dropItem.Visible = true;
             dropItem.BringToFront();
+            dropItem.Invalidate(true);
+        }
+
+        /// <summary>
+        /// 오버레이 그룹 재구성 후에도 현재 배정 아이템이 표시되도록 최종 상태를 맞춘다.
+        /// </summary>
+        public void RefreshCableDisplay()
+        {
+            UpdateCableDisplay();
+            Visible = true;
+
+            DropItem? dropItem = Controls.OfType<DropItem>().FirstOrDefault();
+            if (dropItem != null)
+            {
+                dropItem.Visible = true;
+                dropItem.BringToFront();
+                dropItem.Invalidate(true);
+            }
+
+            Invalidate(true);
+        }
+
+        private void QueueFinalDisplayRefresh()
+        {
+            if (IsDisposed || !IsHandleCreated)
+                return;
+
+            // DragDrop 이벤트 안에서 어댑터 그룹이 합쳐지면 DropZone이 교체될 수 있다.
+            // 이벤트가 끝난 뒤 살아 있는 최종 컨트롤만 다시 그려 잔상·누락을 방지한다.
+            BeginInvoke(new Action(() =>
+            {
+                if (IsDisposed)
+                    return;
+
+                RefreshCableDisplay();
+                BringToFront();
+                Update();
+            }));
         }
 
         private void ApplyDisplaySize(DropItem dropItem)

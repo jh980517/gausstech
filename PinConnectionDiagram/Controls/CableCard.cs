@@ -17,7 +17,9 @@ namespace PinConnectionDiagram.Controls
     {
         // 2px 외곽선 안쪽에 3px 빈 영역이 남도록 전체 Margin을 5px로 확보한다.
         private const int ExportMargin = 5;
+        private ContextMenuStrip? editMenu;
         public event Action<CableInfo>? DeleteRequested;
+        public event Action<CableInfo>? EditRequested;
         public CableInfo Info { get; }
         public Size ExportSize => new Size(
             TlpCableCard.Width + ExportMargin * 2,
@@ -33,6 +35,35 @@ namespace PinConnectionDiagram.Controls
             lblCount.Text = info.Count.ToString();
             AdjustWidthToContent();
             ApplyTheme();
+            ConfigureContextMenu();
+        }
+
+        private void ConfigureContextMenu()
+        {
+            editMenu = new ContextMenuStrip
+            {
+                BackColor = AppTheme.Background,
+                ForeColor = AppTheme.Accent,
+                ShowImageMargin = false
+            };
+            ToolStripMenuItem editItem = new ToolStripMenuItem("수정")
+            {
+                ForeColor = AppTheme.Accent
+            };
+            editItem.Click += (_, _) => EditRequested?.Invoke(Info);
+            editMenu.Items.Add(editItem);
+
+            // 카드 내부의 어느 셀을 우클릭해도 동일한 수정 메뉴가 표시된다.
+            ApplyContextMenu(this, editMenu);
+        }
+
+        private static void ApplyContextMenu(
+            Control control,
+            ContextMenuStrip menu)
+        {
+            control.ContextMenuStrip = menu;
+            foreach (Control child in control.Controls)
+                ApplyContextMenu(child, menu);
         }
 
         private void AdjustWidthToContent()
@@ -77,6 +108,14 @@ namespace PinConnectionDiagram.Controls
             btnDelete.FlatAppearance.BorderColor = AppTheme.BackgroundEnd;
             btnDelete.FlatAppearance.MouseOverBackColor = AppTheme.DarkAccent;
             btnDelete.FlatAppearance.MouseDownBackColor = AppTheme.BackgroundEnd;
+
+            if (editMenu != null)
+            {
+                editMenu.BackColor = AppTheme.Background;
+                editMenu.ForeColor = AppTheme.Accent;
+                foreach (ToolStripItem item in editMenu.Items)
+                    item.ForeColor = AppTheme.Accent;
+            }
 
             TlpCableCard.Invalidate(true);
         }

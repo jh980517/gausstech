@@ -183,11 +183,9 @@ namespace PinConnectionDiagram
 
                 DialogDirectoryStore.RememberExportPath(dialog.FileName);
 
-                ProjectMessageBox.Show(
-                    "연결도와 시험 절차가 저장되었습니다.",
-                    "출력 완료",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                // 저장을 정상적으로 마친 뒤에는 사용자가 별도로 닫기 버튼을 누르지 않아도
+                // 메인 편집 화면으로 돌아갈 수 있도록 미리보기 창을 종료한다.
+                Close();
             }
             catch (Exception exception)
             {

@@ -16,11 +16,15 @@ namespace PinConnectionDiagram
     public partial class AddCableForm : Form
     {
         private readonly HashSet<string> existingNames;
+        private readonly CableInfo? editingCable;
         public CableInfo CableInfo { get; private set; } = null!;
 
-        public AddCableForm(IEnumerable<string>? existingNames = null)
+        public AddCableForm(
+            IEnumerable<string>? existingNames = null,
+            CableInfo? editingCable = null)
         {
             InitializeComponent();
+            this.editingCable = editingCable;
             ApplyFormStyle();
             this.existingNames = new HashSet<string>(
                 existingNames ?? Enumerable.Empty<string>(),
@@ -29,6 +33,18 @@ namespace PinConnectionDiagram
             // 디자이너 설정과 관계없이 준비물 수량은 항상 1부터 시작한다.
             numCount.Minimum = 1;
             numCount.Value = 1;
+
+            if (editingCable != null)
+            {
+                Text = "시험 준비물 수정";
+                cbCategory.Text = editingCable.Category;
+                cbCategory.Enabled = false;
+                txtName.Text = editingCable.Name;
+                numCount.Value = Math.Clamp(
+                    editingCable.Count,
+                    (int)numCount.Minimum,
+                    (int)numCount.Maximum);
+            }
 
             this.AcceptButton = btnOk;
 
@@ -64,7 +80,9 @@ namespace PinConnectionDiagram
                 Font = new Font("맑은 고딕", 16F, FontStyle.Bold),
                 Location = Point.Empty,
                 Size = new Size(ClientSize.Width, 68),
-                Text = "시험 준비물 추가",
+                Text = editingCable == null
+                    ? "시험 준비물 추가"
+                    : "시험 준비물 수정",
                 TextAlign = ContentAlignment.MiddleLeft,
                 Padding = new Padding(24, 0, 0, 0),
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
@@ -181,6 +199,7 @@ namespace PinConnectionDiagram
 
             CableInfo = new CableInfo
             {
+                Id = editingCable?.Id ?? Guid.NewGuid(),
                 Category = cbCategory.Text,
                 Name = cableName,
                 Count = (int)numCount.Value

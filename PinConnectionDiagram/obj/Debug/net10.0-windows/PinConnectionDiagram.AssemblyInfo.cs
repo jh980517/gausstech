@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GaussTech")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+297910bd5d44cbfb82f7360cc54da62201b650cc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aeed6ad472f09bbf1175f4799bad8f79bae42376")]
 [assembly: System.Reflection.AssemblyProductAttribute("Test Cable Connection Manager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TestCableConnectionManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

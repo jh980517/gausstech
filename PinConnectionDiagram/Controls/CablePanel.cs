@@ -29,6 +29,7 @@ namespace PinConnectionDiagram.Controls
         public event Action<Connector>? ConnectorNameChanged;
 
         private bool showAddButton = true;
+        private bool addButtonDisplayRequested = true;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool ShowAddButton
         {
@@ -36,7 +37,7 @@ namespace PinConnectionDiagram.Controls
             set
             {
                 showAddButton = value;
-                BtnAdd.Visible = Enabled && showAddButton;
+                UpdateAddButtonVisibility();
             }
         }
 
@@ -44,7 +45,12 @@ namespace PinConnectionDiagram.Controls
         public bool AddButtonVisible
         {
             get => BtnAdd.Visible;
-            set => BtnAdd.Visible = value;
+            set
+            {
+                // 출력 캡처에서 사용하는 임시 표시 상태를 패널 활성 상태와 분리한다.
+                addButtonDisplayRequested = value;
+                UpdateAddButtonVisibility();
+            }
         }
         
         public CablePanel(int tjNumber, ConnectorType type)
@@ -64,6 +70,7 @@ namespace PinConnectionDiagram.Controls
             BtnAdd.Visible = false;
 
             BtnAdd.Click += BtnAdd_Click;
+            BtnAdd.VisibleChanged += BtnAdd_VisibleChanged;
 
             ButtonHelper.ApplyButtonEffect(
                 BtnAdd,
@@ -277,7 +284,7 @@ namespace PinConnectionDiagram.Controls
 
             PnlCanvas.Enabled = active;
 
-            BtnAdd.Visible = active && showAddButton;
+            UpdateAddButtonVisibility();
 
             BackColor = active
                 ? AppTheme.ContentBackground
@@ -292,6 +299,61 @@ namespace PinConnectionDiagram.Controls
             {
                 connector.Enabled = active;
             }
+        }
+
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            base.OnEnabledChanged(e);
+
+            // 부모 컨트롤의 활성 상태나 창 재구성으로 Enabled가 바뀌어도
+            // 추가 버튼의 표시 상태가 패널 상태와 어긋나지 않게 한다.
+            if (BtnAdd != null)
+                UpdateAddButtonVisibility();
+        }
+
+        private void BtnAdd_VisibleChanged(object? sender, EventArgs e)
+        {
+            // WinForms의 상태 복원 및 재부모화 과정에서 잘못 표시된 경우를
+            // 즉시 차단한다. 비활성 버튼의 잔상도 다음 페인트 전에 제거된다.
+            if (BtnAdd.Visible &&
+                (!Enabled || !showAddButton || !addButtonDisplayRequested))
+            {
+                UpdateAddButtonVisibility();
+            }
+        }
+
+        private void UpdateAddButtonVisibility()
+        {
+            bool canUseAddButton = Enabled && showAddButton;
+            bool shouldDisplay = canUseAddButton && addButtonDisplayRequested;
+
+            if (!canUseAddButton)
+            {
+                // 비활성 부모 안에 숨겨진 네이티브 버튼 창이 작업 창 전환 후
+                // 다시 그려지는 잔상을 막기 위해 컨트롤 트리에서도 분리한다.
+                if (BtnAdd.Parent == PnlCanvas)
+                {
+                    Rectangle previousBounds = BtnAdd.Bounds;
+                    BtnAdd.Visible = false;
+                    PnlCanvas.Controls.Remove(BtnAdd);
+                    PnlCanvas.Invalidate(previousBounds, true);
+                }
+
+                return;
+            }
+
+            if (BtnAdd.Parent != PnlCanvas)
+            {
+                PnlCanvas.Controls.Add(BtnAdd);
+                BtnAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                BtnAdd.Location = new Point(
+                    Math.Max(0, PnlCanvas.ClientSize.Width - BtnAdd.Width),
+                    0);
+            }
+
+            BtnAdd.Visible = shouldDisplay;
+            if (shouldDisplay)
+                BtnAdd.BringToFront();
         }
 
         private void BtnAdd_Click(object? sender, EventArgs e)

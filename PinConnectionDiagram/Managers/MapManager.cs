@@ -314,6 +314,19 @@ namespace PinConnectionDiagram.Managers
             HistoryChanged?.Invoke();
         }
 
+        public void ReplaceCableInfo(CableInfo current, CableInfo replacement)
+        {
+            // 배치된 DropItem과 출력 설명도 수정된 준비물 정보를 사용하도록
+            // 현재 연결선이 참조하는 CableInfo를 동일한 ID의 새 객체로 교체한다.
+            foreach (ConnectionLine line in connectionLines.Where(line =>
+                line.CableInfo?.Id == current.Id))
+            {
+                line.CableInfo = replacement;
+            }
+
+            connectionOverlay.RefreshConnections();
+        }
+
         private void HideHorizontalScrollBar()
         {
             if (tlpMap.Parent is not ScrollableControl scrollParent)
@@ -493,8 +506,11 @@ namespace PinConnectionDiagram.Managers
         {
             TJControl tj = new TJControl(row);
             tj.Dock = DockStyle.None;
-            tj.Anchor = AnchorStyles.None;
-            tj.Margin = new Padding(50, 30, 0, 30);
+            tj.Anchor = AnchorStyles.Right;
+            // 기본 행 높이 90px에서 상하 Margin 60px를 사용하면 TJ 버튼이
+            // 약 30px로 강제 축소되어 큰 글자가 잘린다. 가운데 정렬은
+            // Anchor에 맡기고 버튼의 설계 높이 48px가 유지될 여백만 둔다.
+            tj.Margin = new Padding(0, 10, 0, 10);
             tlpMap.Controls.Add(tj, 0, row);
             tjControls.Add(row, tj);
             tj.StateChanged += TJ_StateChanged;

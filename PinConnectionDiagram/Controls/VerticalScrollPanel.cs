@@ -10,6 +10,10 @@ namespace PinConnectionDiagram.Controls
     {
         private const int SbHorz = 0;
         private const int SbVert = 1;
+        private const int GwlStyle = -16;
+        private const int WmStyleChanging = 0x007C;
+        private const int WsHScroll = 0x00100000;
+        private const int WsVScroll = 0x00200000;
         private const int ScrollBarWidth = 12;
         private const int ScrollMargin = 4;
         private const int MinimumThumbHeight = 30;
@@ -32,6 +36,27 @@ namespace PinConnectionDiagram.Controls
                 true);
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        private struct StyleChange
+        {
+            public int OldStyle;
+            public int NewStyle;
+        }
+
+        /// <summary>
+        /// 핸들이 처음 생성될 때부터 Win32 기본 스크롤바 스타일을 제외해
+        /// 커스텀 스크롤바로 교체되기 전 기본 UI가 잠깐 노출되지 않게 한다.
+        /// </summary>
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams parameters = base.CreateParams;
+                parameters.Style &= ~(WsHScroll | WsVScroll);
+                return parameters;
+            }
+        }
+
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool ShowScrollBar(
@@ -42,6 +67,18 @@ namespace PinConnectionDiagram.Controls
         // 네이티브 메시지 처리 후 기본 스크롤바가 다시 나타나지 않게 즉시 숨긴다.
         protected override void WndProc(ref Message message)
         {
+            // AutoScroll이 콘텐츠 크기 변경 중 WS_VSCROLL/WS_HSCROLL을 다시 추가하려는
+            // 순간에도 스타일 적용 전에 제거해 네이티브 스크롤바 페인트 자체를 막는다.
+            if (message.Msg == WmStyleChanging &&
+                message.WParam.ToInt32() == GwlStyle &&
+                message.LParam != IntPtr.Zero)
+            {
+                StyleChange styleChange =
+                    Marshal.PtrToStructure<StyleChange>(message.LParam);
+                styleChange.NewStyle &= ~(WsHScroll | WsVScroll);
+                Marshal.StructureToPtr(styleChange, message.LParam, false);
+            }
+
             base.WndProc(ref message);
             HideNativeScrollBars();
         }

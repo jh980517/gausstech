@@ -7,8 +7,8 @@ namespace PinConnectionDiagram.Helpers
     /// </summary>
     public static class CableDisplayHelper
     {
-        public const int NormalItemHeight = 34;
-        public const int MultilineItemHeight = 50;
+        public const int NormalItemHeight = 46;
+        public const int MultilineItemHeight = 68;
 
         public static bool IsTestCable(CableInfo info) =>
             info.Category == "시험 대상 케이블";
@@ -44,7 +44,7 @@ namespace PinConnectionDiagram.Helpers
                     TextFormatFlags.SingleLine | TextFormatFlags.NoPadding).Width);
 
             int minimumWidth = IsTestCable(info) ? 120 : 90;
-            int maximumWidth = IsTestCable(info) ? 280 : 180;
+            int maximumWidth = IsTestCable(info) ? 300 : 210;
             return Math.Clamp(textWidth + 34, minimumWidth, maximumWidth);
         }
     }

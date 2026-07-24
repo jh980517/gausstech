@@ -153,9 +153,9 @@ namespace PinConnectionDiagram.Controls
             if (Side == ConnectorSide.Left)
             {
                 PnlPoint.Anchor = AnchorStyles.Right;
-                TlpPin.ColumnStyles[0].Width = 70;
+                TlpPin.ColumnStyles[0].Width = 74;
                 TlpPin.ColumnStyles[1].Width = 12;
-                CmbPin.Location = new Point(18, 6); // 기존 위치
+                CmbPin.Location = new Point(18, 4);
 
                 TlpPin.Controls.Add(PnlPin, 0, 0);
                 TlpPin.Controls.Add(PnlPoint, 1, 0);
@@ -166,8 +166,8 @@ namespace PinConnectionDiagram.Controls
             {
                 PnlPoint.Anchor = AnchorStyles.Left;
                 TlpPin.ColumnStyles[0].Width = 12;
-                TlpPin.ColumnStyles[1].Width = 70;
-                CmbPin.Location = new Point(0, 6);
+                TlpPin.ColumnStyles[1].Width = 74;
+                CmbPin.Location = new Point(0, 4);
 
                 TlpPin.Controls.Add(PnlPoint, 0, 0);
                 TlpPin.Controls.Add(PnlPin, 1, 0);

@@ -19,6 +19,13 @@ namespace PinConnectionDiagram.Managers
             Cables.Remove(info);
         }
 
+        public void Replace(CableInfo current, CableInfo replacement)
+        {
+            int index = Cables.FindIndex(cable => cable.Id == current.Id);
+            if (index >= 0)
+                Cables[index] = replacement;
+        }
+
         public void Clear()
         {
             Cables.Clear();

@@ -48,7 +48,7 @@
             TlpPin.Name = "TlpPin";
             TlpPin.RowCount = 1;
             TlpPin.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TlpPin.Size = new Size(82, 40);
+            TlpPin.Size = new Size(86, 40);
             TlpPin.TabIndex = 0;
             // 
             // PnlPin
@@ -60,18 +60,18 @@
             PnlPin.Location = new Point(0, 0);
             PnlPin.Margin = new Padding(0);
             PnlPin.Name = "PnlPin";
-            PnlPin.Size = new Size(70, 40);
+            PnlPin.Size = new Size(74, 40);
             PnlPin.TabIndex = 0;
             // 
             // CmbPin
             // 
             CmbPin.DropDownStyle = ComboBoxStyle.DropDownList;
-            CmbPin.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            CmbPin.Font = new Font("맑은 고딕", 13F, FontStyle.Bold, GraphicsUnit.Point, 129);
             CmbPin.FormattingEnabled = true;
             CmbPin.Items.AddRange(new object[] { "P1", "P2", "P3", "P4", "P5", "P5", "P6", "P7", "P8", "P9", "P10" });
-            CmbPin.Location = new Point(18, 6);
+            CmbPin.Location = new Point(18, 4);
             CmbPin.Name = "CmbPin";
-            CmbPin.Size = new Size(52, 29);
+            CmbPin.Size = new Size(56, 32);
             CmbPin.TabIndex = 0;
             // 
             // PnlPoint
@@ -79,7 +79,7 @@
             PnlPoint.Anchor = AnchorStyles.Right;
             PnlPoint.BackColor = Color.Red;
             PnlPoint.Cursor = Cursors.Hand;
-            PnlPoint.Location = new Point(70, 14);
+            PnlPoint.Location = new Point(74, 14);
             PnlPoint.Margin = new Padding(0);
             PnlPoint.Name = "PnlPoint";
             PnlPoint.Size = new Size(10, 10);
@@ -94,7 +94,7 @@
             Controls.Add(TlpPin);
             Margin = new Padding(0, 3, 0, 3);
             Name = "Connector";
-            Size = new Size(82, 40);
+            Size = new Size(86, 40);
             TlpPin.ResumeLayout(false);
             PnlPin.ResumeLayout(false);
             ResumeLayout(false);

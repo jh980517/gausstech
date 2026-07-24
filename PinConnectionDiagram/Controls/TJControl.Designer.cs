@@ -38,10 +38,10 @@
             BtnTJ.Dock = DockStyle.Fill;
             BtnTJ.FlatAppearance.BorderSize = 0;
             BtnTJ.FlatStyle = FlatStyle.Flat;
-            BtnTJ.Font = new Font("맑은 고딕", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            BtnTJ.Font = new Font("맑은 고딕", 20F, FontStyle.Bold, GraphicsUnit.Point, 129);
             BtnTJ.Location = new Point(0, 0);
             BtnTJ.Name = "BtnTJ";
-            BtnTJ.Size = new Size(60, 34);
+            BtnTJ.Size = new Size(76, 48);
             BtnTJ.TabIndex = 1;
             BtnTJ.Text = "TJ";
             BtnTJ.UseVisualStyleBackColor = true;
@@ -53,7 +53,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(BtnTJ);
             Name = "TJControl";
-            Size = new Size(60, 34);
+            Size = new Size(76, 48);
             ResumeLayout(false);
         }
 

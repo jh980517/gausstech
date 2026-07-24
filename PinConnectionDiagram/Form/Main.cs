@@ -54,6 +54,7 @@ namespace PinConnectionDiagram
         private bool hasUnsavedChanges;
         private bool isLoadingProject;
         private bool wasMinimized;
+        private bool isInteractiveResizeRedrawLocked;
         private bool? compactLayoutApplied;
         private int windowStateTransitionVersion;
 
@@ -139,9 +140,9 @@ namespace PinConnectionDiagram
             lblThemeGroup = new Label
             {
                 AutoSize = false,
-                Font = new Font("맑은 고딕", 8F, FontStyle.Bold),
+                Font = new Font("맑은 고딕", 10F, FontStyle.Bold),
                 Margin = new Padding(0, 5, 3, 0),
-                Size = new Size(34, 20),
+                Size = new Size(38, 20),
                 Text = "테마",
                 TextAlign = ContentAlignment.MiddleCenter
             };
@@ -1113,6 +1114,7 @@ namespace PinConnectionDiagram
 
                         CableCard card = new CableCard(info);
                         card.DeleteRequested += DeleteCable;
+                        card.EditRequested += EditCable;
                         FlpSupplies.Controls.Add(card);
                         CreateItems(info);
                     }
@@ -1182,6 +1184,51 @@ namespace PinConnectionDiagram
             mapManager.RecordExternalChange();
         }
 
+        private void EditCable(CableInfo current)
+        {
+            IEnumerable<string> otherNames = cableManager.Cables
+                .Where(cable => cable.Id != current.Id)
+                .Select(cable => cable.Name);
+
+            using AddCableForm form = new AddCableForm(otherNames, current);
+            if (form.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            CableInfo replacement = form.CableInfo;
+            if (replacement.Name == current.Name &&
+                replacement.Count == current.Count)
+            {
+                return;
+            }
+
+            TlpBg.SuspendLayout();
+            FlpSupplies.SuspendLayout();
+            GetPanel(current.Category).SuspendLayout();
+            try
+            {
+                cableManager.Replace(current, replacement);
+                mapManager.ReplaceCableInfo(current, replacement);
+
+                DeleteCard(current);
+                DeleteItem(current);
+
+                CableCard card = new CableCard(replacement);
+                card.DeleteRequested += DeleteCable;
+                card.EditRequested += EditCable;
+                FlpSupplies.Controls.Add(card);
+                CreateItems(replacement);
+            }
+            finally
+            {
+                GetPanel(current.Category).ResumeLayout(true);
+                FlpSupplies.ResumeLayout(true);
+                TlpBg.ResumeLayout(true);
+            }
+
+            mapManager.RecordExternalChange();
+            RefreshMapAfterSupplyChange();
+        }
+
         private void RestoreSupplies(IReadOnlyList<CableInfo> supplies)
         {
             // Undo/Redo 스냅샷의 준비물 데이터로 카드와 드래그 아이템을 함께 재구성한다.
@@ -1193,6 +1240,7 @@ namespace PinConnectionDiagram
 
                 CableCard card = new CableCard(info);
                 card.DeleteRequested += DeleteCable;
+                card.EditRequested += EditCable;
                 FlpSupplies.Controls.Add(card);
                 CreateItems(info);
             }
@@ -1200,6 +1248,15 @@ namespace PinConnectionDiagram
 
         protected override void OnResizeBegin(EventArgs e)
         {
+            // 제목 표시줄 이동 후 화면 위 스냅 최대화도 이 경로를 사용한다.
+            // 이동·크기 조정 중간 단계가 보이지 않도록 시작 시 전체 그리기를 잠근다.
+            if (!isInteractiveResizeRedrawLocked && IsHandleCreated && !IsDisposed)
+            {
+                isInteractiveResizeRedrawLocked = true;
+                windowStateTransitionVersion++;
+                SetRedrawForControlTree(this, false);
+            }
+
             mapManager?.BeginViewportResize();
             base.OnResizeBegin(e);
         }
@@ -1319,7 +1376,21 @@ namespace PinConnectionDiagram
         protected override void OnResizeEnd(EventArgs e)
         {
             base.OnResizeEnd(e);
-            mapManager?.EndViewportResize();
+
+            if (!isInteractiveResizeRedrawLocked)
+            {
+                mapManager?.EndViewportResize();
+                return;
+            }
+
+            isInteractiveResizeRedrawLocked = false;
+            int transitionVersion = windowStateTransitionVersion;
+            if (IsHandleCreated && !IsDisposed)
+            {
+                // 스냅 최대화가 확정된 다음 메시지에서 최종 크기로 모든 레이아웃을 계산한다.
+                BeginInvoke(new Action(() =>
+                    CompleteWindowStateTransition(transitionVersion)));
+            }
         }
 
         protected override void OnResize(EventArgs e)

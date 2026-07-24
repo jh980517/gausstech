@@ -71,7 +71,7 @@
             LblCableName.AutoSize = false;
             LblCableName.Cursor = Cursors.Hand;
             LblCableName.Dock = DockStyle.Fill;
-            LblCableName.Font = new Font("맑은 고딕", 9.5F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            LblCableName.Font = new Font("맑은 고딕", 13F, FontStyle.Bold, GraphicsUnit.Point, 129);
             LblCableName.Location = new Point(19, 2);
             LblCableName.Margin = new Padding(3, 2, 3, 2);
             LblCableName.Name = "LblCableName";

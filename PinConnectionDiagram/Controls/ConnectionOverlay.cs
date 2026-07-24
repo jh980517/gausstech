@@ -530,8 +530,10 @@ namespace PinConnectionDiagram.Controls
                 dropZone.UpdateConnectionLines(group);
 
                 dropZone.Location = GetDropZoneLocation(group, dropZone.Size);
+                dropZone.RefreshCableDisplay();
+                dropZone.Visible = true;
                 dropZone.BringToFront();
-                dropZone.Invalidate();
+                dropZone.Invalidate(true);
             }
         }
 

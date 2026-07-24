@@ -39,9 +39,9 @@ namespace PinConnectionDiagram.Controls
 
         private void AdjustWidthToCableName()
         {
-            if (Info.Category == "시험 대상 케이블")
-                return;
-
+            // 목록 항목도 배치된 DropItem과 동일한 너비 계산을 사용한다.
+            // 시험 대상 케이블만 120px로 고정하면 큰 글꼴에서 명칭이
+            // 의도하지 않게 줄바꿈되므로 모든 카테고리를 동적으로 맞춘다.
             Width = CableDisplayHelper.GetItemWidth(Info, LblCableName.Font);
         }
 

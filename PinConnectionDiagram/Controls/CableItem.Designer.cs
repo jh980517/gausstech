@@ -44,7 +44,7 @@
             TlpCableItem.Controls.Add(PbConnector, 0, 0);
             TlpCableItem.Controls.Add(LblCableName, 1, 0);
             TlpCableItem.Dock = DockStyle.Fill;
-            TlpCableItem.Font = new Font("맑은 고딕", 9.5F);
+            TlpCableItem.Font = new Font("맑은 고딕", 13F);
             TlpCableItem.Location = new Point(0, 0);
             TlpCableItem.Margin = new Padding(0);
             TlpCableItem.Name = "TlpCableItem";
@@ -70,7 +70,7 @@
             // 
             LblCableName.AutoSize = false;
             LblCableName.Dock = DockStyle.Fill;
-            LblCableName.Font = new Font("맑은 고딕", 8.5F, FontStyle.Bold);
+            LblCableName.Font = new Font("맑은 고딕", 13F, FontStyle.Bold);
             LblCableName.Location = new Point(19, 2);
             LblCableName.Margin = new Padding(3, 2, 3, 2);
             LblCableName.Name = "LblCableName";

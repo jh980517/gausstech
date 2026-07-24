@@ -250,6 +250,34 @@ namespace PinConnectionDiagram
             }));
         }
 
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+
+            // 다른 작업 창을 사용한 동안 Windows가 투명 오버레이의 자식 표면을
+            // 폐기하면 DropItem만 비어 보일 수 있다. 창이 다시 활성화되는 시점에
+            // 연결선·DropZone·DropItem을 현재 데이터로 즉시 복원한다.
+            if (mapManager == null ||
+                WindowState == FormWindowState.Minimized ||
+                !IsHandleCreated ||
+                IsDisposed)
+            {
+                return;
+            }
+
+            BeginInvoke(new Action(() =>
+            {
+                if (IsDisposed || WindowState == FormWindowState.Minimized)
+                    return;
+
+                mapManager.ForceRefreshView();
+
+                // 활성화 직후 이어지는 포커스/레이아웃 메시지가 끝난 뒤에도
+                // 최종 오버레이 상태를 확인하도록 기존 지연 갱신을 예약한다.
+                mapManager.RefreshView();
+            }));
+        }
+
         private void ApplyInitialWindowSize()
         {
             Rectangle workingArea = Screen.FromControl(this).WorkingArea;
